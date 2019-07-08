@@ -61,19 +61,17 @@
                                             <tr class="cabecera">
                                                 <th class="col-xs-2">
                                                     <div class="form-group">
-                                                        <label><h4>Carrera:</h4></label>
-                                                        <div class="input-group">
-                                                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                                                            <input type="text" class="form-control" name="txt_carrera" id="txt_carrera" placeholder="Carrera" onkeypress="return masterG.enterGlobal(event, '.input-group', 1);">
-                                                        </div>
+                                                        <label><h4>Especialidad:</h4></label>
+                                                        <!--div class="input-group">
+                                                            <input type="text" class="form-control" name="txt_carrera" id="txt_carrera"-- placeholder="Especialidad" onkeypress="return masterG.enterGlobal(event, '#txt_curso'!--, 1);">
+                                                        </div-->
                                                     </div>
                                                 </th>
-                                                <th class="col-xs-1">
+                                                <!--th class="col-xs-1">
                                                     <div class="form-group">
                                                         <label><h4>Semestre:</h4></label>
                                                         <div class="input-group">
-                                                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                                                            <input type="text" class="form-control" name="txt_semestre" id="txt_semestre" placeholder="Semestre" onkeypress="return masterG.enterGlobal(event, '.input-group', 1);">
+                                                            <input type="text" class="form-control" name="txt_semestre" id="txt_semestre" placeholder="Semestre" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
                                                         </div>
                                                     </div>
                                                 </th>
@@ -81,17 +79,15 @@
                                                     <div class="form-group">
                                                         <label><h4>Ciclo:</h4></label>
                                                         <div class="input-group">
-                                                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                                                            <input type="text" class="form-control" name="txt_ciclo" id="txt_ciclo" placeholder="Ciclo" onkeypress="return masterG.enterGlobal(event, '.input-group', 1);">
+                                                            <input type="text" class="form-control" name="txt_ciclo" id="txt_ciclo" placeholder="Ciclo" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
                                                         </div>
                                                     </div>
-                                                </th>
+                                                </th-->
                                                 <th class="col-xs-4">
                                                     <div class="form-group">
                                                         <label><h4>Curso:</h4></label>
                                                         <div class="input-group">
-                                                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                                                            <input type="text" class="form-control" name="txt_curso" id="txt_curso" placeholder="Curso" onkeypress="return masterG.enterGlobal(event, '.input-group', 1);">
+                                                            <input type="text" class="form-control" name="txt_curso" id="txt_curso" placeholder="Curso" onkeypress="return masterG.enterGlobal(event, '#txt_fecha_inicio', 1);">
                                                         </div>
                                                     </div>
                                                 </th>
@@ -99,8 +95,7 @@
                                                     <div class="form-group">
                                                         <label><h4>Fecha Inicio:</h4></label>
                                                         <div class="input-group">
-                                                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                                                            <input type="text" class="form-control" name="txt_fecha_inicio" id="txt_fecha_inicio" placeholder="Fecha Inicio" onkeypress="return masterG.enterGlobal(event, '.input-group', 1);">
+                                                            <input type="text" class="form-control" name="txt_fecha_inicio" id="txt_fecha_inicio" placeholder="Fecha Inicio" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
                                                         </div>
                                                     </div>
                                                 </th>
@@ -108,8 +103,7 @@
                                                     <div class="form-group">
                                                         <label><h4>Fecha Final:</h4></label>
                                                         <div class="input-group">
-                                                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                                                            <input type="text" class="form-control" name="txt_fecha_final" id="txt_fecha_final" placeholder="Fecha Final" onkeypress="return masterG.enterGlobal(event, '.input-group', 1);">
+                                                            <input type="text" class="form-control" name="txt_fecha_final" id="txt_fecha_final" placeholder="Fecha Final" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
                                                         </div>
                                                     </div>
                                                 </th>
@@ -124,9 +118,9 @@
                                         </tbody>
                                         <tfoot>
                                             <tr class="cabecera">
-                                                <th>Carrera</th>
-                                                <th>Semestre</th>
-                                                <th>Ciclo</th>
+                                                <th>Especialidad</th>
+                                                <!--th>Semestre</th>
+                                                <th>Ciclo</th-->
                                                 <th>Curso</th>
                                                 <th>Fecha Inicio</th>
                                                 <th>Fecha Final</th>
@@ -141,7 +135,7 @@
                     <hr>
                     <form id="ContenidoForm" style="display: none">
                         <div class="panel panel-success" style="padding-bottom: 10px;">
-                            <img id="imageCurso" class="panel-heading" src='img/course/calculo2f.jpg' width="94%" style="min-height:90px; margin: 40px auto;" height="150px">
+                            <img id="imageCurso" class="panel-heading" src='img/course/calculo2f.jpg' width="94%" style="min-height:90px; margin: 40px auto; height: 150px;">
                             <div class="panel-body table-responsive no-padding">
                                 <div class="col-md-12">
                                     <input type= "hidden" name="txt_programacion_unica_id" id="txt_programacion_unica_id" class="form-control mant" >

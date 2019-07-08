@@ -115,6 +115,7 @@ class Balotario extends Model
         for($i=0;$i<count($unidad_contenido);$i++){
                $preguntas=Pregunta::select('v_preguntas.id')
                                    ->where('v_preguntas.unidad_contenido_id','=',$unidad_contenido[$i])
+                                   ->where('curso_id',$r->curso_id)
                                    ->where('v_preguntas.estado','=',1)->get();
                
                if(count($preguntas)<$array[$i]){
@@ -132,6 +133,7 @@ class Balotario extends Model
                         $join->on('bp.pregunta_id','=','v_preguntas.id')
                         ->where('bp.estado','=',1);
                     })
+                    ->where('curso_id',$r->curso_id)
                     ->where('v_preguntas.estado','=',1)
                     ->where('v_preguntas.unidad_contenido_id','=',$unidad_contenido[$i])
         //            ->whereNull('bp.pregunta_id')

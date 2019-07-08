@@ -168,7 +168,7 @@
 
                     <form id="ContenidoForm" style="display: none">
                         <div class="panel panel-success" style="padding-bottom: 10px;">
-                            <img id="imageCurso" class="panel-heading img-responsive" src='img/course/calculo2f.jpg' style="width:100%;min-height: 90px;">
+                            <img id="imageCurso" class="panel-heading img-responsive" src='img/course/calculo2f.jpg' style="width:100%;min-height: 90px; height: 150px;">
                             <div class="panel-body table-responsive no-padding">
                                 <div class="col-md-12">
                                     <input type= "hidden" name="txt_programacion_unica_id" id="txt_programacion_unica_id" class="form-control mant" >

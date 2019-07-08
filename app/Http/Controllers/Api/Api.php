@@ -36,7 +36,9 @@ class Api extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,$data);
+        if( count($data)>0 ){
+            curl_setopt($ch, CURLOPT_POSTFIELDS,$data);
+        }
         $result = curl_exec($ch);
         curl_close($ch);
         return json_decode($result);

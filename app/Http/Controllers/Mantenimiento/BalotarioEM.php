@@ -112,34 +112,43 @@ class BalotarioEM extends Controller
 
     public function ValidarTipoEvaluacionBalotario(Request $r ){
         if ( $r->ajax() ) {
-            //$idcliente = session('idcliente');
+            $idcliente = session('idcliente');
+            $tab_cli = DB::table('clientes_accesos')
+                      ->where('id','=', $idcliente)
+                      ->where('estado','=', 1)
+                      ->first();
+
             $programacionUnica = ProgramacionUnica::find($r->programacion_unica_id);
 
-            $param_data = array('dni' => Auth::user()->dni,
-                                  'programacion_unica_externo_id' => $programacionUnica->programacion_unica_externo_id);
+            
             // URL (CURL)
-            $cli_links = DB::table('clientes_accesos_links')->where('cliente_acceso_id','=',1)
-                                                            ->where('tipo','=', 12)
-                                                            ->first();
-                                               
-            $objArr = $this->api->curl($cli_links->url, $param_data);
-            // --
+            $cli_links =    DB::table('clientes_accesos_links')
+                            ->where('cliente_acceso_id','=',$tab_cli->id)
+                            ->where('tipo','=', 12)
+                            ->first();
+
+            $buscar = array("pkey","pueid");
+            $reemplazar = array($tab_cli->keycli, $programacionUnica->programacion_unica_externo_id);
+            $url = str_replace($buscar, $reemplazar, $cli_links->url);
+            $objArr = $this->api->curl($url);
+
             $return_response = '';
 
             if (empty($objArr))
             {
                 $return_response = $this->api->response(422,"error","Ingrese sus datos de envio");
             }
-            else if(isset($objArr->key[0]->id) && isset($objArr->key[0]->token))
+            else if(isset($objArr->data->key->id) && isset($objArr->data->key->token))
             {
-                $tab_cli = DB::table('clientes_accesos')->select('id', 'nombre', 'key', 'url', 'ip')
-                                                        ->where('id','=', $objArr->key[0]->id)
-                                                        ->where('key','=', $objArr->key[0]->token)
-                                                        ->where('ip','=', $this->api->getIPCliente())
-                                                        ->where('estado','=', 1)
-                                                        ->first();
+                $tab_cli =  DB::table('clientes_accesos')
+                            ->select('id', 'nombre', 'key', 'url', 'ip')
+                            ->where('id','=', $objArr->data->key->id)
+                            ->where('key','=', $objArr->data->key->token)
+                            //->where('ip','=', $this->api->getIPCliente())
+                            ->where('estado','=', 1)
+                            ->first();
 
-                if($objArr->key[0]->id == @$tab_cli->id && $objArr->key[0]->token == @$tab_cli->key)
+                if( count($tab_cli)>0 )
                 {
                     $val = $this->insertarTipoEvaluacionBalotario($objArr, $r);
                     if($val['return'] == true)
@@ -158,7 +167,7 @@ class BalotarioEM extends Controller
             }
 
             // Creación de un archivo JSON para dar respuesta al cliente
-              $uploadFolder = 'txt/api';
+              /*$uploadFolder = 'txt/api';
               $nombre_archivo = "cliente.json";
               $file = $uploadFolder . '/' . $nombre_archivo;
               unlink($file);
@@ -166,7 +175,7 @@ class BalotarioEM extends Controller
               {
                 fwrite($archivo, $return_response);
                 fclose($archivo);
-              }
+              }*/
             // --
             $renturnModel = Balotario::runLoad($r);
             $return['rst'] = 1;
@@ -178,36 +187,54 @@ class BalotarioEM extends Controller
     
      public function insertarTipoEvaluacionBalotario($objArr, $r){
          
-        DB::beginTransaction();
+        
         try{ 
-            
-          foreach ($objArr->tipo as $k=>$value){
+            DB::beginTransaction();
+            Balotario::where('programacion_unica_id', $r->programacion_unica_id)
+            ->update([
+            'estado' => 0,
+            'persona_id_updated_at'=>1,
+            'updated_at'=>date('Y-m-d H:i:s')
+            ]);
 
-                $te= TipoEvaluacion::where('tipo_evaluacion_externo_id','=',$value->tipo_evaluacion_externo_id)
-                                    ->where('tipo_evaluacion', '=', trim($value->tipo_evaluacion))->first();
-                $pu= ProgramacionUnica::where('programacion_unica_externo_id','=',$value->programacion_unica_externo_id)->first();
-
-                $tipoeval=Balotario::where('v_balotarios.tipo_evaluacion_id','=', trim($te->id))
-                                        ->where('v_balotarios.programacion_unica_id','=', trim($pu->id))
-                                        ->first();
-
-                if(count($tipoeval) == 0){ //Insert
-                  $tipoeval = new Balotario();
-                  $tipoeval->programacion_unica_id = trim($r->programacion_unica_id);
-                  $tipoeval->tipo_evaluacion_id = trim($te->id);
+            foreach ($objArr->data->tipo as $k=>$value)
+            {
+                $tipoeval = TipoEvaluacion::where('tipo_evaluacion_externo_id','=', $value->tipo_evaluacion_externo_id)
+                          ->first();
+                if(count($tipoeval) == 0) //Insert
+                {
+                  $tipoeval = new TipoEvaluacion();
+                  $tipoeval->tipo_evaluacion_externo_id = $value->tipo_evaluacion_externo_id;
                   $tipoeval->persona_id_created_at=1;
-                  $tipoeval->cantidad_maxima =0;
-                  $tipoeval->cantidad_pregunta =0;
-                }else{
-                  $tipoeval->estado=trim($value->tipo_evaluacion_estado);
-                  $tipoeval->persona_id_updated_at=2;
+                }
+                else
+                {
+                  $tipoeval->persona_id_updated_at=1;
                 }
 
+                $tipoeval->tipo_evaluacion = $value->tipo_evaluacion;
                 $tipoeval->save();
 
-          }
-          DB::commit();
-          $data['return']= true;
+                $balotario= Balotario::where('v_balotarios.tipo_evaluacion_id','=', $tipoeval->id)
+                            ->where('v_balotarios.programacion_unica_id','=', $r->programacion_unica_id)
+                            ->first();
+
+                if(count($balotario) == 0){
+                  $balotario = new Balotario();
+                  $balotario->programacion_unica_id = $r->programacion_unica_id;
+                  $balotario->tipo_evaluacion_id = $tipoeval->id;
+                  $balotario->persona_id_created_at=1;
+                  $balotario->cantidad_maxima =0;
+                  $balotario->cantidad_pregunta =0;
+                }
+                else{
+                  $balotario->estado=1;
+                  $balotario->persona_id_updated_at=2;
+                }
+                $balotario->save();
+            }
+            DB::commit();
+            $data['return']= true;
           
         }catch (\Exception $e){
             //var_dump($e);exit();

@@ -51,16 +51,16 @@ ValidaForm2=function(){
     }
     else if( $.trim( $("#ModalBalotarioForm #txt_cantidad_pregunta").val() )=='' || $.trim( $("#ModalBalotarioForm #txt_cantidad_pregunta").val() )<4){
         r=false;
-        msjG.mensaje('warning','Ingrese Cantidad de Preguntas de Evaluación mayor o igual a 4',4000);
+        msjG.mensaje('warning','Ingrese Cantidad de Preguntas de Evaluación mayor o igual a 4',5000);
     }
     else if( $.trim( $("#ModalBalotarioForm #txt_cantidad_pregunta").val() )!=4 && $.trim( $("#ModalBalotarioForm #txt_cantidad_pregunta").val() )!=5 && 
              $.trim( $("#ModalBalotarioForm #txt_cantidad_pregunta").val() )!=10 && $.trim( $("#ModalBalotarioForm #txt_cantidad_pregunta").val() )!=20 ){
         r=false;
-        msjG.mensaje('warning','Cantidad de Preguntas de Evaluación debe ser múltiplo de 20',4000);
+        msjG.mensaje('warning','Cantidad de Preguntas de Evaluación debe ser múltiplo de 20',5000);
     }
-    else if( $.trim( $("#ModalBalotarioForm #txt_cantidad_maxima").val() ) < $.trim( $("#ModalBalotarioForm #txt_cantidad_pregunta").val() ) ){
+    else if( $.trim( $("#ModalBalotarioForm #txt_cantidad_maxima").val() )*1 < $.trim( $("#ModalBalotarioForm #txt_cantidad_pregunta").val() )*1 ){
         r=false;
-        msjG.mensaje('warning','Cantidad de Preguntas de Balotario debe ser mayor o igual a Cantidad de Preguntas de Evaluación',4000);
+        msjG.mensaje('warning','Cantidad de Preguntas de Balotario debe ser mayor o igual a Cantidad de Preguntas de Evaluación',8000);
     }
     else if( $.trim( $("#ModalBalotarioForm #slct_unidad_contenido_id").val() )=='' ){
         r=false;

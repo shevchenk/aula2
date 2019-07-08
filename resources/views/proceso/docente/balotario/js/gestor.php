@@ -41,8 +41,8 @@ HTMLCargarProgramacionUnica=function(result){
 
         html+='<tr id="trid_'+r.id+'" onClick="CargarBalotario('+r.id+','+r.curso_id+',\''+r.curso+'\',\''+r.foto_cab+'\',this)">'+
             "<td class='carrera'>"+r.carrera+"</td>"+
-            "<td class='semestre'>"+r.semestre+"</td>"+
-            "<td class='ciclo'>"+r.ciclo+"</td>"+
+            /*"<td class='semestre'>"+r.semestre+"</td>"+
+            "<td class='ciclo'>"+r.ciclo+"</td>"+*/
             "<td class='curso'>"+
             //"<a target='_blank' href='img/course/"+r.foto+"'>"+
             "<img src='img/course/"+r.foto+"' style='height: 40px;width: 40px;'>"+

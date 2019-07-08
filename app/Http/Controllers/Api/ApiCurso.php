@@ -122,6 +122,7 @@ class ApiCurso extends Controller
         $ruta = 'api.curso.curso';
         $valores['valida_ruta_url'] = $ruta;
         $url = url()->previous(); //url anterior Cliente
+        $url = substr($url, 0,strrpos($url,"/",-1)) ;
         session(['idcliente' => $r->id]);
         //Session::put('grupo', $grupo);
 
@@ -131,31 +132,61 @@ class ApiCurso extends Controller
         }
         else if( $r->has('id') && $r->has('dni') &&  $r->has('cargo'))
         {
-            $tab_cli = DB::table('clientes_accesos')->where('id','=', $r->id)
-                                                    ->where('url','=', $url)
-                                               //     ->where('ip','=', $this->getIPCliente())
-                                                    ->where('estado','=', 1)
-                                                    ->first();
+            $tab_cli = DB::table('clientes_accesos')
+                      ->where('id','=', $r->id)
+                      ->where('url','=', $url)
+                      //     ->where('ip','=', $this->getIPCliente())
+                      ->where('estado','=', 1)
+                      ->first();
             if(count($tab_cli) == 0)
-                $valores['mensaje'] = 'ID Cliente no Registrado!';
+                $valores['mensaje'] = 'Cliente no Registrado!';
             else
             {
               // URL (CURL)
-              $cli_links = DB::table('clientes_accesos_links')->where('cliente_acceso_id','=', $r->id)
-                                                              ->where('tipo','=', 1)
-                                                              ->first();
+              $cli_links = DB::table('clientes_accesos_links')
+                            ->where('cliente_acceso_id','=', $r->id)
+                            ->where('tipo','=', 1)
+                            ->first();
+              //dd($cli_links);
               $key = $this->curl($cli_links->url);
-              // --
-
-              if($key->key == $tab_cli->key) // Se iguala el KEY del Cliente con el Key del Servidor
+              
+              if(isset($key->data->key) AND $key->data->key == $tab_cli->key) // Se iguala el KEY del Cliente con el Key del Servidor
               {
-                  $persona = DB::table('v_personas')->where('dni','=',$r->dni)
-                                                  ->first();
+                  DB::beginTransaction();
+                  $persona = DB::table('v_personas')
+                              ->where('dni','=',$r->dni)
+                              ->first();
+
+                  $cli_links = DB::table('clientes_accesos_links')
+                                    ->where('cliente_acceso_id','=',$r->id)
+                                    ->where('tipo','=', 2)
+                                    ->first();
+                  $buscar = array("pkey", "pdni");
+                  $reemplazar = array($tab_cli->keycli, $r->dni);
+                  $url = str_replace($buscar, $reemplazar, $cli_links->url);
+                  $lista = $this->curl($url);
+                  
+                  $pe=array();
+                  
                   if($persona) // Existe Persona
                   {
-                      //$priv_cliente = DB::table('privilegios_clientes')::find($r->cargo);
-                      $priv_cliente = DB::table('privilegios_clientes')->where('id','=',$r->cargo)
-                                                      ->first();
+                      $pe= Persona::find($persona->id);
+                      $pe->paterno = $lista->data->paterno;
+                      $pe->materno = $lista->data->materno;
+                      $pe->nombre = $lista->data->nombre;
+                      $pe->sexo = $lista->data->sexo;
+                      if( trim($lista->data->fecha_nacimiento)!='' ){
+                          $pe->fecha_nacimiento = $lista->data->fecha_nacimiento;
+                      }
+                      $pe->telefono = $lista->data->telefono;
+                      $pe->celular = $lista->data->celular;
+                      $pe->persona_id_updated_at = 1;
+                      $pe->save();
+
+
+                      $priv_cliente = DB::table('privilegios_clientes')
+                                      ->where('id','=',$r->cargo)
+                                      ->first();
 
                       $privilegios_suc = DB::table('personas_privilegios_sucursales')
                                         ->where('persona_id','=',$persona->id)
@@ -163,7 +194,7 @@ class ApiCurso extends Controller
                                         ->first();
 
                       DB::table('personas_privilegios_sucursales')
-                          ->where('persona_id', $persona->id)->update(['estado' => 0]);
+                      ->where('persona_id', $persona->id)->update(['estado' => 0]);
 
                       if(count($privilegios_suc) > 0)
                       {
@@ -182,37 +213,28 @@ class ApiCurso extends Controller
                                     'persona_id_created_at' => 1]
                               ]);
                       }
-                       // Auth User
-                       Auth::loginUsingId($persona->id);
-                       $this->logeo($r->dni);
-                       return redirect('secureaccess.inicio');
-                       // --
                   }
                   else // Nueva Persona
                   {
-                      // URL (CURL)
-                      $cli_links = DB::table('clientes_accesos_links')->where('cliente_acceso_id','=',$r->id)
-                                                                    ->where('tipo','=', 2)
-                                                                    ->first();
-                      $buscar = array("pkey", "pdni");
-                      $reemplazar = array($key->key, $r->dni);
-                      $url = str_replace($buscar, $reemplazar, $cli_links->url);
-                      $lista = $this->curl($url); //'localhost/Cliente/CCurso.php?key='.$key->key.'&dni='.$r->dni
-                      // --
-
                       $pe = new Persona;
                       $pe->dni = $r->dni;
-                      $pe->paterno = $lista->paterno;
-                      $pe->materno = $lista->materno;
-                      $pe->sexo = $lista->sexo;
-                      $pe->nombre = $lista->nombre;
+                      $pe->paterno = $lista->data->paterno;
+                      $pe->materno = $lista->data->materno;
+                      $pe->nombre = $lista->data->nombre;
+                      $pe->sexo = $lista->data->sexo;
+                      if( trim($lista->data->fecha_nacimiento)!='' ){
+                          $pe->fecha_nacimiento = $lista->data->fecha_nacimiento;
+                      }
+                      $pe->telefono = $lista->data->telefono;
+                      $pe->celular = $lista->data->celular;
                       $pe->password = bcrypt($r->dni);
                       $pe->persona_id_created_at = 1;
                       $pe->save();
 
                       // Proceso de Carga de Opciones y Privilegios
-                      $priv_cliente = DB::table('privilegios_clientes')->where('id','=',$r->cargo)
-                                                      ->first();
+                      $priv_cliente = DB::table('privilegios_clientes')
+                                      ->where('id','=',$r->cargo)
+                                      ->first();
 
                       $privilegios_suc = DB::table('personas_privilegios_sucursales')
                                         ->where('persona_id','=',$pe->id)
@@ -239,14 +261,16 @@ class ApiCurso extends Controller
                                     'persona_id_created_at' => 1]
                               ]);
                       }
-                      Auth::loginUsingId($pe->id);
-                      $this->logeo($r->dni);
-                      return redirect('secureaccess.inicio');
-                      // --
                   }
+                  DB::commit();
+                  
+                  Auth::loginUsingId($pe->id);
+                  $this->logeo($r->dni);
+                  return redirect('secureaccess.inicio');
               }
-              else
+              else{
                 $valores['mensaje'] = 'Su Key no es valido';
+              }
             }
         }
         else
@@ -284,8 +308,11 @@ class ApiCurso extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        if( count($data)>0 ){
+          curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        }
         $result = curl_exec($ch);
+        //dd($result);
         curl_close($ch);
         return json_decode($result);
     }

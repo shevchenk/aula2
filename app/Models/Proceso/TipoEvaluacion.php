@@ -15,7 +15,8 @@ class TipoEvaluacion extends Model
     {
         $sql=DB::table('v_tipos_evaluaciones as te')
                   ->leftJoin('v_evaluaciones AS e',function($join){
-                      $join->on('te.id','=','e.tipo_evaluacion_id');
+                      $join->on('te.id','=','e.tipo_evaluacion_id')
+                      ->where('e.estado',1);
                   })
                   ->leftJoin('v_programaciones AS vp',function($join){
                       $join->on('vp.id','=','e.programacion_id');
@@ -28,9 +29,9 @@ class TipoEvaluacion extends Model
                       DB::raw('MAX(e.estado_cambio) AS estado_cambio'),
                       DB::raw('MAX(e.id) AS evaluacion_id')
                     )
+                  ->where('te.estado',1)
                   ->where(
                       function($query) use ($r){
-                        $query->where('te.estado','=',1);
                         
                         if( $r->has("programacion_id") ){
                             $programacion_id=trim($r->programacion_id);

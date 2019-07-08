@@ -50,7 +50,7 @@
                                     <table id="TableProgramacionUnica" class="table table-bordered table-hover">
                                         <thead>
                                             <tr class="cabecera">
-                                                <th class="col-xs-2">
+                                                <!--th class="col-xs-2">
                                                     <div class="form-group">
                                                         <label><h4>Carrera:</h4></label>
                                                         <div class="input-group">
@@ -76,7 +76,7 @@
                                                             <input type="text" class="form-control" name="txt_ciclo" id="txt_ciclo" placeholder="Ciclo" onkeypress="return masterG.enterGlobal(event, '.input-group', 1);">
                                                         </div>
                                                     </div>
-                                                </th>
+                                                </th-->
                                                 <th class="col-xs-3">
                                                     <div class="form-group">
                                                         <label><h4>Curso:</h4></label>
@@ -119,9 +119,9 @@
                                         </tbody>
                                         <tfoot>
                                             <tr class="cabecera">
-                                                <th>Carrera</th>
+                                                <!--th>Carrera</th>
                                                 <th>Semestre</th>
-                                                <th>Ciclo</th>
+                                                <th>Ciclo</th-->
                                                 <th>Curso</th>
                                                 <th>Docente</th>
                                                 <th>Fecha Inicio</th>
@@ -138,7 +138,7 @@
                         <input type= "hidden" name="txt_programacion_unica_id" id="txt_programacion_unica_id" class="form-control mant" >
                         <input type= "hidden" name="txt_estado" id="txt_estado" class="form-control mant" value="1">
                         <div class="panel panel-success">
-                            <img id="imageCurso" class="panel-heading img-responsive" src='img/course/calculo2f.jpg' style="width:100%;min-height: 90px;">
+                            <img id="imageCurso" class="panel-heading img-responsive" src='img/course/calculo2f.jpg' style="width:100%;min-height: 90px; height: 150px;">
                             <div class="panel-body table-responsive no-padding">
                                 <div class="col-md-6 col-md-offset-3">
                                      <table id="TableUnidadPregunta" class="table table-bordered table-hover">
