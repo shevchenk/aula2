@@ -353,7 +353,68 @@ var masterG ={
         if( pos!= -1 && t.value!='' && t.value.substring(pos+1).length>=2 ){
           t.value = parseFloat(t.value).toFixed(n);
         }
-    }
+    },
+    SelectImagen: function(archivo,src,carga){
+      if( $.trim(archivo)!='' && archivo.split('.')[1]=='pdf' ){
+        $(src).attr('src','archivo/pdf.jpg');
+      }
+      else if( $.trim(archivo)!='' && (archivo.split('.')[1]=='docx' || archivo.split('.')[1]=='doc') ){
+        $(src).attr('src','archivo/word.png');
+      }
+      else if( $.trim(archivo)!='' && (archivo.split('.')[1]=='xlsx' || archivo.split('.')[1]=='xls') ){
+        $(src).attr('src','archivo/excel.jpg');
+      }
+      else if( $.trim(archivo)!='' && (archivo.split('.')[1]=='pptx' || archivo.split('.')[1]=='ppt') ){
+        $(src).attr('src','archivo/ppt.png');
+      }
+      else if( $.trim(archivo)!='' && archivo.split('.')[1]=='txt' ){
+        $(src).attr('src','archivo/txt.jpg');
+      }
+      else{
+        $(src).attr('src',archivo);
+      }
+        $(carga).removeAttr('href').removeAttr('target');
+        if( $.trim(archivo)!='' ){
+          $(carga).attr('href',archivo).attr('target','__blank');
+        }
+    },
+    onImagen: function (ev,nombre,archivo,src) {
+        var files = ev.target.files || ev.dataTransfer.files;
+        if (!files.length)
+            return;
+        var image = new Image();
+        var reader = new FileReader();
+        reader.onload = (e) => {
+            $(archivo).val(e.target.result);
+            if(files[0].name.split('.')[1]=='pdf'){
+              $(src).attr('src','archivo/pdf.jpg');
+            }
+            else if(files[0].name.split('.')[1]=='docx' || files[0].name.split('.')[1]=='doc'){
+              $(src).attr('src','archivo/word.png');
+            }
+            else if(files[0].name.split('.')[1]=='xlsx' || files[0].name.split('.')[1]=='xls'){
+              $(src).attr('src','archivo/excel.jpg');
+            }
+            else if(files[0].name.split('.')[1]=='pptx' || files[0].name.split('.')[1]=='ppt'){
+              $(src).attr('src','archivo/ppt.png');
+            }
+            else if(files[0].name.split('.')[1]=='txt'){
+              $(src).attr('src','archivo/txt.jpg');
+            }
+            else{
+              $(src).attr('src',e.target.result);
+            }
+            $(src).fadeOut(1000,function(){
+                $(src).fadeIn(1800);
+            });
+        };
+        reader.onprogress=() => {
+            //msjG.mensaje('warning','Cargando yo ando',2000);
+        }
+        reader.readAsDataURL(files[0]);
+        $(nombre).val(files[0].name);
+        console.log(files[0].name);
+    },
 }
 
 var msjG = {
@@ -393,4 +454,27 @@ var sweetalertG = {
     }
 }
 
+var redimensionG = {
+    validar: function(){
+      var src = $("#imageCurso").attr('src').split('/');
+      if ($('header').width() <= 600 ){
+          $("#imageCurso").attr('src',src[0]+'/coursecel/'+src[2]);
+      }
+      else if ($('header').width() <= 1000 ){
+          $("#imageCurso").attr('src',src[0]+'/coursetablet/'+src[2]);
+      }
+      else if ($('header').width() > 1000 ){
+          $("#imageCurso").attr('src',src[0]+'/course/'+src[2]);
+      }
+      
+      $("#imageCurso").fadeOut(300,function(){
+          $("#imageCurso").fadeIn(100);
+      });
+    }
+
+}
+
+$(window).resize(function(){
+    redimensionG.validar();
+});
 </script>

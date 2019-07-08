@@ -27,6 +27,7 @@ CargarBalotario=function(id,curso_id,curso,imagen,boton){
      $("#ModalBalotarioForm #txt_curso_id").val(curso_id);
      $("#ModalBalotarioForm #txt_curso").val(curso);
      $("#imageCurso").attr("src","img/course/"+imagen);
+     redimensionG.validar();
      CargarSlct(1);
      AjaxBalotario.Cargar(HTMLCargarBalotario);
      AjaxBalotario.CargarUnidadPregunta(HTMLCargarUnidadPregunta,curso_id);

@@ -33,19 +33,53 @@
                     </div>
                     <div class="col-md-8">
                         <div class="form-group">
-                            <label>Imagen Cabecera de Curso</label>
+                            <label>Imagen Cabecera PC</label>
                             <input type="text"  readOnly class="form-control input-sm" id="txt_imagen_cabecera_nombre"  name="txt_imagen_cabecera_nombre" value="">
                             <input type="text" style="display: none;" id="txt_imagen_cabecera_archivo" name="txt_imagen_cabecera_archivo">
                             <label class="btn btn-default btn-flat margin btn-xs">
                                 <i class="fa fa-file-image-o fa-lg"></i>
-                                <input type="file" style="display: none;" onchange="onImagen2(event);" >
+                                <input type="file" style="display: none;" onchange="masterG.onImagen(event,'#txt_imagen_cabecera_nombre','#txt_imagen_cabecera_archivo','#txt_imagen_cabecera');" >
                             </label>
 
                         </div>  
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <img class="img-circle_cabecera" style="height: 142px;width: 100%;border-radius: 8px;border: 1px solid grey;margin-top: 5px;padding: 8px"> 
+                            <img class="img-circle_cabecera" id="txt_imagen_cabecera" style="height: 142px;width: 100%;border-radius: 8px;border: 1px solid grey;margin-top: 5px;padding: 8px"> 
+                        </div>  
+                    </div> 
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label>Imagen Cabecera Tablet</label>
+                            <input type="text"  readOnly class="form-control input-sm" id="txt_imagen_cabecera_tablet_nombre"  name="txt_imagen_cabecera_tablet_nombre" value="">
+                            <input type="text" style="display: none;" id="txt_imagen_cabecera_tablet_archivo" name="txt_imagen_cabecera_tablet_archivo">
+                            <label class="btn btn-default btn-flat margin btn-xs">
+                                <i class="fa fa-file-image-o fa-lg"></i>
+                                <input type="file" style="display: none;" onchange="masterG.onImagen(event,'#txt_imagen_cabecera_tablet_nombre','#txt_imagen_cabecera_tablet_archivo','#txt_imagen_cabecera_tablet');" >
+                            </label>
+
+                        </div>  
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <img class="img-circle_cabecera_tablet" id="txt_imagen_cabecera_tablet" style="height: 142px;width: 100%;border-radius: 8px;border: 1px solid grey;margin-top: 5px;padding: 8px"> 
+                        </div>  
+                    </div> 
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label>Imagen Cabecera Cel</label>
+                            <input type="text"  readOnly class="form-control input-sm" id="txt_imagen_cabecera_cel_nombre"  name="txt_imagen_cabecera_cel_nombre" value="">
+                            <input type="text" style="display: none;" id="txt_imagen_cabecera_cel_archivo" name="txt_imagen_cabecera_cel_archivo">
+                            <label class="btn btn-default btn-flat margin btn-xs">
+                                <i class="fa fa-file-image-o fa-lg"></i>
+                                <input type="file" style="display: none;" onchange="masterG.onImagen(event,'#txt_imagen_cabecera_cel_nombre','#txt_imagen_cabecera_cel_archivo','#txt_imagen_cabecera_cel');" >
+                            </label>
+
+                        </div>  
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <img class="img-circle_cabecera_cel" id="txt_imagen_cabecera_cel" style="height: 142px;width: 100%;border-radius: 8px;border: 1px solid grey;margin-top: 5px;padding: 8px"> 
                         </div>  
                     </div> 
                      <div class="form-group"> 

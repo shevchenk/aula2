@@ -40,7 +40,7 @@
                         <table id="TableCurso" class="table table-bordered table-hover">
                             <thead>
                                 <tr class="cabecera">
-                                    <th class="col-xs-3">
+                                    <th class="col-xs-1">
                                         <div class="form-group">
                                             <label><h4>Curso:</h4></label>
                                             <div class="input-group">
@@ -54,9 +54,19 @@
                                             <label><h4>Imagen de Lista:</h4></label>
                                         </div>
                                     </th>
-                                    <th class="col-xs-4">
+                                    <th class="col-xs-5">
                                         <div class="form-group">
-                                            <label><h4>Imagen de Cabecera:</h4></label>
+                                            <label><h4>Imagen de Cabecera PC:</h4></label>
+                                        </div>
+                                    </th>
+                                    <th class="col-xs-3">
+                                        <div class="form-group">
+                                            <label><h4>Imagen de Cabecera Tablet:</h4></label>
+                                        </div>
+                                    </th>
+                                    <th class="col-xs-2">
+                                        <div class="form-group">
+                                            <label><h4>Imagen de Cabecera Cel:</h4></label>
                                         </div>
                                     </th>
                                     <th class="col-xs-1">[Editar]</th>
@@ -68,7 +78,9 @@
                                 <tr class="cabecera">
                                     <th>Curso</th>
                                     <th>Imagen de Lista</th>
-                                    <th>Imagen de Cabecera</th>
+                                    <th>Imagen de Cabecera PC</th>
+                                    <th>Imagen de Cabecera Tablet</th>
+                                    <th>Imagen de Cabecera Cel</th>
                                     <th>[Editar]</th>
                                 </tr>
                             </tfoot>

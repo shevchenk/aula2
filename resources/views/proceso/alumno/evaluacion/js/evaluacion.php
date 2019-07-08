@@ -158,7 +158,7 @@ CargarEvaluaciones=function(id, programacion_unica_id, curso_id,curso, imagen, b
     //alert(id+'- '+ programacion_unica_id+'- '+ curso_id+'- '+ curso+'- '+ boton);
 
     $("#imageCurso").attr("src","img/course/"+imagen);
-
+    redimensionG.validar();
      $("#EvaluacionForm #txt_programacion_id").val(id);
      $("#EvaluacionForm #txt_programacion_unica_id").val(programacion_unica_id);
      $("#EvaluacionForm #txt_curso").val(curso);
