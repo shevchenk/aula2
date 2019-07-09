@@ -237,8 +237,13 @@ HTMLCargarContenido=function(result){
         }
         if(index==0){
             html+='<div class="panel box box-primary">'+
-                      '<img class="box-header with-border collapsed" data-toggle="collapse" data-parent="#DivContenido" href="#collapse'+index+'" src="img/content_unit/'+r.foto_unidad+'" width="100%" style="min-height=90px;" >'+
-                      '</img>'+
+                      '<div class="box-header with-border collapsed" data-toggle="collapse" data-parent="#DivContenido" href="#collapse'+index+'" width="100%">'+
+                        '<div class="progress active" style="height: auto !important; width: 90%; margin-inline: auto;">'+
+                            '<div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%; font-size:24px; line-height:20pt;">'+
+                              '<div style="margin: 10px 10px;">'+r.unidad_contenido+'</div>'+
+                            '</div>'+
+                        '</div>'+
+                      '</div>'+
                       '<div id="collapse'+index+'" class="panel-collapse collapse">'+
                         '<div class="box-body"> <div class="col-md-12">';
             aux_uc=r.unidad_contenido_id;
@@ -252,8 +257,13 @@ HTMLCargarContenido=function(result){
                       '</div>'+
                     '</div>';
             html+='<div class="panel box box-primary">'+
-                      '<img class="box-header with-border collapsed" data-toggle="collapse" data-parent="#DivContenido" href="#collapse'+index+'" src="img/content_unit/'+r.foto_unidad+'" width="100%" style="min-height:90px;">'+
-                      '</img>'+
+                      '<div class="box-header with-border collapsed" data-toggle="collapse" data-parent="#DivContenido" href="#collapse'+index+'" width="100%">'+
+                        '<div class="progress active" style="height: auto !important; width: 90%; margin-inline: auto;">'+
+                            '<div class="progress-bar progress-bar-default progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%; font-size:24px; line-height:20pt;">'+
+                              '<div style="margin: 10px 10px;">'+r.unidad_contenido+'</div>'+
+                            '</div>'+
+                        '</div>'+
+                      '</div>'+
                       '<div id="collapse'+index+'" class="panel-collapse collapse">'+
                         '<div class="box-body"> <div class="col-md-12">';
             
