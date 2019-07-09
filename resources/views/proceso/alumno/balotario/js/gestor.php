@@ -26,8 +26,9 @@ CargarBalotario=function(id,curso_id,curso,imagen,boton){
      $("#ModalBalotarioForm #txt_programacion_unica_id").val(id);
      $("#ModalBalotarioForm #txt_curso_id").val(curso_id);
      $("#ModalBalotarioForm #txt_curso").val(curso);
-     $("#imageCurso").attr("src","img/course/"+imagen);
-     redimensionG.validar();
+     $("#BalotarioForm #div_cabecera").text(curso);
+     /*$("#imageCurso").attr("src","img/course/"+imagen);
+     redimensionG.validar();*/
      AjaxBalotario.Cargar(HTMLCargarBalotario);
      $("#BalotarioForm").css("display","");
 };

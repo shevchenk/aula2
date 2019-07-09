@@ -168,7 +168,11 @@
 
                     <form id="ContenidoForm" style="display: none">
                         <div class="panel panel-success" style="padding-bottom: 10px;">
-                            <img id="imageCurso" class="panel-heading img-responsive" src='img/course/calculo2f.jpg' style="width:100%;min-height: 90px; height: 150px;">
+                            <div class="progress active" style="height: 80px;">
+                                <div class="progress-bar progress-bar-aqua progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%; font-size:30px; line-height:80px;">
+                                      <div id="div_cabecera"></div>
+                                </div>
+                            </div>
                             <div class="panel-body table-responsive no-padding">
                                 <div class="col-md-12">
                                     <input type= "hidden" name="txt_programacion_unica_id" id="txt_programacion_unica_id" class="form-control mant" >

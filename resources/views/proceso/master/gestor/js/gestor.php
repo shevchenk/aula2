@@ -27,8 +27,9 @@ CargarContenido=function(id,curso_id,curso,imagen,boton){
      $("#ModalContenidoForm #txt_programacion_unica_id").val(id);
      $("#ModalContenidoForm #txt_curso_id").val(curso_id);
      $("#ModalContenidoForm #txt_curso").val(curso);
-     $("#imageCurso").attr("src","img/course/"+imagen);
-     redimensionG.validar();
+     $("#ContenidoForm #div_cabecera").text(curso);
+     /*$("#imageCurso").attr("src","img/course/"+imagen);
+     redimensionG.validar();*/
      AjaxContenido.Cargar(HTMLCargarContenido);
      $("#ContenidoForm").css("display","");
      $("#ContenidoProgramacionForm").css("display","none");

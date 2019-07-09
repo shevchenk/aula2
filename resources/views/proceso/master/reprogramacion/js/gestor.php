@@ -19,8 +19,9 @@ $(document).ready(function() {
 
 CargarEvaluacion=function(id, curso_id,curso, imagen, boton){
      masterG.pintar_fila(boton);
-     $("#imageCurso").attr("src","img/course/"+imagen);
-     redimensionG.validar();
+     $("#EvaluacionForm #div_cabecera").text(curso);
+     /*$("#imageCurso").attr("src","img/course/"+imagen);
+     redimensionG.validar();*/
      $("#EvaluacionForm #txt_programacion_unica_id").val(id);
      AjaxEvaluacion.Cargar(HTMLCargarTipoEvaluacion);
      $("#EvaluacionForm").css("display","");

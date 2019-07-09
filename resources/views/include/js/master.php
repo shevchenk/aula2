@@ -454,6 +454,7 @@ var sweetalertG = {
     }
 }
 
+/*
 var redimensionG = {
     validar: function(){
       var src = $("#imageCurso").attr('src').split('/');
@@ -471,10 +472,9 @@ var redimensionG = {
           $("#imageCurso").fadeIn(100);
       });
     }
-
 }
-
 $(window).resize(function(){
-    redimensionG.validar();
-});
+    //redimensionG.validar();
+});*/
+
 </script>

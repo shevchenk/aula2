@@ -157,15 +157,16 @@ CargarEvaluaciones=function(id, programacion_unica_id, curso_id,curso, imagen, b
     masterG.pintar_fila(boton); //Pinta la fila
     //alert(id+'- '+ programacion_unica_id+'- '+ curso_id+'- '+ curso+'- '+ boton);
 
-    $("#imageCurso").attr("src","img/course/"+imagen);
-    redimensionG.validar();
-     $("#EvaluacionForm #txt_programacion_id").val(id);
-     $("#EvaluacionForm #txt_programacion_unica_id").val(programacion_unica_id);
-     $("#EvaluacionForm #txt_curso").val(curso);
+    /*$("#imageCurso").attr("src","img/course/"+imagen);
+    redimensionG.validar();*/
+    $("#EvaluacionForm #div_cabecera").text(curso);
+    $("#EvaluacionForm #txt_programacion_id").val(id);
+    $("#EvaluacionForm #txt_programacion_unica_id").val(programacion_unica_id);
+    $("#EvaluacionForm #txt_curso").val(curso);
 
-     AjaxTipoEvaluacion.Cargar(HTMLCargarTipoEvaluacion);
-     //AjaxContenido.Cargar(HTMLCargarContenido);
-     $("#EvaluacionForm").css("display","");
+    AjaxTipoEvaluacion.Cargar(HTMLCargarTipoEvaluacion);
+    //AjaxContenido.Cargar(HTMLCargarContenido);
+    $("#EvaluacionForm").css("display","");
 };
 
 
