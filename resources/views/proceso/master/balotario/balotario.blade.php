@@ -138,9 +138,9 @@
                         <input type= "hidden" name="txt_programacion_unica_id" id="txt_programacion_unica_id" class="form-control mant" >
                         <input type= "hidden" name="txt_estado" id="txt_estado" class="form-control mant" value="1">
                         <div class="panel panel-success">
-                            <div class="progress active" style="height: 80px;">
-                                <div class="progress-bar progress-bar-aqua progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%; font-size:30px; line-height:80px;">
-                                      <div id="div_cabecera"></div>
+                            <div class="progress active" style="height: auto !important;">
+                                <div class="progress-bar progress-bar-aqua progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%; font-size:30px; line-height:20pt;">
+                                  <div id="div_cabecera" style="margin: 10px 10px;"></div>
                                 </div>
                             </div>
                             <div class="panel-body table-responsive no-padding">
