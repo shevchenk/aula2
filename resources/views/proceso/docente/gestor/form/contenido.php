@@ -24,7 +24,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <!--div class="col-md-12">
                         <div class="form-group">
                             <label>Imagen de Contenido</label>
                             <input type="text" readonly="" class="form-control input-sm" id="txt_imagen_nombre" name="txt_imagen_nombre" value="">
@@ -34,7 +34,7 @@
                                 <input type="file" style="display: none;" onchange="onImagen(event, 'imagen');">
                             </label>
                         </div>
-                    </div>
+                    </div-->
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Titulo de Contenido</label>
@@ -76,6 +76,7 @@
                                 <option value="0">Documento de Apoyo</option>
                                 <option value="1">Tarea</option>
                                 <option value="2">Videoconferencia</option>
+                                <option value="3">Video</option>
                             </select>
                         </div>
                     </div>

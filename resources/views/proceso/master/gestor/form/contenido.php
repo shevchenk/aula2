@@ -76,6 +76,7 @@
                                 <option value="0">Documento de Apoyo</option>
                                 <option value="1">Tarea</option>
                                 <option value="2">Videoconferencia</option>
+                                <option value="3">Video</option>
                             </select>
                         </div>
                     </div>

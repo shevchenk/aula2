@@ -88,13 +88,25 @@ class Contenido extends Model
           $url = "file/content/c$contenido->id/".$r->file_nombre;
           $ftf->fileToFile($r->file_archivo,'c'.$contenido->id, $url);
         }
-        if(trim($r->imagen_nombre)!='' and trim($r->imagen_archivo)!=''){
+        /*if(trim($r->imagen_nombre)!='' and trim($r->imagen_archivo)!=''){
           $contenido->foto = "c$contenido->id/".$r->imagen_nombre;
           $ftf = new Contenido;
           $url = "file/content/c$contenido->id/".$r->imagen_nombre;
           $ftf->fileToFile($r->imagen_archivo,'c'.$contenido->id, $url);
         }else{
           $contenido->foto = "default/nodisponible.png";  
+        }*/
+        if($r->tipo_respuesta==0){
+            $contenido->foto = "default/documento.png";
+        }
+        elseif($r->tipo_respuesta==1){
+            $contenido->foto = "default/tarea.png";
+        }
+        elseif($r->tipo_respuesta==2){
+            $contenido->foto = "default/videoconferencia.jpg";
+        }
+        elseif($r->tipo_respuesta==3){
+            $contenido->foto = "default/video.jpg";
         }
         $contenido->save();
 
@@ -112,14 +124,27 @@ class Contenido extends Model
             $url = "file/content/c$contenido->id/".$r->file_nombre;
             $ftf->fileToFile($r->file_archivo,'c'.$contenido->id, $url);
         }
-        if(trim($r->imagen_nombre)!='' and trim($r->imagen_archivo)!=''){
+        /*if(trim($r->imagen_nombre)!='' and trim($r->imagen_archivo)!=''){
           $contenido->foto = "c$contenido->id/".$r->imagen_nombre;
           $ftf = new Contenido;
           $url = "file/content/c$contenido->id/".$r->imagen_nombre;
           $ftf->fileToFile($r->imagen_archivo,'c'.$contenido->id, $url);
         }else if(trim($r->imagen_nombre)=='' and trim($r->imagen_archivo)==''){
             $contenido->foto = "default/nodisponible.png";  
+        }*/
+        if($r->tipo_respuesta==0){
+            $contenido->foto = "default/documento.png";
         }
+        elseif($r->tipo_respuesta==1){
+            $contenido->foto = "default/tarea.png";
+        }
+        elseif($r->tipo_respuesta==2){
+            $contenido->foto = "default/videoconferencia.jpg";
+        }
+        elseif($r->tipo_respuesta==3){
+            $contenido->foto = "default/video.jpg";
+        }
+        
         $contenido->tipo_respuesta = trim( $r->tipo_respuesta );
         if($r->tipo_respuesta==1 or $r->tipo_respuesta==2){
             if($r->fecha_inicio!=''){
