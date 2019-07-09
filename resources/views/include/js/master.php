@@ -370,13 +370,23 @@ var masterG ={
       else if( $.trim(archivo)!='' && archivo.split('.')[1]=='txt' ){
         $(src).attr('src','archivo/txt.jpg');
       }
+      else if( $.trim(archivo)=='' ){
+        $(src).attr('src','archivo/default.png');
+      }
       else{
         $(src).attr('src',archivo);
       }
+
+      if( $.trim(carga)!='' ){
         $(carga).removeAttr('href').removeAttr('target');
         if( $.trim(archivo)!='' ){
           $(carga).attr('href',archivo).attr('target','__blank');
         }
+      }
+
+      $(src).fadeOut(1000,function(){
+          $(src).fadeIn(1800);
+      });
     },
     onImagen: function (ev,nombre,archivo,src) {
         var files = ev.target.files || ev.dataTransfer.files;

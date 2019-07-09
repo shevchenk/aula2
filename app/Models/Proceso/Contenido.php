@@ -4,6 +4,7 @@ namespace App\Models\Proceso;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Mantenimiento\Menu;
 use DB;
 
 class Contenido extends Model
@@ -82,11 +83,15 @@ class Contenido extends Model
         $contenido->estado = trim( $r->estado );
         $contenido->persona_id_created_at=Auth::user()->id;
         $contenido->save();
-        if(trim($r->file_nombre)!='' and trim($r->file_archivo)!=''){
-          $contenido->ruta_contenido = "c$contenido->id/".$r->file_nombre;
-          $ftf = new Contenido;
-          $url = "file/content/c$contenido->id/".$r->file_nombre;
-          $ftf->fileToFile($r->file_archivo,'c'.$contenido->id, $url);
+
+        if( trim($r->file_nombre)!='' ){
+            $type=explode(".",$r->file_nombre);
+            $extension=".".$type[1];
+        }
+        if( trim($r->file_archivo)!='' ){
+            $url = "file/content/c$contenido->id/A$contenido->id".$extension;
+            $contenido->ruta_contenido = "c$contenido->id/A$contenido->id".$extension;
+            Menu::fileToFile($r->file_archivo, $url);
         }
         /*if(trim($r->imagen_nombre)!='' and trim($r->imagen_archivo)!=''){
           $contenido->foto = "c$contenido->id/".$r->imagen_nombre;
@@ -118,11 +123,15 @@ class Contenido extends Model
         $contenido->contenido = trim( $r->contenido );
         $contenido->unidad_contenido_id = trim( $r->unidad_contenido_id );
         $contenido->titulo_contenido = trim( $r->titulo_contenido );
-        if(trim($r->file_nombre)!='' and trim($r->file_archivo)!=''){
-            $contenido->ruta_contenido = "c$contenido->id/".$r->file_nombre;
-            $ftf=new Contenido;
-            $url = "file/content/c$contenido->id/".$r->file_nombre;
-            $ftf->fileToFile($r->file_archivo,'c'.$contenido->id, $url);
+        
+        if( trim($r->file_nombre)!='' ){
+            $type=explode(".",$r->file_nombre);
+            $extension=".".$type[1];
+        }
+        if( trim($r->file_archivo)!='' ){
+            $url = "file/content/c$contenido->id/A$contenido->id".$extension;
+            $contenido->ruta_contenido = "c$contenido->id/A$contenido->id".$extension;
+            Menu::fileToFile($r->file_archivo, $url);
         }
         /*if(trim($r->imagen_nombre)!='' and trim($r->imagen_archivo)!=''){
           $contenido->foto = "c$contenido->id/".$r->imagen_nombre;
