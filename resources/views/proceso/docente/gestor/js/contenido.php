@@ -52,6 +52,11 @@ $(document).ready(function() {
         $('#ModalContenidoForm #slct_unidad_contenido_id').selectpicker( 'val',ContenidoG.unidad_contenido_id );
         $('#ModalContenidoForm #txt_titulo_contenido').val( ContenidoG.titulo_contenido );
         $('#ModalContenidoForm #txt_file_nombre').val( ContenidoG.ruta_contenido );
+        ruta='';
+        if( ContenidoG.ruta_contenido!='' ){
+            ruta='file/content/'+ContenidoG.ruta_contenido;
+        }
+        masterG.SelectImagen(ruta,'#txt_file_imagen','');
         $('#ModalContenidoForm #txt_file_archivo').val( ContenidoG.file_archivo );
         $('#ModalContenidoForm #txt_imagen_nombre').val( ContenidoG.imagen_nombre );
         $('#ModalContenidoForm #txt_imagen_archivo').val( ContenidoG.imagen_archivo );
@@ -231,7 +236,7 @@ HTMLCargarContenido=function(result){
             html+='<div class="panel box box-primary">'+
                       '<div class="box-header with-border collapsed" data-toggle="collapse" data-parent="#DivContenido" href="#collapse'+index+'" width="100%">'+
                         '<div class="progress active" style="height: auto !important; width: 90%; margin-inline: auto;">'+
-                            '<div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%; font-size:24px; line-height:20pt;">'+
+                            '<div class="progress-bar progress-bar-default progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%; font-size:24px; line-height:20pt;">'+
                               '<div style="margin: 10px 10px;">'+r.unidad_contenido+'</div>'+
                             '</div>'+
                         '</div>'+
@@ -274,7 +279,7 @@ HTMLCargarContenido=function(result){
         }
 
         html+='<div class="col-lg-4" id="trid_'+r.id+'" style="margin-top: 15px; -moz-box-shadow: 0 0 5px #888; -webkit-box-shadow: 0 0 5px#888; box-shadow: 0 0 5px #888;">'+
-               '<input type="hidden" class="ruta_contenido" value="'+nombre[1]+'">'+
+               '<input type="hidden" class="ruta_contenido" value="'+r.ruta_contenido+'">'+
                '<input type="hidden" class="imagen_nombre" value="'+foto[1]+'">'+
                '<input type="hidden" class="unidad_contenido_id" value="'+r.unidad_contenido_id+'">'+
                '<input type="hidden" class="titulo_contenido" value="'+r.titulo_contenido+'">'+
