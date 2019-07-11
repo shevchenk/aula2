@@ -105,7 +105,7 @@ class UnidadContenido extends Model
     
     public static function runLoadUnidadPregunta($r){
         $result=UnidadContenido::select('v_unidades_contenido.unidad_contenido',DB::raw('COUNT(vp.id) as cant'),'v_unidades_contenido.id')
-                                ->leftjoin('v_preguntas AS vp', function($join)use($r){
+                                ->join('v_preguntas AS vp', function($join)use($r){
                                     $join->on('v_unidades_contenido.id','=','vp.unidad_contenido_id')
                                     ->where('vp.curso_id','=',$r->curso_id)
                                     ->where('vp.estado','=',1);
