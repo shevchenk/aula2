@@ -110,6 +110,7 @@ class UnidadContenido extends Model
                                     ->where('vp.curso_id','=',$r->curso_id)
                                     ->where('vp.estado','=',1);
                                 })
+                                ->where('v_unidades_contenido.estado',1)
                                 ->groupBy('v_unidades_contenido.unidad_contenido','v_unidades_contenido.id')->get();
         return $result;
     }
