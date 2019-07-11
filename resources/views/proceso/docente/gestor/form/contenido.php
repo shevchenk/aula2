@@ -38,7 +38,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Titulo de Contenido</label>
-                            <textarea type="text"  class="form-control" id="txt_titulo_contenido" name="txt_titulo_contenido"></textarea>
+                            <textarea type="text" rows="1"  class="form-control" id="txt_titulo_contenido" name="txt_titulo_contenido"></textarea>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -46,10 +46,16 @@
                             <label>Contenido</label>
                             <textarea type="text"  class="form-control" id="txt_contenido" name="txt_contenido"></textarea>
                         </div>
-                    </div>    
+                    </div>
+                    <div class="col-md-12 linkvideo">
+                        <div class="form-group">
+                            <label>Link del Video</label>
+                            <input type="text"  class="form-control" id="txt_video" name="txt_video">
+                        </div>
+                    </div>
                     <div class="col-md-8 col-sm-8">
                         <div class="form-group">
-                            <label>Archivo</label>
+                            <label>Archivo <span class="ponente"> - Sobre el Ponente</span></label>
                             <input type="text" readonly="" class="form-control input-sm" id="txt_file_nombre" name="txt_file_nombre" value="">
                             <input type="text" style="display: none;" id="txt_file_archivo" name="txt_file_archivo">
                             <label class="btn btn-default btn-flat margin btn-xs">

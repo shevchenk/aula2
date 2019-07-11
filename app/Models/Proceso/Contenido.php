@@ -101,6 +101,7 @@ class Contenido extends Model
         }else{
           $contenido->foto = "default/nodisponible.png";  
         }*/
+        $contenido->video = '';
         if($r->tipo_respuesta==0){
             $contenido->foto = "default/documento.png";
         }
@@ -109,9 +110,11 @@ class Contenido extends Model
         }
         elseif($r->tipo_respuesta==2){
             $contenido->foto = "default/videoconferencia.jpg";
+            $contenido->video = trim($r->video);
         }
         elseif($r->tipo_respuesta==3){
             $contenido->foto = "default/video.jpg";
+            $contenido->video = trim($r->video);
         }
         $contenido->save();
 
@@ -141,6 +144,7 @@ class Contenido extends Model
         }else if(trim($r->imagen_nombre)=='' and trim($r->imagen_archivo)==''){
             $contenido->foto = "default/nodisponible.png";  
         }*/
+        $contenido->video = '';
         if($r->tipo_respuesta==0){
             $contenido->foto = "default/documento.png";
         }
@@ -149,9 +153,11 @@ class Contenido extends Model
         }
         elseif($r->tipo_respuesta==2){
             $contenido->foto = "default/videoconferencia.jpg";
+            $contenido->video = trim($r->video);
         }
         elseif($r->tipo_respuesta==3){
             $contenido->foto = "default/video.jpg";
+            $contenido->video = trim($r->video);
         }
         
         $contenido->tipo_respuesta = trim( $r->tipo_respuesta );
@@ -199,7 +205,7 @@ class Contenido extends Model
 
 
     public static function runLoad($r){
-        $result=Contenido::select('v_contenidos.id','v_contenidos.contenido',DB::raw('IFNULL(v_contenidos.referencia,"") as referencia'),'v_contenidos.ruta_contenido',
+        $result=Contenido::select('v_contenidos.id','v_contenidos.contenido',DB::raw('IFNULL(v_contenidos.referencia,"") as referencia'),'v_contenidos.ruta_contenido','v_contenidos.video',
                 'v_contenidos.tipo_respuesta',DB::raw('IFNULL(v_contenidos.fecha_inicio,"") as fecha_inicio'),
                 DB::raw('IFNULL(v_contenidos.hora_inicio,"") as hora_inicio'),
                 DB::raw('IFNULL(v_contenidos.hora_final,"") as hora_final'),'v_contenidos.unidad_contenido_id','v_contenidos.titulo_contenido',

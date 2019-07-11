@@ -69,6 +69,7 @@ $(document).ready(function() {
         $('#ModalContenidoForm #txt_fecha_inicio_d').val( ContenidoG.fecha_inicio_d );
         $('#ModalContenidoForm #txt_fecha_final_d').val( ContenidoG.fecha_final_d );
         $('#ModalContenidoForm #txt_fecha_ampliada_d').val( ContenidoG.fecha_ampliada_d );
+        $('#ModalContenidoForm #txt_video').val( ContenidoG.video );
         $('#ModalContenidoForm #slct_estado').selectpicker( 'val',ContenidoG.estado );
         ReferenciaHTML(ContenidoG.referencia);
     });
@@ -79,6 +80,7 @@ $(document).ready(function() {
     });
 
     $( "#ModalContenidoForm #slct_tipo_respuesta" ).change(function() {
+        $("#ModalContenidoForm .ponente,#ModalContenidoForm .linkvideo").css('display','none');
         if( $('#ModalContenidoForm #slct_tipo_respuesta').val()=='1' ) {
             $( "#ModalContenidoForm #respuesta,#ModalContenidoForm #tarea" ).css("display","");
             $( "#ModalContenidoForm #video" ).css("display","none");
@@ -87,6 +89,9 @@ $(document).ready(function() {
             $( "#ModalContenidoForm #video,#ModalContenidoForm #respuesta" ).css("display","");
             $( "#ModalContenidoForm #tarea" ).css("display","none");
             $( "#ModalContenidoForm #respuesta .anotacion" ).html("Videoconferencia");
+            $( ".ponente,.linkvideo" ).css('display','');
+        }else if( $('#ModalContenidoForm #slct_tipo_respuesta').val()=='3' ) {
+            $( ".ponente,.linkvideo" ).css('display','');
         }else{
             $( "#ModalContenidoForm #video,#ModalContenidoForm #respuesta,#ModalContenidoForm #tarea" ).css("display","none");
         }
@@ -156,8 +161,9 @@ AgregarEditar3=function(val,id){
     ContenidoG.fecha_final_d='';
     ContenidoG.fecha_ampliada_d='';
     ContenidoG.referencia='';
+    ContenidoG.video='';
     ContenidoG.estado='1';
-    $('#respuesta,#video,#tarea').css("display","none");
+    $('#respuesta,#video,#tarea,.ponente,.linkvideo').css("display","none");
     if( val==0 ){
 
         ContenidoG.id=id;
@@ -176,15 +182,22 @@ AgregarEditar3=function(val,id){
         ContenidoG.fecha_final_d=$("#DivContenido #trid_"+id+" .fecha_final_d").val();
         ContenidoG.fecha_ampliada_d=$("#DivContenido #trid_"+id+" .fecha_ampliada_d").val();
         ContenidoG.referencia=$("#DivContenido #trid_"+id+" .referencia").val();
+        ContenidoG.video=$("#DivContenido #trid_"+id+" .video").val();
         ContenidoG.estado=$("#DivContenido #trid_"+id+" .estado").val();
+        $( ".ponente,.linkvideo" ).css('display','none');
         if(ContenidoG.tipo_respuesta=='1'){
                 $('#respuesta,#tarea').css("display","");
                 $('#video').css("display","none");
                 $( "#respuesta .anotacion" ).html("Fecha de entrega de tareas");
-        }else if(ContenidoG.tipo_respuesta=='2'){
+        }
+        else if(ContenidoG.tipo_respuesta=='2'){
                 $('#tarea').css("display","none");
                 $('#video,#respuesta').css("display","");
                 $( "#respuesta .anotacion" ).html("Videoconferencia");
+                $( ".ponente,.linkvideo" ).css('display','');
+        }
+        else if(ContenidoG.tipo_respuesta=='3'){
+                $( ".ponente,.linkvideo" ).css('display','');
         }
     }
     $('#ModalContenido').modal('show');
@@ -294,16 +307,26 @@ HTMLCargarContenido=function(result){
                '<input type="hidden" class="tipo_respuesta" value="'+r.tipo_respuesta+'">'+
                '<input type="hidden" class="referencia" value="'+r.referencia+'">'+
                '<input type="hidden" class="estado" value="'+r.estado+'">'+
+               '<input type="hidden" class="video" value="'+r.video+'">'+
                '<div class="row">'+
                     '<div class="col-md-12">'+
                             '<div class="text-justify '+color+'" style="margin-bottom: 15px; margin-top:10px; font-size: 15px; padding: 5px 5px; background-color: #F5F5F5; border-radius: 10px; border: 3px solid #F8F8F8;">'+
                                 '<p style="text-align:center">'+r.titulo_contenido+'</p>'+
                             '</div>'+
-                        '</div>'+
-                    '<div class="col-md-5 text-center" style="border-right: 2px solid #e9e9e9;">'+
-                            '<a href="file/content/'+r.ruta_contenido+'" target="blank"><img class="img-responsive" src="file/content/'+r.foto_contenido+'" alt="" width="100%" height="" style="margin:10px auto;height: 150px;min-width: 150px;"></a>'+
-                        '</div>'+
-                    '<div class="col-md-7" style="border-left: 2px solid #e9e9e9;">'+
+                        '</div>';
+                if(r.tipo_respuesta<2){
+                    html+='<div class="col-md-5 text-center" style="border-right: 2px solid #e9e9e9;">'+
+                            '<a href="file/content/'+r.ruta_contenido+'" target="_blank"><img class="img-responsive" src="file/content/'+r.foto_contenido+'" alt="" width="100%" height="" style="margin:10px auto;height: 150px;min-width: 150px;"></a>'+
+                        '</div>';
+                }
+                else{
+                    html+='<div class="col-md-5 text-center" style="border-right: 2px solid #e9e9e9;">'+
+                            '<a href="'+r.video+'" target="_blank"><img class="img-responsive" src="file/content/'+r.foto_contenido+'" alt="" width="100%" height="" style="margin:10px auto;height: 150px;min-width: 150px;"></a>'+
+                            '<a class="btn btn-flat btn-info" href="file/content/'+r.ruta_contenido+'" target="_blank">Sobre el Ponente</a>'+
+                        '</div>';
+                }
+
+                    html+='<div class="col-md-7" style="border-left: 2px solid #e9e9e9;">'+
                         '<div class="text-justify" style="margin-bottom: 15px; margin-top:10px; font-size: 15px; padding: 5px 5px; background-color: #F5F5F5; border-radius: 10px; border: 3px solid #F8F8F8;">'+
                             '<p class="contenido">'+r.contenido+'</p>'+
                         '</div>';
