@@ -289,6 +289,8 @@ HTMLCargarContenido=function(result){
             color="bg-red";
         }else if(r.tipo_respuesta == 2){
             color="bg-green";
+        }else if(r.tipo_respuesta == 3){
+            color="bg-orange";
         }
 
         html+='<div class="col-lg-4" id="trid_'+r.id+'" style="margin-top: 15px; -moz-box-shadow: 0 0 5px #888; -webkit-box-shadow: 0 0 5px#888; box-shadow: 0 0 5px #888;">'+
