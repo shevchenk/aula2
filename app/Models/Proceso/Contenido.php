@@ -277,7 +277,7 @@ class Contenido extends Model
     // --
     public static function runLoadContenidoProgra($r){
         $result=Contenido::select('v_contenidos.id','v_contenidos.contenido','v_contenidos.ruta_contenido',
-                'v_contenidos.referencia','v_contenidos.titulo_contenido',
+                'v_contenidos.referencia','v_contenidos.titulo_contenido','v_contenidos.video',
                 'v_contenidos.tipo_respuesta',DB::raw('IFNULL(v_contenidos.fecha_inicio,"") as fecha_inicio'),
                 DB::raw('IFNULL(v_contenidos.fecha_final,"") as fecha_final'),'vuc.unidad_contenido','vuc.foto as foto_unidad',
                 DB::raw('IFNULL(v_contenidos.fecha_ampliada,"") as fecha_ampliada'),
