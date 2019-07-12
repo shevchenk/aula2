@@ -22,6 +22,7 @@ class BalotarioEM extends Controller
     {
         $this->api = new Api();
         $this->middleware('auth');  //Esto debe activarse cuando estemos con sessión
+        error_reporting(E_ERROR);
     } 
 
     public function EditStatus(Request $r )
