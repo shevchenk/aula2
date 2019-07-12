@@ -137,32 +137,23 @@
                                 </div>
                             </div>
                             <div class="panel-body table-responsive no-padding">
-                                <div class="col-md-12">
+                                <div class="col-md-8">
                                     <table id="TableBalotario" class="table table-bordered table-hover">
                                         <thead>
                                             <tr class="cabecera">
                                                 <th class="col-xs-2">
                                                     <div class="form-group">
                                                         <label><h4>Cantidad de Preguntas de Balotario:</h4></label>
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control" name="txt_cantidad_maxima" id="txt_cantidad_maxima" placeholder="Cantidad Máxima" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
-                                                        </div>
                                                     </div>
                                                 </th>
                                                 <th class="col-xs-2">
                                                     <div class="form-group">
                                                         <label><h4>Cantidad de Preguntas de Evaluación:</h4></label>
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control" name="txt_cantidad_pregunta" id="txt_cantidad_pregunta" placeholder="Cantidad de Pregunta" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
-                                                        </div>
                                                     </div>
                                                 </th>
                                                 <th class="col-xs-2">
                                                     <div class="form-group">
                                                         <label><h4>Tipo de Evaluación:</h4></label>
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control" name="txt_tipo_evaluacion" id="txt_tipo_evaluacion" placeholder="Tipo de Evaluación" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
-                                                        </div>
                                                     </div>
                                                 </th>
 <!--                                                <th class="col-xs-2">
