@@ -24,12 +24,12 @@
                         <td class="c2">
                             {{ $head->carrera }}
                         </td>
-                        <td class="c1">
+                        <!--td class="c1">
                             <b>SEMESTRE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><b style="padding-left: 4em;">:</b>
                         </td>
                         <td class="c2">
                             {{ $head->semestre }}
-                        </td>
+                        </td-->
                     </tr>
                     <tr>
                         <td class="c1">
@@ -38,12 +38,12 @@
                         <td class="c2">
                             {{ $head->curso }}
                         </td>
-                        <td class="c1">
+                        <!--td class="c1">
                             <b>CICLO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><b style="padding-left: 4em;">:</b>
                         </td>
                         <td class="c2">
                             {{ $head->ciclo }}
-                        </td>
+                        </td-->
                     </tr>
                     <tr>
                         <td class="c1">
