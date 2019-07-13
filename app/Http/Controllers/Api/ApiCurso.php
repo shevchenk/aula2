@@ -124,7 +124,7 @@ class ApiCurso extends Controller
         $url = url()->previous(); //url anterior Cliente
         $url = substr($url, 0,strrpos($url,"/",-1)) ;
         Auth::logout();
-        Session::flush();
+        session::flush();
         session(['idcliente' => $r->id]);
         //Session::put('grupo', $grupo);
 
