@@ -10,7 +10,7 @@ use App\Models\Api\Curso;
 //use App\Models\Mantenimiento\Persona;
 
 // Auth
-//use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Models\SecureAccess\Persona;
 
@@ -124,7 +124,7 @@ class ApiCurso extends Controller
         $url = url()->previous(); //url anterior Cliente
         $url = substr($url, 0,strrpos($url,"/",-1)) ;
         Auth::logout();
-        session::flush();
+        Session::flush();
         session(['idcliente' => $r->id]);
         //Session::put('grupo', $grupo);
 
