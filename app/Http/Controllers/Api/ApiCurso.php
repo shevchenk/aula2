@@ -123,6 +123,8 @@ class ApiCurso extends Controller
         $valores['valida_ruta_url'] = $ruta;
         $url = url()->previous(); //url anterior Cliente
         $url = substr($url, 0,strrpos($url,"/",-1)) ;
+        Auth::logout();
+        Session::flush();
         session(['idcliente' => $r->id]);
         //Session::put('grupo', $grupo);
 
