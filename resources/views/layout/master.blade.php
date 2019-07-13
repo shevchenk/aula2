@@ -17,7 +17,7 @@
         @show
         <title>
             @section('title')
-                AULA (JS)
+                AULA
             @show
         </title>
 
