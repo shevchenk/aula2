@@ -19,10 +19,7 @@ class Curso extends Model
     }
     
     public static function runLoad($r){
-        $result=Curso::select('v_cursos.id','v_cursos.curso','v_cursos.curso_externo_id'
-                ,'v_cursos.foto','v_cursos.foto_cab','v_cursos.estado'
-                ,'foto_cab_tablet','foto_cab_cel'
-                )
+        $result=Curso::select('v_cursos.id','v_cursos.curso','v_cursos.curso_externo_id','v_cursos.estado')
                                 ->where(
                                     function($query) use ($r){
                                         $query->where('v_cursos.estado','=', 1);
@@ -50,59 +47,13 @@ class Curso extends Model
                                                 $query->where('v_cursos.ciclo','like','%'.$ciclo.'%');
                                             }
                                         }
+                                        if( $r->session()->has('empresa_id') ){
+                                            $query->where('empresa_externo_id', session('empresa_id'));
+                                        }
                                     }
                                 )->paginate(10);
 
         return $result;
-    }
-    
-    public static function runEdit($r){
-        
-        $curso = Curso::find($r->id);
-        if(trim($r->imagen_nombre)!=''){
-            $curso->foto=$r->imagen_nombre;
-        }else {
-            $curso->foto='';
-        }
-        if(trim($r->imagen_archivo)!=''){
-            $este = new Curso;
-            $url = "img/course/".$r->imagen_nombre; 
-            $este->fileToFile($r->imagen_archivo, $url);
-        }
-
-        if( trim($r->imagen_cabecera_nombre)!='' ){
-            $type=explode(".",$r->imagen_cabecera_nombre);
-            $extension=".".$type[1];
-        }
-        $url = "img/course/c$curso->id".$extension; 
-        if( trim($r->imagen_cabecera_archivo)!='' ){
-            $curso->foto_cab="c$curso->id".$extension;
-            Menu::fileToFile($r->imagen_cabecera_archivo, $url);
-        }
-
-        if( trim($r->imagen_cabecera_tablet_nombre)!='' ){
-            $type=explode(".",$r->imagen_cabecera_tablet_nombre);
-            $extension=".".$type[1];
-        }
-        $url = "img/coursetablet/c$curso->id".$extension; 
-        if( trim($r->imagen_cabecera_tablet_archivo)!='' ){
-            $curso->foto_cab_tablet="c$curso->id".$extension;
-            Menu::fileToFile($r->imagen_cabecera_tablet_archivo, $url);
-        }
-
-        if( trim($r->imagen_cabecera_cel_nombre)!='' ){
-            $type=explode(".",$r->imagen_cabecera_cel_nombre);
-            $extension=".".$type[1];
-        }
-        $url = "img/coursecel/c$curso->id".$extension; 
-        if( trim($r->imagen_cabecera_cel_archivo)!='' ){
-            $curso->foto_cab_cel="c$curso->id".$extension;
-            Menu::fileToFile($r->imagen_cabecera_cel_archivo, $url);
-        }
-
-
-        $curso->persona_id_updated_at=Auth::user()->id;
-        $curso->save();
     }
     
     public function fileToFile($file, $url){

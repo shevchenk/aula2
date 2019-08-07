@@ -42,27 +42,31 @@
                                 <tr class="cabecera">
                                     <th class="col-xs-5">
                                         <div class="form-group">
-                                            <label><h4>Imagen:</h4></label>
-                                        </div>
-                                    </th>
-                                    <th class="col-xs-5">
-                                        <div class="form-group">
                                             <label><h4>Unidad de Contenido:</h4></label>
                                             <div class="input-group">
-                                                <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                                                <input type="text" class="form-control" name="txt_unidad_contenido" id="txt_unidad_contenido" placeholder="Unidad de Contenido" onkeypress="return masterG.enterGlobal(event,'.input-group',1);">
+                                                <input type="text" class="form-control" name="txt_unidad_contenido" id="txt_unidad_contenido" placeholder="Unidad de Contenido" onkeypress="return masterG.enterGlobal(event,'#slct_estado',1);">
                                             </div>
                                         </div>
                                     </th>
-                                    <th class="col-xs-1">[Estado]</th>
+                                    <th class="col-xs-2">
+                                        <div class="form-group">
+                                            <label><h4>Estado:</h4></label>
+                                            <div class="input-group">
+                                                <select class="form-control" name="slct_estado" id="slct_estado">
+                                                    <option value='' selected>.::Todo::.</option>
+                                                    <option value='0'>Inactivo</option>
+                                                    <option value='1'>Activo</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </th>
                                     <th class="col-xs-1">[Editar]</th>
                                 </tr>
                             </thead>
                             <tbody>
                             </tbody>
                             <tfoot>
-                                <tr class="cabecera">                               
-                                  <th>Imagen</th>
+                                <tr class="cabecera">
                                   <th>Unidad de Contenido</th>
                                   <th>[Estado]</th>
                                   <th>[Editar]</th>

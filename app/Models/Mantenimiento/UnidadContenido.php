@@ -27,22 +27,12 @@ class UnidadContenido extends Model
     public static function runNew($r){
         $unidad_contenido = new UnidadContenido;
         $unidad_contenido->unidad_contenido=$r->unidad_contenido;
-        if(trim($r->imagen_nombre)!=''){
-            $unidad_contenido->foto=$r->imagen_nombre;
-        }else {
-            $unidad_contenido->foto=null;    
-        }
-        if(trim($r->imagen_archivo)!=''){
-            $este = new UnidadContenido;
-            $url = "img/content_unit/".$r->imagen_nombre; 
-            $este->fileToFile($r->imagen_archivo, $url);
-        }
         $unidad_contenido->persona_id_created_at=Auth::user()->id;
         $unidad_contenido->save();
     }
     
     public static function runLoad($r){
-        $result=UnidadContenido::select('v_unidades_contenido.id','v_unidades_contenido.unidad_contenido','v_unidades_contenido.foto','v_unidades_contenido.estado')
+        $result=UnidadContenido::select('v_unidades_contenido.id','v_unidades_contenido.unidad_contenido','v_unidades_contenido.estado')
                                 ->where(
                                     function($query) use ($r){
                                     
@@ -68,16 +58,6 @@ class UnidadContenido extends Model
         
         $unidad_contenido = UnidadContenido::find($r->id);
         $unidad_contenido->unidad_contenido=$r->unidad_contenido;
-        if(trim($r->imagen_nombre)!=''){
-            $unidad_contenido->foto=$r->imagen_nombre;
-        }else {
-            $unidad_contenido->foto=null;    
-        }
-        if(trim($r->imagen_archivo)!=''){
-            $este = new UnidadContenido;
-            $url = "img/content_unit/".$r->imagen_nombre; 
-            $este->fileToFile($r->imagen_archivo, $url);
-        }
         $unidad_contenido->persona_id_updated_at=Auth::user()->id;
         $unidad_contenido->save();
     }

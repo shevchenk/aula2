@@ -13,7 +13,7 @@ $(document).ready(function() {
     });
     
 
-    AjaxProgramacionUnica.Cargar(HTMLCargarProgramacionUnica);
+    AjaxProgramacionUnica.CargaInicial(HTMLCargarProgramacionUnica);
     
     $("#ProgramacionUnicaForm #TableProgramacionUnica select").change(function(){ AjaxProgramacionUnica.Cargar(HTMLCargarProgramacionUnica); });
     $("#ProgramacionUnicaForm #TableProgramacionUnica input").blur(function(){ AjaxProgramacionUnica.Cargar(HTMLCargarProgramacionUnica); });
@@ -62,16 +62,13 @@ HTMLCargarProgramacionUnica=function(result){
             "<td class='carrera'>"+r.carrera+"</td>"+
             /*"<td class='semestre'>"+r.semestre+"</td>"+
             "<td class='ciclo'>"+r.ciclo+"</td>"+*/
-            "<td class='curso'>"+
-            //"<a target='_blank' href='img/course/"+r.foto+"'>"+
-            "<img src='img/course/"+r.foto+"' style='height: 40px;width: 40px;'>"+
-            "&nbsp"+r.curso+"</td>"+
+            "<td class='curso'>"+r.curso+"</td>"+
             "<td class='fecha_inicio'>"+r.fecha_inicio+"</td>"+
-            "<td class='fecha_final'>"+r.fecha_final+"</td><td>";
-        if(r.cant_contenido==0){
+            "<td class='fecha_final'>"+r.fecha_final+"</td>";
+        /*if(r.cant_contenido==0){
             html+='<a id="'+r.id+'" onClick="ReplicarTemplate('+r.curso_id+','+r.id+')" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-duplicate"></i></a>';
-        }
-        html+="</td></tr>";
+        }*/
+        html+="</tr>";
     });
     $("#TableProgramacionUnica tbody").html(html); 
     $("#TableProgramacionUnica").DataTable({

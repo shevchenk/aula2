@@ -42,7 +42,7 @@ class Curso extends Model
             DB::raw('pu.curso_id as curso_id'),
             'palu.dni',
             DB::raw("CONCAT(palu.nombre,' ', palu.paterno,' ', palu.materno) as alumno"),
-            'c.curso','c.foto','pu.ciclo','pu.carrera','pu.semestre','c.foto_cab',
+            'c.curso','pu.ciclo','pu.carrera','pu.semestre',
             DB::raw('DATE(pu.fecha_inicio) as fecha_inicio'),
             DB::raw('DATE(pu.fecha_final) as fecha_final'),
             DB::raw("CONCAT(pdoc.nombre,' ', pdoc.paterno,' ', pdoc.materno) as docente"),
@@ -113,7 +113,7 @@ class Curso extends Model
                   }
                 }
             )->groupBy('p.id', 'p.programacion_unica_id', 'pu.curso_id', 'palu.dni', 'palu.nombre', 'palu.paterno', 
-                        'palu.materno', 'c.curso', 'c.foto', 'pu.ciclo', 'pu.carrera', 'pu.semestre', 'c.foto_cab',
+                        'palu.materno', 'c.curso', 'pu.ciclo', 'pu.carrera', 'pu.semestre',
                         'pu.fecha_inicio', 'pu.fecha_final', 'pdoc.nombre', 'pdoc.paterno', 'pdoc.materno');
         
         $result = $sql->orderBy('p.id','asc')->paginate(10);

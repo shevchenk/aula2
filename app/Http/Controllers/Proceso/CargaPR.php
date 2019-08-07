@@ -62,7 +62,13 @@ class CargaPR extends Controller {
                         $con++;
                     }
                     $curso = Curso::where('curso', '=', trim(utf8_encode($detfile[0])))
-                                    ->where('estado','=',1)->first();
+                                    ->where('estado','=',1)
+                                    ->where(function($query){
+                                        if( session('empresa_id')!=null ){
+                                            $query->where('empresa_externa_id',session('empresa_id'));
+                                        }
+                                    })
+                                    ->first();
                     $unidadcontenido =UnidadContenido::where('unidad_contenido', '=', trim(utf8_encode($detfile[1])))
                                                     ->where('estado','=',1)->first();
 
@@ -213,7 +219,7 @@ class CargaPR extends Controller {
     
     public static function runExportPlantilla($r){
         
-        $rsql= array();
+        $rsql= array(array('Curso Prueba','Unidad Prueba','Pregunta Prueba','Rpta 1 Prueba','0','Rpta 2 Prueba','1','Rpta 3 Prueba','0','Rpta n','0'));
 
         $length=array(
             'A'=>5,'B'=>15,'C'=>20,'D'=>20,'E'=>20,'F'=>15,'G'=>15,'H'=>25,'I'=>30,

@@ -12,7 +12,7 @@ $(document).ready(function() {
         "autoWidth": false
     });
     
-    AjaxCurso.Cargar(HTMLCargarCurso);
+    AjaxCurso.CargaInicial(HTMLCargarCurso);
     
     $("#CursoForm #TableCurso select").change(function(){ AjaxCurso.Cargar(HTMLCargarCurso); });
     $("#CursoForm #TableCurso input").blur(function(){ AjaxCurso.Cargar(HTMLCargarCurso); });
@@ -97,15 +97,7 @@ HTMLCargarCurso=function(result){
     $.each(result.data.data,function(index,r){
         
         html+='<tr id="trid_'+r.id+'" onClick="CargarPregunta('+r.id+',\''+r.curso+'\',this)">'+
-              "<td class='curso'>"+
-              "<a target='_blank' href='img/course/"+r.foto+"'>"+
-              "<img src='img/course/"+r.foto+"' style='height: 40px;width: 40px;'>"+
-              "&nbsp</a>"+r.curso+"</td>";
-        html+='<td>';
-            if(r.foto!=null){
-        html+="<input type='hidden' class='foto' value='"+r.foto+"'>";}
-        html+='<a class="btn btn-primary btn-sm" onClick="AgregarEditar(0,'+r.id+')"><i class="fa fa-edit fa-lg"></i> </a></td>';
-      //  html+='<td><a class="btn btn-info btn-sm" onClick="CargarPregunta('+r.id+',\''+r.curso+'\',this)"><i class="fa fa-th-list fa-lg"></i> </a></td>';
+              "<td class='curso'>"+r.curso+"</td>";
         html+="</tr>";
     });
     $("#TableCurso tbody").html(html); 

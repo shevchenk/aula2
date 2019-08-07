@@ -13,7 +13,7 @@ $(document).ready(function() {
     });
     
 
-    AjaxProgramacionUnica.Cargar(HTMLCargarProgramacionUnica);
+    AjaxProgramacionUnica.CargaInicial(HTMLCargarProgramacionUnica);
     
     $("#ProgramacionUnicaForm #TableProgramacionUnica select").change(function(){ AjaxProgramacionUnica.Cargar(HTMLCargarProgramacionUnica); });
     $("#ProgramacionUnicaForm #TableProgramacionUnica input").blur(function(){ AjaxProgramacionUnica.Cargar(HTMLCargarProgramacionUnica); });
@@ -71,30 +71,28 @@ HTMLCargarProgramacionUnica=function(result){
     
     $.each(result.data.data,function(index,r){
         templatehtml='';
-        if(r.cant_contenido>0){
+        /*if(r.cant_contenido>0){
             templatehtml='<a id="'+r.id+'" onClick="CambiarTemplate(1,'+r.id+')" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-thumbs-down"></i></a>';
             if(r.plantilla==1){
                 templatehtml='<a id="'+r.id+'" onClick="CambiarTemplate(0,'+r.id+')" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-thumbs-up"></i></a>';
             }  
-        }
+        }*/
 
         html+='<tr id="trid_'+r.id+'" onClick="CargarContenido('+r.id+','+r.curso_id+',\''+r.curso+'\',\''+r.foto_cab+'\',this)" >'+
             "<td class='carrera'>"+r.carrera+"</td>"+
-            "<td class='semestre'>"+r.semestre+"</td>"+
-            "<td class='ciclo'>"+r.ciclo+"</td>"+
-            "<td class='curso'>"+
-            "<a target='_blank' href='img/course/"+r.foto+"'>"+
-            "<img src='img/course/"+r.foto+"' style='height: 50px;width: 50px;'>"+
-            "&nbsp</a>"+r.curso+"</td>"+
+            /*"<td class='semestre'>"+r.semestre+"</td>"+
+            "<td class='ciclo'>"+r.ciclo+"</td>"+*/
+            "<td class='curso'>"+r.curso+"</td>"+
             "<td class='docente'>"+r.docente+"</td>"+
             "<td class='fecha_inicio'>"+r.fecha_inicio+"</td>"+
-            "<td class='fecha_final'>"+r.fecha_final+"</td>"+
-            '<td><a class="btn btn-success btn-sm" href="ReportDinamic/Proceso.ProgramacionUnicaPR@ExportNota?programacion_unica_id='+r.id+'" target="_blank"><i class="glyphicon glyphicon-download-alt"></i> Export</a></td>'+
+            "<td class='fecha_final'>"+r.fecha_final+"</td>";
+            /*'<td><a class="btn btn-success btn-sm" href="ReportDinamic/Proceso.ProgramacionUnicaPR@ExportNota?programacion_unica_id='+r.id+'" target="_blank"><i class="glyphicon glyphicon-download-alt"></i> Export</a></td>'+
             '<td>'+templatehtml+'</td><td>';
         if(r.cant_contenido==0){
             html+='<a id="'+r.id+'" onClick="ReplicarTemplate('+r.curso_id+','+r.id+')" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-duplicate"></i></a>';
         }
-        html+="</td></tr>";
+        html+="</td></tr>";*/
+        html+='</tr>';
     });
     $("#TableProgramacionUnica tbody").html(html); 
     $("#TableProgramacionUnica").DataTable({

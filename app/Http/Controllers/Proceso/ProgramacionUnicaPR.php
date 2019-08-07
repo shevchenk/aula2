@@ -31,12 +31,26 @@ class ProgramacionUnicaPR extends Controller{
         }
     }
 
-    public function validarProgramacionMaster(Request $r){
+    public function validarProgramacionMaster(Request $r)
+    {
+        $idcliente = session('idcliente');
+        $tab_cli = DB::table('clientes_accesos')
+                      ->where('id','=', $idcliente)
+                      ->where('estado','=', 1)
+                      ->first();
+        // URL (CURL)
+        $cli_links =  DB::table('clientes_accesos_links')
+                      ->where('cliente_acceso_id','=', $idcliente)
+                      ->where('tipo','=', 6)
+                      ->first();
+        $buscar = array("pkey", "pdni");
+        $reemplazar = array($tab_cli->keycli, Auth::user()->dni);
+        $url = str_replace($buscar, $reemplazar, $cli_links->url);
+        if( session('empresa_id')!=null ){
+          $url.="&empresa_id=".session('empresa_id');
+        }
 
-        $cli_links = DB::table('clientes_accesos_links')->where('cliente_acceso_id','=', 1)
-                                                        ->where('tipo','=', 6)
-                                                        ->first();
-        $objArr = $this->api->curl($cli_links->url);
+        $objArr = $this->api->curl($url);
         // --
         $return_response = '';
 
@@ -44,22 +58,23 @@ class ProgramacionUnicaPR extends Controller{
         {
             $return_response = $this->api->response(422,"error","Ingrese sus datos de envio");
         }
-        else if(isset($objArr->key[0]->id) && isset($objArr->key[0]->token))
+        else if(isset($objArr->data->key->id) && isset($objArr->data->key->token))
         {
-            $tab_cli = DB::table('clientes_accesos')->select('id', 'nombre', 'key', 'url', 'ip')
-                                                    ->where('id','=', $objArr->key[0]->id)
-                                                    ->where('key','=', $objArr->key[0]->token)
-                                                    ->where('ip','=', $this->api->getIPCliente())
-                                                    ->where('estado','=', 1)
-                                                    ->first();
+            $tab_cli =  DB::table('clientes_accesos')
+                        ->select('id', 'nombre', 'key', 'url', 'ip')
+                        ->where('id','=', $objArr->data->key->id)
+                        ->where('key','=', $objArr->data->key->token)
+                        //->where('ip','=', $this->api->getIPCliente())
+                        ->where('estado','=', 1)
+                        ->first();
 
-            if($objArr->key[0]->id == @$tab_cli->id && $objArr->key[0]->token == @$tab_cli->key)
+            if( count($tab_cli)>0 )
             {
                 $val = $this->insertarProgramacionMaster($objArr);
                 if($val['return'] == true){
+                  //$this->api->curl('localhost/Cliente/Retorno.php',$val['externo_id']);
 
-                    $this->api->curl('localhost/Cliente/Retorno.php',$val['externo_id']);
-                    $return_response = $this->api->response(200,"success","Proceso ejecutado satisfactoriamente");
+                  $return_response = $this->api->response(200,"success","Proceso ejecutado satisfactoriamente");
                 }else
                     $return_response = $this->api->response(422,"error","Revisa tus parametros de envio");
             }
@@ -74,7 +89,7 @@ class ProgramacionUnicaPR extends Controller{
         }
 
         // Creación de un archivo JSON para dar respuesta al cliente
-          $uploadFolder = 'txt/api';
+          /*$uploadFolder = 'txt/api';
           $nombre_archivo = "cliente.json";
           $file = $uploadFolder . '/' . $nombre_archivo;
           unlink($file);
@@ -82,8 +97,9 @@ class ProgramacionUnicaPR extends Controller{
           {
             fwrite($archivo, $return_response);
             fclose($archivo);
-          }
+          }*/
         // --
+        
         $renturnModel = ProgramacionUnica::runLoad($r);
         $return['rst'] = 1;
         $return['data'] = $renturnModel;
@@ -273,84 +289,89 @@ class ProgramacionUnicaPR extends Controller{
     }
 
     public function insertarProgramacionMaster($objArr){
-        DB::beginTransaction();
-        $array_curso='0';
-        $array_programacion_unica='0';
-        $array_programacion='0';
 
         try{
-
-          foreach ($objArr->gestor as $k=>$value){
-
-              $curso = Curso::where('curso', '=', trim($value->curso))
-                                    ->where('curso_externo_id','=', trim($value->curso_externo_id))
-                                    ->first();
-
-              if (count($curso) == 0){
-
-                $curso = Curso::where('curso_externo_id', '=', trim($value->curso_externo_id))
-                                        ->first();
-                if(count($curso) == 0){ //Insert
+          DB::beginTransaction();
+              DB::table('v_programaciones_unicas AS vpu')
+              ->join('v_cursos AS vc','vc.id','=','vpu.curso_id')
+              ->where('vpu.estado', 1)
+              ->where(function($query){
+                  if( session('empresa_id')!=null ){
+                      $query->where('vc.empresa_externo_id', session('empresa_id'));
+                  }
+              })
+              ->update([
+                'vpu.estado' => 0,
+                'vpu.persona_id_updated_at'=>1,
+                'vpu.updated_at'=>date('Y-m-d H:i:s')
+              ]);
+          foreach ($objArr->data->programacion as $k=>$value)
+          {
+              $curso = Curso::where('curso_externo_id','=', $value->curso_externo_id)
+                        ->first();
+              if (count($curso) == 0)
+              {
                   $curso = new Curso();
-                  $curso->curso_externo_id = trim($value->curso_externo_id);
+                  $curso->curso_externo_id = $value->curso_externo_id;
+                  $curso->empresa_externo_id=$value->empresa_externo_id;
                   $curso->persona_id_created_at=1;
-                }
-                else //Update
-                  $curso->persona_id_updated_at=1;
-
-                $curso->curso = trim($value->curso);
-                $curso->save();
-                $array_curso.=','.$curso->curso_externo_id;
-                //dd($value->carrera);
-              }
-
-              // Proceso Persona Docente
-              $docente = Persona::where('dni', '=', trim($value->docente_dni))
-                                  ->first();
-
-              if (count($docente) == 0){
-
-                  $docente = new Persona();
-                  $docente->dni = trim($value->docente_dni);
-                  $docente->persona_id_created_at=1;
               }
               else
-                  $docente->persona_id_updated_at=1;
+              {
+                  $curso->persona_id_updated_at=1;
+              }
 
-              $docente->paterno = trim($value->docente_paterno);
-              $docente->materno = trim($value->docente_materno);
-              $docente->nombre = trim($value->docente_nombre);
+              $curso->curso = $value->curso;
+              $curso->save();
+              //$array_curso.=','.$curso->curso_externo_id;
+              
+              $docente = Persona::where('dni', '=', $value->docente_dni)->first();
+              if (count($docente) == 0)
+              {
+                  $docente = new Persona();
+                  $docente->dni = $value->docente_dni;
+                  $docente->persona_id_created_at=1;
+                  $docente->password = bcrypt($value->docente_dni);
+              }
+              else{
+                  $docente->persona_id_updated_at=1;
+              }
+
+              $docente->paterno = $value->docente_paterno;
+              $docente->materno = $value->docente_materno;
+              $docente->nombre = $value->docente_nombre;
               $docente->save();
               // --
 
               // Proceso Programación Unica
-              $programacion_unica = ProgramacionUnica::where('programacion_unica_externo_id', '=', trim($value->programacion_unica_externo_id))
-                                                      ->first();
-              if (count($programacion_unica) == 0){
+              $programacion_unica = ProgramacionUnica::where('programacion_unica_externo_id', '=', $value->programacion_unica_externo_id)
+                                    ->first();
+              if (count($programacion_unica) == 0)
+              {
                   $programacion_unica = new ProgramacionUnica();
-                  $programacion_unica->programacion_unica_externo_id = trim($value->programacion_unica_externo_id);
+                  $programacion_unica->programacion_unica_externo_id = $value->programacion_unica_externo_id;
                   $programacion_unica->persona_id_created_at=1;
               }
               else{
-                  $programacion_unica->estado=$value->programacion_unica_estado;
                   $programacion_unica->persona_id_updated_at=1;
               }
-              $programacion_unica->carrera = trim($value->carrera);
-              $programacion_unica->ciclo = trim($value->ciclo);
-              $programacion_unica->semestre = trim($value->semestre);
+
+              $programacion_unica->estado=1;
+              $programacion_unica->carrera = $value->carrera;
+              /*$programacion_unica->ciclo = $value->ciclo;
+              $programacion_unica->semestre = $value->semestre;*/
               $programacion_unica->curso_id = $curso->id;
               $programacion_unica->persona_id = $docente->id;
               $programacion_unica->fecha_inicio = $value->fecha_inicio;
               $programacion_unica->fecha_final = $value->fecha_final;
               $programacion_unica->save();
-              $array_programacion_unica.=','.$programacion_unica->programacion_unica_externo_id;
+              //$array_programacion_unica.=','.$programacion_unica->programacion_unica_externo_id;
               // --
-
           }
 
           DB::commit();
           $data['return']= true;
-          $data['externo_id']=array('curso'=>$array_curso,'programacion_unica'=>$array_programacion_unica,'programacion'=>$array_programacion);
+          //$data['externo_id']=array('curso'=>$array_curso,'programacion_unica'=>$array_programacion_unica,'programacion'=>$array_programacion);
 
         }catch (\Exception $e){
             DB::rollback();

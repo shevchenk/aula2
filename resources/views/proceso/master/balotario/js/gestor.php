@@ -13,7 +13,7 @@ $(document).ready(function() {
     });
     
 
-    AjaxProgramacionUnica.Cargar(HTMLCargarProgramacionUnica);
+    AjaxProgramacionUnica.CargaInicial(HTMLCargarProgramacionUnica);
     
     $("#ProgramacionUnicaForm #TableProgramacionUnica select").change(function(){ AjaxProgramacionUnica.Cargar(HTMLCargarProgramacionUnica); });
     $("#ProgramacionUnicaForm #TableProgramacionUnica input").blur(function(){ AjaxProgramacionUnica.Cargar(HTMLCargarProgramacionUnica); });
@@ -42,13 +42,10 @@ HTMLCargarProgramacionUnica=function(result){
     $.each(result.data.data,function(index,r){
 
         html+='<tr id="trid_'+r.id+'" onClick="CargarBalotario('+r.id+','+r.curso_id+',\''+r.curso+'\',\''+r.foto_cab+'\',this)">'+
-            /*"<td class='carrera'>"+r.carrera+"</td>"+
-            "<td class='semestre'>"+r.semestre+"</td>"+
+            "<td class='carrera'>"+r.carrera+"</td>"+
+            /*"<td class='semestre'>"+r.semestre+"</td>"+
             "<td class='ciclo'>"+r.ciclo+"</td>"+*/
-            "<td class='curso'>"+
-            "<a target='_blank' href='img/course/"+r.foto+"'>"+
-            "<img src='img/course/"+r.foto+"' style='height: 50px;width: 50px;'>"+
-            "&nbsp</a>"+r.curso+"</td>"+
+            "<td class='curso'>"+r.curso+"</td>"+
             "<td class='docente'>"+r.docente+"</td>"+
             "<td class='fecha_inicio'>"+r.fecha_inicio+"</td>"+
             "<td class='fecha_final'>"+r.fecha_final+"</td>";

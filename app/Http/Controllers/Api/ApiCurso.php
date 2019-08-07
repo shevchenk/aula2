@@ -126,6 +126,9 @@ class ApiCurso extends Controller
         Auth::logout();
         Session::flush();
         session(['idcliente' => $r->id]);
+        if( $r->has('empresa_id') ){
+          session(['empresa_id' => $r->empresa_id]);
+        }
         //Session::put('grupo', $grupo);
 
         if (empty($r))

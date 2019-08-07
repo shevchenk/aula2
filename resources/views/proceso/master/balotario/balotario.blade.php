@@ -50,21 +50,19 @@
                                     <table id="TableProgramacionUnica" class="table table-bordered table-hover">
                                         <thead>
                                             <tr class="cabecera">
-                                                <!--th class="col-xs-2">
+                                                <th class="col-xs-2">
                                                     <div class="form-group">
-                                                        <label><h4>Carrera:</h4></label>
+                                                        <label><h4>Especialidad:</h4></label>
                                                         <div class="input-group">
-                                                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                                                            <input type="text" class="form-control" name="txt_carrera" id="txt_carrera" placeholder="Carrera" onkeypress="return masterG.enterGlobal(event, '.input-group', 1);">
+                                                            <input type="text" class="form-control" name="txt_carrera" id="txt_carrera" placeholder="Especialidad" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
                                                         </div>
                                                     </div>
                                                 </th>
-                                                <th class="col-xs-1">
+                                                <!--th class="col-xs-1">
                                                     <div class="form-group">
                                                         <label><h4>Semestre:</h4></label>
                                                         <div class="input-group">
-                                                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                                                            <input type="text" class="form-control" name="txt_semestre" id="txt_semestre" placeholder="Semestre" onkeypress="return masterG.enterGlobal(event, '.input-group', 1);">
+                                                            <input type="text" class="form-control" name="txt_semestre" id="txt_semestre" placeholder="Semestre" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
                                                         </div>
                                                     </div>
                                                 </th>
@@ -72,8 +70,7 @@
                                                     <div class="form-group">
                                                         <label><h4>Ciclo:</h4></label>
                                                         <div class="input-group">
-                                                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                                                            <input type="text" class="form-control" name="txt_ciclo" id="txt_ciclo" placeholder="Ciclo" onkeypress="return masterG.enterGlobal(event, '.input-group', 1);">
+                                                            <input type="text" class="form-control" name="txt_ciclo" id="txt_ciclo" placeholder="Ciclo" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
                                                         </div>
                                                     </div>
                                                 </th-->
@@ -81,8 +78,7 @@
                                                     <div class="form-group">
                                                         <label><h4>Curso:</h4></label>
                                                         <div class="input-group">
-                                                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                                                            <input type="text" class="form-control" name="txt_curso" id="txt_curso" placeholder="Curso" onkeypress="return masterG.enterGlobal(event, '.input-group', 1);">
+                                                            <input type="text" class="form-control" name="txt_curso" id="txt_curso" placeholder="Curso" onkeypress="return masterG.enterGlobal(event, '#txt_carrera', 1);">
                                                         </div>
                                                     </div>
                                                 </th>
@@ -90,8 +86,7 @@
                                                     <div class="form-group">
                                                         <label><h4>Docente:</h4></label>
                                                         <div class="input-group">
-                                                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                                                            <input type="text" class="form-control" name="txt_master" id="txt_master" placeholder="Docente" onkeypress="return masterG.enterGlobal(event, '.input-group', 1);">
+                                                            <input type="text" class="form-control" name="txt_master" id="txt_master" placeholder="Docente" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
                                                         </div>
                                                     </div>
                                                 </th>
@@ -99,8 +94,7 @@
                                                     <div class="form-group">
                                                         <label><h4>Fecha Inicio:</h4></label>
                                                         <div class="input-group">
-                                                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                                                            <input type="text" class="form-control" name="txt_fecha_inicio" id="txt_fecha_inicio" placeholder="Fecha Inicio" onkeypress="return masterG.enterGlobal(event, '.input-group', 1);">
+                                                            <input type="text" class="form-control" name="txt_fecha_inicio" id="txt_fecha_inicio" placeholder="Fecha Inicio" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
                                                         </div>
                                                     </div>
                                                 </th>
@@ -108,8 +102,7 @@
                                                     <div class="form-group">
                                                         <label><h4>Fecha Final:</h4></label>
                                                         <div class="input-group">
-                                                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                                                            <input type="text" class="form-control" name="txt_fecha_final" id="txt_fecha_final" placeholder="Fecha Final" onkeypress="return masterG.enterGlobal(event, '.input-group', 1);">
+                                                            <input type="text" class="form-control" name="txt_fecha_final" id="txt_fecha_final" placeholder="Fecha Final" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
                                                         </div>
                                                     </div>
                                                 </th>
@@ -119,8 +112,8 @@
                                         </tbody>
                                         <tfoot>
                                             <tr class="cabecera">
-                                                <!--th>Carrera</th>
-                                                <th>Semestre</th>
+                                                <th>Carrera</th>
+                                                <!--th>Semestre</th>
                                                 <th>Ciclo</th-->
                                                 <th>Curso</th>
                                                 <th>Docente</th>
@@ -149,7 +142,7 @@
                                         <thead>
                                             <tr class="cabecera">
                                                 <th>Unidad Contenido</th>
-                                                <th># de Preguntas</th>>
+                                                <th># de Preguntas</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -157,7 +150,7 @@
                                         <tfoot>
                                             <tr class="cabecera">
                                                <th>Unidad Contenido</th>
-                                               <th># de Preguntas</th>>
+                                               <th># de Preguntas</th>
                                             </tr>
                                         </tfoot>
                                     </table>

@@ -28,10 +28,7 @@ $(document).ready(function() {
             $("#ModalUnidadContenidoForm").append("<input type='hidden' value='"+UnidadContenidoG.id+"' name='id'>");
         }
         $('#ModalUnidadContenidoForm #txt_unidad_contenido').val( UnidadContenidoG.unidad_contenido );
-        $('#ModalUnidadContenidoForm #txt_imagen_nombre').val(UnidadContenidoG.imagen_nombre);
-        $('#ModalUnidadContenidoForm #txt_imagen_archivo').val('');
-        $('#ModalUnidadContenidoForm .img-circle').attr('src',UnidadContenidoG.imagen_archivo);
-        $('#ModalUnidadContenidoForm #txt_tipo_respuesta').focus();
+        $('#ModalUnidadContenidoForm #txt_unidad_contenido').focus();
     });
 
     $('#ModalUnidadContenido').on('hidden.bs.modal', function (event) {
@@ -46,10 +43,6 @@ ValidaForm=function(){
     if( $.trim( $("#ModalUnidadContenidoForm #txt_unidad_contenido").val() )=='' ){
         r=false;
         msjG.mensaje('warning','Ingrese Unidad de Contenido',4000);
-    }
-    else if( $.trim( $("#ModalUnidadContenidoForm #txt_imagen_nombre").val() )=='' ){
-        r=false;
-        msjG.mensaje('warning','Ingrese Imagen',4000);
     }
 
     return r;
@@ -70,19 +63,9 @@ AgregarEditar=function(val,id){
     AddEdit=val;
     UnidadContenidoG.id='';
     UnidadContenidoG.unidad_contenido='';
-    UnidadContenidoG.imagen_archivo='';
-    UnidadContenidoG.imagen_nombre='';
     if( val==0 ){
         UnidadContenidoG.id=id;
         UnidadContenidoG.unidad_contenido=$("#TableUnidadContenido #trid_"+id+" .unidad_contenido").text();
-        UnidadContenidoG.foto=$("#TableUnidadContenido #trid_"+id+" .foto").val();
-        if(UnidadContenidoG.foto!='undefined'){
-            UnidadContenidoG.imagen_archivo='img/content_unit/'+UnidadContenidoG.foto;
-            UnidadContenidoG.imagen_nombre=UnidadContenidoG.foto;
-        }else {
-            UnidadContenidoG.imagen_archivo='';
-            UnidadContenidoG.imagen_nombre='';
-        }      
     }
     $('#ModalUnidadContenido').modal('show');
 }
@@ -113,17 +96,11 @@ HTMLCargarUnidadContenido=function(result){
             estadohtml='<span id="'+r.id+'" onClick="CambiarEstado(0,'+r.id+')" class="btn btn-success">Activo</span>';
         }
         
-        html+="<tr id='trid_"+r.id+"'>"+
-            "<td>";
-            if(r.foto!=null){    
-            html+="<a  target='_blank' href='img/content_unit/"+r.foto+"'><img src='img/content_unit/"+r.foto+"' style='height: 40px;width: 600px;'></a>";}
-            html+="</td>"+
-                  "<td class='unidad_contenido'>"+r.unidad_contenido+"</td>"+
+        html+="<tr id='trid_"+r.id+"'>";
+            html+="<td class='unidad_contenido'>"+r.unidad_contenido+"</td>"+
                   "<td>";
             html+="<input type='hidden' class='estado' value='"+r.estado+"'>"+estadohtml+"</td>";
             html+='<td>';
-                if(r.foto!=null){
-            html+="<input type='hidden' class='foto' value='"+r.foto+"'>";}
             html+='<a class="btn btn-primary btn-sm" onClick="AgregarEditar(0,'+r.id+')"><i class="fa fa-edit fa-lg"></i> </a></td>';
             html+="</tr>";
     });

@@ -12,7 +12,7 @@ $(document).ready(function() {
         "autoWidth": false
     });
 
-    AjaxEvaluacion.Cargar(HTMLCargarEvaluacion);
+    AjaxEvaluacion.CargaInicial(HTMLCargarEvaluacion);
 
     $("#TipoEvaluacionForm #TableEvaluacion select").change(function(){ AjaxEvaluacion.Cargar(HTMLCargarEvaluacion); });
     $("#TipoEvaluacionForm #TableEvaluacion input").blur(function(){ AjaxEvaluacion.Cargar(HTMLCargarEvaluacion); });
@@ -107,10 +107,7 @@ HTMLCargarEvaluacion=function(result){
             "<td class='carrera'>"+r.carrera+"</td>"+
             /*"<td class='semestre'>"+r.semestre+"</td>"+
             "<td class='ciclo'>"+r.ciclo+"</td>"+*/
-            "<td class='curso'>"+
-            //"<a target='_blank' href='img/course/"+r.foto+"'>"+
-            "<img src='img/course/"+r.foto+"' style='height: 40px;width: 40px;'>"+
-            "&nbsp"+r.curso+"</td>"+
+            "<td class='curso'>"+r.curso+"</td>"+
             "<td class='docente'>"+r.docente+"</td>"+
             "<td class='fecha_inicio'>"+r.fecha_inicio+"</td>"+
             "<td class='fecha_final'>"+r.fecha_final+"</td>";

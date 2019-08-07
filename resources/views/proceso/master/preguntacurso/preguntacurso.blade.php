@@ -29,7 +29,7 @@
 
 @section('content')
 <section class="content-header">
-    <h1>Curso
+    <h1>Preguntas del Curso
         <small>Proceso</small>
     </h1>
     <ol class="breadcrumb">
@@ -62,15 +62,13 @@
                                                         </div>
                                                     </div>
                                                 </th>
-                                                <th class="col-xs-1">[-]</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                         </tbody>
                                         <tfoot>
-                                            <tr class="cabecera">                               
+                                            <tr class="cabecera">
                                                 <th>Curso</th>
-                                                <th>[-]</th>
                                             </tr>
                                         </tfoot>
                                     </table>

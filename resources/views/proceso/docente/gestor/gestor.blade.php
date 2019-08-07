@@ -62,9 +62,9 @@
                                                 <th class="col-xs-2">
                                                     <div class="form-group">
                                                         <label><h4>Especialidad:</h4></label>
-                                                        <!--div class="input-group">
-                                                            <input type="text" class="form-control" name="txt_carrera" id="txt_carrera"-- placeholder="Especialidad" onkeypress="return masterG.enterGlobal(event, '#txt_curso'!--, 1);">
-                                                        </div-->
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" name="txt_carrera" id="txt_carrera" placeholder="Especialidad" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
+                                                        </div>
                                                     </div>
                                                 </th>
                                                 <!--th class="col-xs-1">
@@ -107,11 +107,11 @@
                                                         </div>
                                                     </div>
                                                 </th>
-                                                <th class="col-xs-2">
+                                                <!--th class="col-xs-2">
                                                     <div class="form-group">
                                                         <label><h4>Replicar:</h4></label>
                                                     </div>
-                                                </th>
+                                                </th-->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -124,7 +124,7 @@
                                                 <th>Curso</th>
                                                 <th>Fecha Inicio</th>
                                                 <th>Fecha Final</th>
-                                                <th>[Replicar]</th>
+                                                <!--th>[Replicar]</th-->
                                             </tr>
                                         </tfoot>
                                     </table>

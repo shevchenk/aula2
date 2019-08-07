@@ -14,7 +14,7 @@ class ProgramacionUnica extends Model
         $result=ProgramacionUnica::select('v_programaciones_unicas.id','v_programaciones_unicas.plantilla',
                                 DB::raw('DATE(v_programaciones_unicas.fecha_inicio) as fecha_inicio'),
                                 DB::raw('DATE(v_programaciones_unicas.fecha_final) as fecha_final'),
-                                'vc.curso','vc.foto','vc.foto_cab','v_programaciones_unicas.curso_id',
+                                'vc.curso','v_programaciones_unicas.curso_id',
                                 'v_programaciones_unicas.ciclo','v_programaciones_unicas.carrera','v_programaciones_unicas.semestre',
                                 DB::raw('CONCAT_WS(" ",vp.paterno,vp.materno,vp.nombre) as docente'),'vp.dni',DB::raw('COUNT(vco.id) as cant_contenido'))
                                 ->join('v_cursos as vc','vc.id','=','v_programaciones_unicas.curso_id')
@@ -26,11 +26,21 @@ class ProgramacionUnica extends Model
                                 ->where(
                                     function($query) use ($r){
                                        $query->where('v_programaciones_unicas.estado','=',1);
+
+                                       if( session('empresa_id')!=null ){
+                                            $query->where('vc.empresa_externo_id', session('empresa_id'));
+                                       }
                                        
                                        if( $r->has("dni") ){
                                               $dni=trim($r->dni);
                                               if( $dni !='' ){
                                                   $query->where('vp.dni','=', $dni);
+                                              }
+                                        }
+                                        if( $r->has("docente") ){
+                                              $docente=trim($r->docente);
+                                              if( $docente !='' ){
+                                                  $query->where(DB::raw('CONCAT_WS(" ",vp.paterno,vp.materno,vp.nombre)'),'like', '%'.$docente.'%');
                                               }
                                         }
                                         if( $r->has("curso") ){
@@ -73,7 +83,7 @@ class ProgramacionUnica extends Model
                                     }
                                 )
                                 ->groupBy('v_programaciones_unicas.id','v_programaciones_unicas.plantilla','v_programaciones_unicas.fecha_inicio',
-                                'v_programaciones_unicas.fecha_final','vc.curso','vc.foto','vc.foto_cab','v_programaciones_unicas.curso_id',
+                                'v_programaciones_unicas.fecha_final','vc.curso','v_programaciones_unicas.curso_id',
                                 'v_programaciones_unicas.ciclo','v_programaciones_unicas.carrera','v_programaciones_unicas.semestre',
                                 'vp.paterno','vp.materno','vp.nombre','vp.dni')
                                 ->orderBy('v_programaciones_unicas.id','asc')->paginate(10);
