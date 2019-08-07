@@ -221,6 +221,7 @@ class ProgramacionUnicaPR extends Controller{
               {
                   $curso = new Curso();
                   $curso->curso_externo_id = $value->curso_externo_id;
+                  $curso->empresa_externo_id = $value->empresa_externo_id;
                   $curso->persona_id_created_at=1;
               }
               else
