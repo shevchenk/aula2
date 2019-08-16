@@ -1,4 +1,8 @@
-storage/*
-
-
-/nbproject/private/
+.env
+/storage
+/vendor
+/config/database.php
+/config/mail.php
+/public/upload
+/public/txt
+/public/file
