@@ -143,7 +143,7 @@ class ApiCurso extends Controller
                       //     ->where('ip','=', $this->getIPCliente())
                       ->where('estado','=', 1)
                       ->first();
-            if(count($tab_cli) == 0)
+            if(!isset($tab_cli->id))
                 $valores['mensaje'] = 'Cliente no Registrado!';
             else
             {
@@ -201,7 +201,7 @@ class ApiCurso extends Controller
                       DB::table('personas_privilegios_sucursales')
                       ->where('persona_id', $persona->id)->update(['estado' => 0]);
 
-                      if(count($privilegios_suc) > 0)
+                      if(isset($privilegios_suc->id))
                       {
                         DB::table('personas_privilegios_sucursales')
                             ->where('persona_id', $persona->id)
@@ -249,7 +249,7 @@ class ApiCurso extends Controller
                       DB::table('personas_privilegios_sucursales')
                           ->where('persona_id', $pe->id)->update(['estado' => 0]);
 
-                      if(count($privilegios_suc) > 0)
+                      if(isset($privilegios_suc->id))
                       {
                         DB::table('personas_privilegios_sucursales')
                             ->where('persona_id', $pe->id)
