@@ -230,7 +230,7 @@ class ProgramacionUnicaPR extends Controller{
                   $curso->empresa_externo_id=$value->empresa_externo_id;
               }
 
-              $curso->estado=1
+              $curso->estado=1;
               $curso->curso = $value->curso;
               $curso->save();
               //$array_curso.=','.$curso->curso_externo_id;
@@ -325,7 +325,7 @@ class ProgramacionUnicaPR extends Controller{
                   $curso->empresa_externo_id=$value->empresa_externo_id;
               }
 
-              $curso->estado=1
+              $curso->estado=1;
               $curso->curso = $value->curso;
               $curso->save();
               //$array_curso.=','.$curso->curso_externo_id;
