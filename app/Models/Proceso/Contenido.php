@@ -88,7 +88,7 @@ class Contenido extends Model
             $type=explode(".",$r->file_nombre);
             $extension=".".$type[1];
         }
-        if( trim($r->file_archivo)!='' ){
+        if( trim($r->file_archivo)!='' AND !$r->has('chk_archivo') ){
             $url = "file/content/c$contenido->id/A$contenido->id".$extension;
             $contenido->ruta_contenido = "c$contenido->id/A$contenido->id".$extension;
             Menu::fileToFile($r->file_archivo, $url);
@@ -131,7 +131,7 @@ class Contenido extends Model
             $type=explode(".",$r->file_nombre);
             $extension=".".$type[1];
         }
-        if( trim($r->file_archivo)!='' ){
+        if( trim($r->file_archivo)!='' AND !$r->has('chk_archivo') ){
             $url = "file/content/c$contenido->id/A$contenido->id".$extension;
             $contenido->ruta_contenido = "c$contenido->id/A$contenido->id".$extension;
             Menu::fileToFile($r->file_archivo, $url);
@@ -248,7 +248,7 @@ class Contenido extends Model
                       }
                     }
                 )
-            ->orderBy('vuc.id','asc')
+            ->orderBy('vuc.unidad_contenido','asc')
             ->orderBy('v_contenidos.tipo_respuesta','asc')->get();
         return $result;
     }

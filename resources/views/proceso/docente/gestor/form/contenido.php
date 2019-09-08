@@ -47,6 +47,18 @@
                             <textarea type="text"  class="form-control" id="txt_contenido" name="txt_contenido"></textarea>
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Tipo de Contenido</label>
+                            <select class="form-control selectpicker"  data-actions-box='true' name="slct_tipo_respuesta" id="slct_tipo_respuesta">
+                                <option value>.::Seleccione::.</option>
+                                <option value="0">Documento de Apoyo</option>
+                                <option value="1">Tarea</option>
+                                <option value="2">Videoconferencia</option>
+                                <option value="3">Video</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-md-12 linkvideo">
                         <div class="form-group">
                             <label>Link del Video</label>
@@ -55,6 +67,12 @@
                     </div>
                     <div class="col-md-8 col-sm-8">
                         <div class="form-group">
+                            <div class="checkbox">
+                                <label style="color:red;">
+                                    <input type="checkbox" class="checkbox" id="chk_archivo" name="chk_archivo">
+                                    *Archivo no ogligatorio
+                                </label>
+                            </div>
                             <label>Archivo <span class="ponente"> - Sobre el Ponente</span></label>
                             <input type="text" readonly="" class="form-control input-sm" id="txt_file_nombre" name="txt_file_nombre" value="">
                             <input type="text" style="display: none;" id="txt_file_archivo" name="txt_file_archivo">
@@ -77,18 +95,6 @@
                             <div id="referencia">
 
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>Tipo de Contenido</label>
-                            <select class="form-control selectpicker"  data-actions-box='true' name="slct_tipo_respuesta" id="slct_tipo_respuesta">
-                                <option value>.::Seleccione::.</option>
-                                <option value="0">Documento de Apoyo</option>
-                                <option value="1">Tarea</option>
-                                <option value="2">Videoconferencia</option>
-                                <option value="3">Video</option>
-                            </select>
                         </div>
                     </div>
                     <div id="respuesta">

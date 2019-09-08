@@ -68,7 +68,7 @@ class ProgramacionUnicaPR extends Controller{
                         ->where('estado','=', 1)
                         ->first();
 
-            if( count($tab_cli)>0 )
+            if( isset($tab_cli->id) )
             {
                 $val = $this->insertarProgramacionMaster($objArr);
                 if($val['return'] == true){
@@ -140,7 +140,7 @@ class ProgramacionUnicaPR extends Controller{
                         ->where('estado','=', 1)
                         ->first();
 
-            if( count($tab_cli)>0 )
+            if( isset($tab_cli->id) )
             {
                 $val = $this->insertarProgramacion($objArr);
                 if($val['return'] == true){
@@ -190,7 +190,7 @@ class ProgramacionUnicaPR extends Controller{
           foreach ($objArr->data->docente as $k=>$value)
           {
               $docente = Persona::where('dni', '=', $value->dni)->first();
-              if (count($docente) == 0)
+              if (!isset($docente->id))
               {
                   $docente = new Persona();
                   $docente->dni = $value->dni;
@@ -217,7 +217,7 @@ class ProgramacionUnicaPR extends Controller{
           {
               $curso = Curso::where('curso_externo_id','=', $value->curso_externo_id)
                         ->first();
-              if (count($curso) == 0)
+              if (!isset($curso->id))
               {
                   $curso = new Curso();
                   $curso->curso_externo_id = $value->curso_externo_id;
@@ -236,7 +236,7 @@ class ProgramacionUnicaPR extends Controller{
               //$array_curso.=','.$curso->curso_externo_id;
               
               $docente = Persona::where('dni', '=', $value->docente_dni)->first();
-              if (count($docente) == 0)
+              if (!isset($docente->id))
               {
                   $docente = new Persona();
                   $docente->dni = $value->docente_dni;
@@ -256,7 +256,7 @@ class ProgramacionUnicaPR extends Controller{
               // Proceso Programación Unica
               $programacion_unica = ProgramacionUnica::where('programacion_unica_externo_id', '=', $value->programacion_unica_externo_id)
                                     ->first();
-              if (count($programacion_unica) == 0)
+              if (!isset($programacion_unica->id))
               {
                   $programacion_unica = new ProgramacionUnica();
                   $programacion_unica->programacion_unica_externo_id = $value->programacion_unica_externo_id;
@@ -312,7 +312,7 @@ class ProgramacionUnicaPR extends Controller{
           {
               $curso = Curso::where('curso_externo_id','=', $value->curso_externo_id)
                         ->first();
-              if (count($curso) == 0)
+              if (!isset($curso->id))
               {
                   $curso = new Curso();
                   $curso->curso_externo_id = $value->curso_externo_id;
@@ -331,7 +331,7 @@ class ProgramacionUnicaPR extends Controller{
               //$array_curso.=','.$curso->curso_externo_id;
               
               $docente = Persona::where('dni', '=', $value->docente_dni)->first();
-              if (count($docente) == 0)
+              if (!isset($docente->id))
               {
                   $docente = new Persona();
                   $docente->dni = $value->docente_dni;
@@ -351,7 +351,7 @@ class ProgramacionUnicaPR extends Controller{
               // Proceso Programación Unica
               $programacion_unica = ProgramacionUnica::where('programacion_unica_externo_id', '=', $value->programacion_unica_externo_id)
                                     ->first();
-              if (count($programacion_unica) == 0)
+              if (!isset($programacion_unica->id))
               {
                   $programacion_unica = new ProgramacionUnica();
                   $programacion_unica->programacion_unica_externo_id = $value->programacion_unica_externo_id;
