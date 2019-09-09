@@ -61,7 +61,6 @@ class EvaluacionPR extends Controller
         $reemplazar = array($tab_cli->keycli, Auth::user()->dni);
         $url = str_replace($buscar, $reemplazar, $cli_links->url);
         $objArr = $this->api->curl($url);
-        
         $return_response = '';
         
         if (empty($objArr))
@@ -130,7 +129,7 @@ class EvaluacionPR extends Controller
           foreach ($objArr->data->alumno as $k=>$value)
           {
               $alumno = Persona::where('dni', '=', $value->dni)->first();
-              if (count($alumno) == 0)
+              if (!isset($alumno->id))
               {
                   $alumno = new Persona();
                   $alumno->dni = $value->dni;
@@ -164,7 +163,7 @@ class EvaluacionPR extends Controller
           {
               $curso = Curso::where('curso_externo_id','=', $value->curso_externo_id)
                         ->first();
-              if (count($curso) == 0)
+              if (!isset($curso->id))
               {
                   $curso = new Curso();
                   $curso->curso_externo_id = $value->curso_externo_id;
@@ -181,7 +180,7 @@ class EvaluacionPR extends Controller
               //$array_curso.=','.$curso->curso_externo_id;
               
               $docente = Persona::where('dni', '=', $value->docente_dni)->first();
-              if (count($docente) == 0)
+              if (!isset($docente->id))
               {
                   $docente = new Persona();
                   $docente->dni = $value->docente_dni;
@@ -201,7 +200,7 @@ class EvaluacionPR extends Controller
               // Proceso Programación Unica
               $programacion_unica = ProgramacionUnica::where('programacion_unica_externo_id', '=', $value->programacion_unica_externo_id)
                                     ->first();
-              if (count($programacion_unica) == 0)
+              if (!isset($programacion_unica->id))
               {
                   $programacion_unica = new ProgramacionUnica();
                   $programacion_unica->programacion_unica_externo_id = $value->programacion_unica_externo_id;
@@ -226,7 +225,7 @@ class EvaluacionPR extends Controller
               // Proceso Programación
               $programacion = Programacion::where('programacion_externo_id', '=', $value->programacion_externo_id)
                               ->first();
-              if (count($programacion) == 0) //Insert
+              if (!isset($programacion->id)) //Insert
               {
                   $programacion = new Programacion();
                   $programacion->programacion_externo_id = $value->programacion_externo_id;
@@ -250,7 +249,7 @@ class EvaluacionPR extends Controller
         }
         catch (\Exception $e)
         {
-            //dd($e);
+            dd($e);
             DB::rollback();
             $data['return']= false;
         }

@@ -35,19 +35,20 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box">
-                <form id="CursoForm">
+                <form id="CursoForm" class="col-md-6">
                     <div class="box-body table-responsive no-padding">
                         <table id="TableCurso" class="table table-bordered table-hover">
                             <thead>
                                 <tr class="cabecera">
-                                    <th class="col-xs-3">
-                                        <div class="form-group">
-                                            <label><h4>Curso:</h4></label>
-                                            <div class="input-group">
-                                                <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                                                <input type="text" class="form-control" name="txt_curso" id="txt_curso" placeholder="Curso" onkeypress="return masterG.enterGlobal(event, '.input-group', 1);">
-                                            </div>
+                                    <th class="col-xs-8">
+                                        <label><h4>Curso:</h4></label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                                            <input type="text" class="form-control" name="txt_curso" id="txt_curso" placeholder="Curso" onkeypress="return masterG.enterGlobal(event, '.input-group', 1);">
                                         </div>
+                                    </th>
+                                    <th>
+                                        <label><h4>Imagen:</h4></label>
                                     </th>
                                     <th></th>
                                 </tr>
@@ -57,6 +58,7 @@
                             <tfoot>
                                 <tr class="cabecera">
                                     <th>Curso</th>
+                                    <th>Imagen</th>
                                     <th></th>
                                 </tr>
                             </tfoot>

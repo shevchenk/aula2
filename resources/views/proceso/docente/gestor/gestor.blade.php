@@ -140,6 +140,9 @@
                                   <div id="div_cabecera" style="margin: 10px 10px;"></div>
                                 </div>
                             </div>
+                            <div align="center">
+                                <img id="imageCurso" src="img/course/fundamentos.jpg" style="width: 600px;height: 200px;border-radius: 8px;border: 1px solid grey;margin-top: 5px;padding: 8px">
+                            </div>
                             <div class="panel-body table-responsive no-padding">
                                 <div class="col-md-12">
                                     <input type= "hidden" name="txt_programacion_unica_id" id="txt_programacion_unica_id" class="form-control mant" >

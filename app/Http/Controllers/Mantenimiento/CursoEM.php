@@ -60,7 +60,7 @@ class CursoEM extends Controller{
                         ->where('estado','=', 1)
                         ->first();
 
-            if( count($tab_cli)>0 )
+            if( isset($tab_cli->id) )
             {
                 $val = $this->insertarCurso($objArr);
                 if($val['return'] == true){
@@ -118,7 +118,7 @@ class CursoEM extends Controller{
           {
               $curso = Curso::where('curso_externo_id','=', $value->curso_externo_id)
                         ->first();
-              if (count($curso) == 0)
+              if (!isset($curso->id))
               {
                   $curso = new Curso();
                   $curso->curso_externo_id = $value->curso_externo_id;
@@ -156,7 +156,7 @@ class CursoEM extends Controller{
             );
 
             $rules = array(
-                'imagen_nombre' =>
+                'file_nombre' =>
                        ['required',
                         ],
             );

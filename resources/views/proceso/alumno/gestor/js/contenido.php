@@ -241,15 +241,22 @@ HTMLCargarContenido=function(result){
                                 '<p>'+r.titulo_contenido+'</p>'+
                             '</div>'+
                         '</div>';
+                    archivo='';
                     if(r.tipo_respuesta<2){
+                        if( r.ruta_contenido!='' ){
+                            archivo='<a href="file/content/'+r.ruta_contenido+'" target="_blank">';
+                        }
                     html+='<div class="col-md-5 text-center" style="border-right: 2px solid #e9e9e9;">'+
-                            '<a href="file/content/'+r.ruta_contenido+'" target="_blank"><img class="img-responsive" src="file/content/'+r.foto_contenido+'" alt="" width="100%" height="" style="margin:10px auto;height: 150px;min-width: 150px;"></a>'+
+                            archivo+'<img class="img-responsive" src="file/content/'+r.foto_contenido+'" alt="" width="100%" height="" style="margin:10px auto;height: 150px;min-width: 150px;"></a>'+
                             '</div>';
                     }
                     else{
+                        if( r.ruta_contenido!='' ){
+                            archivo='<a class="btn btn-flat btn-info" href="file/content/'+r.ruta_contenido+'" target="_blank">Sobre el Ponente</a>';
+                        }
                         html+='<div class="col-md-5 text-center" style="border-right: 2px solid #e9e9e9;">'+
                                 '<a href="'+r.video+'" target="_blank"><img class="img-responsive" src="file/content/'+r.foto_contenido+'" alt="" width="100%" height="" style="margin:10px auto;height: 150px;min-width: 150px;"></a>'+
-                                '<a class="btn btn-flat btn-info" href="file/content/'+r.ruta_contenido+'" target="_blank">Sobre el Ponente</a>'+
+                                archivo+
                             '</div>';
                     }
                         html+='<div class="col-md-7">'+

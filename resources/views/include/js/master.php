@@ -486,7 +486,9 @@ var redimensionG = {
       }
       
       $("#imageCurso").fadeOut(300,function(){
+        if( $.trim($("#imageCurso").attr("src"))!='' ){
           $("#imageCurso").fadeIn(100);
+        }
       });
     }
 }

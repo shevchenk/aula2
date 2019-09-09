@@ -28,12 +28,12 @@ CargarContenido=function(id,curso_id,curso,imagen,boton){
      $("#ModalContenidoForm #txt_curso_id").val(curso_id);
      $("#ModalContenidoForm #txt_curso").val(curso);
      $("#ContenidoForm #div_cabecera").text(curso);
-     /*$("#imageCurso").attr("src","img/course/"+imagen);
-     redimensionG.validar();*/
+     $("#imageCurso").attr("src",imagen);
+     redimensionG.validar();
      AjaxContenido.Cargar(HTMLCargarContenido);
      $("#ContenidoForm").css("display","");
      $("#ContenidoProgramacionForm").css("display","none");
-     $("#btn_replicar").attr("onclick",'CargarCopiaContenido('+id+','+curso_id+')');
+     //$("#btn_replicar").attr("onclick",'CargarCopiaContenido('+id+','+curso_id+')');
      
 };
 
@@ -78,7 +78,7 @@ HTMLCargarProgramacionUnica=function(result){
             }  
         }*/
 
-        html+='<tr id="trid_'+r.id+'" onClick="CargarContenido('+r.id+','+r.curso_id+',\''+r.curso+'\',\''+r.foto_cab+'\',this)" >'+
+        html+='<tr id="trid_'+r.id+'" onClick="CargarContenido('+r.id+','+r.curso_id+',\''+r.curso+'\',\''+r.imagen+'\',this)" >'+
             "<td class='carrera'>"+r.carrera+"</td>"+
             /*"<td class='semestre'>"+r.semestre+"</td>"+
             "<td class='ciclo'>"+r.ciclo+"</td>"+*/

@@ -39,15 +39,6 @@ $(document).ready(function() {
     });
 
     $('#ModalContenido').on('shown.bs.modal', function (event) {
-        if( AddEdit==1 ){
-            $(this).find('.modal-footer .btn-primary').text('Guardar').attr('onClick','AgregarEditarAjax3();');
-        }
-        else{
-
-            $(this).find('.modal-footer .btn-primary').text('Actualizar').attr('onClick','AgregarEditarAjax3();');
-            $("#ModalContenidoForm").append("<input type='hidden' value='"+ContenidoG.id+"' name='id'>");
-        }
-
         $('#ModalContenidoForm #txt_contenido').val( ContenidoG.contenido );
         $('#ModalContenidoForm #slct_unidad_contenido_id').selectpicker( 'val',ContenidoG.unidad_contenido_id );
         $('#ModalContenidoForm #txt_titulo_contenido').val( ContenidoG.titulo_contenido );
@@ -74,6 +65,15 @@ $(document).ready(function() {
         $('#ModalContenidoForm #txt_video').val( ContenidoG.video );
         $('#ModalContenidoForm #slct_estado').selectpicker( 'val',ContenidoG.estado );
         ReferenciaHTML(ContenidoG.referencia);
+
+        if( AddEdit==1 ){
+            $("#chk_archivo").prop("checked",false);
+            $(this).find('.modal-footer .btn-primary').text('Guardar').attr('onClick','AgregarEditarAjax3();');
+        }
+        else{
+            $(this).find('.modal-footer .btn-primary').text('Actualizar').attr('onClick','AgregarEditarAjax3();');
+            $("#ModalContenidoForm").append("<input type='hidden' value='"+ContenidoG.id+"' name='id'>");
+        }
     });
 
     $('#ModalContenido').on('hidden.bs.modal', function (event) {
