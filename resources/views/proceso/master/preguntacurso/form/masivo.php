@@ -9,7 +9,7 @@
             <div class="modal-body">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <form id="ModalMasivoForm" name="ModalMasivoForm" action="" enctype="multipart/form-data" method="post">
+                            <form id="ModalMasivoForm" name="ModalMasivoForm" action="" accept-charset="utf-8" enctype="multipart/form-data" method="post">
                                 <div class="col-sm-12">
                                     <div class="col-sm-9">
                                         <input type="file" class="filestyle" data-buttonText="&nbsp;Archivo .TXT (Programación)" id="carga" name="carga" data-buttonName="btn-info">

@@ -61,25 +61,32 @@ class CargaPR extends Controller {
                         $array[$i][$j] = $detfile[$j];
                         $con++;
                     }
-                    $curso = Curso::where('curso', '=', trim(utf8_encode($detfile[0])))
+                    $curso = Curso::where('curso', '=', trim(htmlspecialchars($detfile[0], ENT_NOQUOTES, "UTF-8")))
                                     ->where('estado','=',1)
                                     ->where(function($query){
                                         if( session('empresa_id')!=null ){
-                                            $query->where('empresa_externa_id',session('empresa_id'));
+                                            $query->where('empresa_externo_id',session('empresa_id'));
                                         }
                                     })
                                     ->first();
-                    $unidadcontenido =UnidadContenido::where('unidad_contenido', '=', trim(utf8_encode($detfile[1])))
+                    $unidadcontenido =UnidadContenido::where('unidad_contenido', '=', trim(htmlspecialchars($detfile[1], ENT_NOQUOTES, "UTF-8")))
                                                     ->where('estado','=',1)->first();
 
-                    if (count($unidadcontenido) == 0 or count($curso) == 0) {
+                    /*if( trim(htmlspecialchars($detfile[1], ENT_NOQUOTES, "UTF-8"))=='' ){
+                        array_push($array_error, 'htmlspecialchars(Fail)<br>');
+                    }
+                    else{
+                        array_push($array_error, trim(utf8_encode($detfile[1])).'<br>');
+                    }*/
+
+                    if (!isset($unidadcontenido->id) or !isset($curso->id)) {
                         
-                        if(count($curso) == 0){
-                              $msg_error = ($i+1).'- Motivo: No se encontro Curso: '.trim(utf8_encode($detfile[0])).'<br>'; 
+                        if(!isset($curso->id)){
+                              $msg_error = ($i+1).'- Motivo: No se encontro Curso: '.trim(htmlspecialchars($detfile[0], ENT_NOQUOTES, "UTF-8")).'<br>'; 
                               array_push($array_error, $msg_error);
                         }
-                        if(count($unidadcontenido) == 0){
-                              $msg_error = ($i+1).'- Motivo: No se encontro Unidad de Contenido: '.trim(utf8_encode($detfile[1])).'<br>'; 
+                        if(!isset($unidadcontenido->id)){
+                              $msg_error = ($i+1).'- Motivo: No se encontro Unidad de Contenido: '.trim(htmlspecialchars($detfile[1], ENT_NOQUOTES, "UTF-8")).'<br>'; 
                               array_push($array_error, $msg_error);  
                         }
                         $no_pasa=$no_pasa+1;
@@ -87,15 +94,15 @@ class CargaPR extends Controller {
                         continue;
                         
                     } else {
-                        $vpregunta =Pregunta::where('pregunta', '=', trim(utf8_encode($detfile[2])))->first();
-                        if( count($vpregunta)>0 ){
+                        $vpregunta =Pregunta::where('pregunta', '=', trim(htmlspecialchars($detfile[2], ENT_NOQUOTES, "UTF-8")))->first();
+                        if( isset($vpregunta->id) ){
                             $pregunta= Pregunta::find($vpregunta->id);
                             $pregunta->estado=1;
                             $pregunta->persona_id_updated_at = Auth::user()->id;
                         }
                         else{
                             $pregunta = new Pregunta;
-                            $pregunta->pregunta = trim(utf8_encode($detfile[2]));
+                            $pregunta->pregunta = trim(htmlspecialchars($detfile[2], ENT_NOQUOTES, "UTF-8"));
                             $pregunta->puntaje = 1;
                             $pregunta->persona_id_created_at = Auth::user()->id;
                         }
@@ -105,9 +112,9 @@ class CargaPR extends Controller {
 
                         for ($h = 3; $h < count($detfile); $h += 2) {
                             if (trim($detfile[$h]) != '') {
-                                $vrespuesta =Respuesta::where('respuesta', '=', trim(utf8_encode($detfile[$h])))
+                                $vrespuesta =Respuesta::where('respuesta', '=', trim(htmlspecialchars($detfile[$h], ENT_NOQUOTES, "UTF-8")))
                                              ->where('pregunta_id','=',$pregunta->id)->first();
-                                if( count($vrespuesta)>0 ){
+                                if( isset($vrespuesta->id) ){
                                     $respuesta= Respuesta::find($vrespuesta->id);
                                     $respuesta->persona_id_created_at = Auth::user()->id;
                                 }
@@ -115,7 +122,7 @@ class CargaPR extends Controller {
                                     $respuesta = new Respuesta;
                                     $respuesta->pregunta_id = $pregunta->id;
                                     $respuesta->tipo_respuesta_id = 1;
-                                    $respuesta->respuesta = trim(utf8_encode($detfile[$h]));
+                                    $respuesta->respuesta = trim(htmlspecialchars($detfile[$h], ENT_NOQUOTES, "UTF-8"));
                                     $respuesta->persona_id_created_at = Auth::user()->id;
                                     
                                 }
@@ -129,7 +136,7 @@ class CargaPR extends Controller {
                 DB::commit();
             }
 
-            if (count($array_error) > 0 or count($no_pasa) > 1) {
+            if (count($array_error) > 0 or $no_pasa > 1) {
                     $return['error_carga'] = $array_error;
                     $return['no_pasa'] = $no_pasa;
                     $return['rst'] = 2;
@@ -141,6 +148,10 @@ class CargaPR extends Controller {
 
             return response()->json($return);
         }
+    }
+
+    public function ValidarUTF8($valor){
+
     }
     
     public function ExportPlantilla(Request $r ){
