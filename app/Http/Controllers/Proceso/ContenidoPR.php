@@ -106,9 +106,16 @@ class ContenidoPR extends Controller
             return response()->json($return);
         }
     }
-    // --
+
+    public function ValidaCarga(Request $r )
+    {
+        if ( $r->ajax() ) {
+            $renturnModel = Contenido::ValidaCarga($r);
+            return response()->json($renturnModel);
+        }
+    }
     
-       public function NewCopiaContenido(Request $r )
+    public function NewCopiaContenido(Request $r )
     {
         if ( $r->ajax() ) {
 

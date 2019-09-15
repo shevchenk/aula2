@@ -75,7 +75,7 @@ class TipoEvaluacionPR extends Controller
                         ->where('estado','=', 1)
                         ->first();
 
-            if( count($tab_cli)>0 )
+            if( isset($tab_cli->id) )
             {
                 $val = $this->insertarTipoEvaluacion($objArr, $r);
                 if($val['return'] == true)

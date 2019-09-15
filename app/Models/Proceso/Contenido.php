@@ -290,9 +290,29 @@ class Contenido extends Model
             ->join('v_unidades_contenido as vuc','vuc.id','=','v_contenidos.unidad_contenido_id')
             ->where('v_contenidos.programacion_unica_id','=',$r->programacion_unica_id)
             ->where('v_contenidos.estado','=',1)
-            ->orderBy('vuc.id','asc')
+            ->orderBy('vuc.unidad_contenido','asc')
             ->orderBy('v_contenidos.tipo_respuesta','asc')->get();
         return $result;
+    }
+
+    public static function ValidaCarga($r)
+    {
+        $result=DB::table('v_programaciones_unicas AS vpu')
+                ->select(DB::raw('DATE(vpu.fecha_inicio) as fecha'))
+                ->where('id',$r->aux_id)
+                ->first();
+
+        $retorno['val']=0;
+        if( $result->fecha<=date('Y-m-d') ){
+            $retorno['val']=1;
+        }
+        $retorno['fecha']=$result->fecha;
+        $retorno['programacion_id']=$r->aux_programacion_id;
+        $retorno['id']=$r->aux_id;
+        $retorno['curso_id']=$r->aux_curso_id;
+        $retorno['curso']=$r->aux_curso;
+        $retorno['imagen']=$r->aux_imagen;
+        return $retorno;
     }
     // --
         public static function runNewCopiaContenido($r){

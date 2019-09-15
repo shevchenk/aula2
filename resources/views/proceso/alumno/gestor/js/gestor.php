@@ -137,7 +137,21 @@ HTMLCargarEvaluacion=function(result){
 
 
 CargarContenido=function(programacion_id,id,curso_id,curso,imagen,boton){
-     masterG.pintar_fila(boton);
+    masterG.pintar_fila(boton);
+     AjaxContenido.ValidaCarga(ValidaCarga,programacion_id,id,curso_id,curso,imagen);
+};
+
+ValidaCarga=function(result){
+    if(result.val==1){
+        CargarContenidoOk(result.programacion_id,result.id,result.curso_id,result.curso,result.imagen);
+    }
+    else{
+        $("#ContenidoForm").css("display","none");
+        msjG.mensaje("info","Estimado alumno, el curso "+result.curso+" inicia el "+result.fecha,5000);
+    }
+}
+
+CargarContenidoOk=function(programacion_id,id,curso_id,curso,imagen){
      $("#ContenidoForm #txt_programacion_id").val(programacion_id);
      $("#ContenidoForm #txt_programacion_unica_id").val(id);
      $("#ModalContenidoForm #txt_programacion_unica_id").val(id);
@@ -149,8 +163,7 @@ CargarContenido=function(programacion_id,id,curso_id,curso,imagen,boton){
      AjaxContenido.Cargar(HTMLCargarContenido);
      $("#ContenidoForm").css("display","");
      $("#ContenidoProgramacionForm").css("display","none");
-
      $('#div_contenido_respuesta').hide();
-};
+}
 
 </script>

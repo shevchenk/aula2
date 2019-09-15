@@ -29,6 +29,18 @@ var AjaxContenido={
         data={};
         masterG.postAjax(url,data,evento);
     },
+    ValidaCarga:function(evento,programacion_id,id,curso_id,curso,imagen,boton){
+        $("#ModalContenidoForm").append("<input type='hidden' value='"+programacion_id+"' name='aux_programacion_id'>");
+        $("#ModalContenidoForm").append("<input type='hidden' value='"+id+"' name='aux_id'>");
+        $("#ModalContenidoForm").append("<input type='hidden' value='"+curso_id+"' name='aux_curso_id'>");
+        $("#ModalContenidoForm").append("<input type='hidden' value='"+curso+"' name='aux_curso'>");
+        $("#ModalContenidoForm").append("<input type='hidden' value='"+imagen+"' name='aux_imagen'>");
+        $("#ModalContenidoForm").append("<input type='hidden' value='"+boton+"' name='aux_boton'>");
+        var data=$("#ModalContenidoForm").serialize().split("txt_").join("").split("slct_").join("");
+        $("#ModalContenidoForm input[type='hidden']").not('.mant').remove();
+        url='AjaxDinamic/Proceso.ContenidoPR@ValidaCarga';
+        masterG.postAjax(url,data,evento);
+    },
     AgregarRespuestaContenido:function(evento){
         var data=$("#frmRepuestaAlum").serialize().split("txt_").join("").split("slct_").join("");
         url='AjaxDinamic/Proceso.ContenidoRespuestaPR@New';
