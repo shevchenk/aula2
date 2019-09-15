@@ -108,7 +108,8 @@ class Pregunta extends Model
                                   }
                               }
                           );
-        $result = $sql->orderBy('v_preguntas.id','asc')->paginate(10);
+        $result = $sql->orderBy('vuc.unidad_contenido','asc')
+                  ->orderBy('v_preguntas.pregunta','asc')->paginate(10);
         return $result;
     }
 

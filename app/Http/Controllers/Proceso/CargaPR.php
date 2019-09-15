@@ -46,11 +46,29 @@ class CargaPR extends Controller {
             $array = array();
 
             $file = file('txt/preguntarespuesta/' . $archivoNuevo);
+            
+            /*$detfile = explode("\t", $file[270]);
+            $aux=$detfile[2];
+            $aux2=$detfile[2];
+            $aux= trim(utf8_encode($aux));
+            $aux2= trim(htmlspecialchars($aux2, ENT_IGNORE, "UTF-8"));
+            if(strlen($aux2)==strlen($detfile[2])){
+                $detfile[2]=trim(htmlspecialchars($detfile[2], ENT_IGNORE, "UTF-8"));
+            }
+            else{
+                $detfile[2]=trim(utf8_encode($detfile[2]));
+            }
+            $buscar=array('¿','&iquest;','&#191;');
+            $reemplazar=array('','','');
+            $detfile[2]=str_replace($buscar, $reemplazar, $detfile[2]);
+            dd("(".strlen($aux).")".$aux." || (".strlen($aux2).")".$aux2." || (".strlen($detfile[2]).")".$detfile[2]);
+            */
 
             for ($i = 0; $i < count($file); $i++) {
 
                 DB::beginTransaction();
                 if (trim($file[$i]) != '') {
+                    //$file[$i]=$this->ValidarUTF8($file[$i]);
                     $detfile = explode("\t", $file[$i]);
 
                     $con = 0;
@@ -61,7 +79,9 @@ class CargaPR extends Controller {
                         $array[$i][$j] = $detfile[$j];
                         $con++;
                     }
-                    $curso = Curso::where('curso', '=', trim(htmlspecialchars($detfile[0], ENT_NOQUOTES, "UTF-8")))
+                    $detfile[0]=$this->ValidarUTF8($detfile[0]);
+                    //$detfile[0]=trim($detfile[0]);
+                    $curso = Curso::where('curso', '=', $detfile[0])
                                     ->where('estado','=',1)
                                     ->where(function($query){
                                         if( session('empresa_id')!=null ){
@@ -69,24 +89,20 @@ class CargaPR extends Controller {
                                         }
                                     })
                                     ->first();
-                    $unidadcontenido =UnidadContenido::where('unidad_contenido', '=', trim(htmlspecialchars($detfile[1], ENT_NOQUOTES, "UTF-8")))
+                    $detfile[1]=$this->ValidarUTF8($detfile[1]);
+                    //$detfile[1]=trim($detfile[1]);
+                    $unidadcontenido =UnidadContenido::where('unidad_contenido', '=', $detfile[1])
                                                     ->where('estado','=',1)->first();
 
-                    /*if( trim(htmlspecialchars($detfile[1], ENT_NOQUOTES, "UTF-8"))=='' ){
-                        array_push($array_error, 'htmlspecialchars(Fail)<br>');
-                    }
-                    else{
-                        array_push($array_error, trim(utf8_encode($detfile[1])).'<br>');
-                    }*/
 
                     if (!isset($unidadcontenido->id) or !isset($curso->id)) {
                         
                         if(!isset($curso->id)){
-                              $msg_error = ($i+1).'- Motivo: No se encontro Curso: '.trim(htmlspecialchars($detfile[0], ENT_NOQUOTES, "UTF-8")).'<br>'; 
+                              $msg_error = ($i+1).'- Motivo: No se encontro Curso: '.$detfile[0].'<br>'; 
                               array_push($array_error, $msg_error);
                         }
                         if(!isset($unidadcontenido->id)){
-                              $msg_error = ($i+1).'- Motivo: No se encontro Unidad de Contenido: '.trim(htmlspecialchars($detfile[1], ENT_NOQUOTES, "UTF-8")).'<br>'; 
+                              $msg_error = ($i+1).'- Motivo: No se encontro Unidad de Contenido: '.$detfile[1].'<br>'; 
                               array_push($array_error, $msg_error);  
                         }
                         $no_pasa=$no_pasa+1;
@@ -94,7 +110,9 @@ class CargaPR extends Controller {
                         continue;
                         
                     } else {
-                        $vpregunta =Pregunta::where('pregunta', '=', trim(htmlspecialchars($detfile[2], ENT_NOQUOTES, "UTF-8")))->first();
+                        $detfile[2]=$this->ValidarUTF8($detfile[2]);
+                        //$detfile[2]=trim($detfile[2]);
+                        $vpregunta =Pregunta::where('pregunta', '=', $detfile[2] )->first();
                         if( isset($vpregunta->id) ){
                             $pregunta= Pregunta::find($vpregunta->id);
                             $pregunta->estado=1;
@@ -102,7 +120,7 @@ class CargaPR extends Controller {
                         }
                         else{
                             $pregunta = new Pregunta;
-                            $pregunta->pregunta = trim(htmlspecialchars($detfile[2], ENT_NOQUOTES, "UTF-8"));
+                            $pregunta->pregunta = $detfile[2];
                             $pregunta->puntaje = 1;
                             $pregunta->persona_id_created_at = Auth::user()->id;
                         }
@@ -111,8 +129,10 @@ class CargaPR extends Controller {
                         $pregunta->save();
 
                         for ($h = 3; $h < count($detfile); $h += 2) {
+                            $detfile[$h]=$this->ValidarUTF8($detfile[$h]);
+                            //$detfile[$h]=trim($detfile[$h]);
                             if (trim($detfile[$h]) != '') {
-                                $vrespuesta =Respuesta::where('respuesta', '=', trim(htmlspecialchars($detfile[$h], ENT_NOQUOTES, "UTF-8")))
+                                $vrespuesta =Respuesta::where('respuesta', '=', $detfile[$h] )
                                              ->where('pregunta_id','=',$pregunta->id)->first();
                                 if( isset($vrespuesta->id) ){
                                     $respuesta= Respuesta::find($vrespuesta->id);
@@ -122,9 +142,8 @@ class CargaPR extends Controller {
                                     $respuesta = new Respuesta;
                                     $respuesta->pregunta_id = $pregunta->id;
                                     $respuesta->tipo_respuesta_id = 1;
-                                    $respuesta->respuesta = trim(htmlspecialchars($detfile[$h], ENT_NOQUOTES, "UTF-8"));
+                                    $respuesta->respuesta = $detfile[$h];
                                     $respuesta->persona_id_created_at = Auth::user()->id;
-                                    
                                 }
                                     $respuesta->correcto = $detfile[$h + 1];
                                     $respuesta->puntaje = $detfile[$h + 1];
@@ -151,7 +170,9 @@ class CargaPR extends Controller {
     }
 
     public function ValidarUTF8($valor){
-
+        $retorno='';
+        $retorno=trim(htmlspecialchars($valor, ENT_IGNORE, "UTF-8"));
+        return $retorno;
     }
     
     public function ExportPlantilla(Request $r ){
