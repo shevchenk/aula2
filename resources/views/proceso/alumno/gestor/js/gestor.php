@@ -104,7 +104,7 @@ HTMLCargarEvaluacion=function(result){
         }*/
 
         html+='<tr id="trid_'+r.id+'" onClick="CargarContenido('+r.id+','+r.pu_id+','+r.curso_id+',\''+r.curso+'\',\''+r.imagen+'\',this)">'+
-            "<td class='carrera'>"+r.carrera+"</td>"+
+            //"<td class='carrera'>"+r.carrera+"</td>"+
             /*"<td class='semestre'>"+r.semestre+"</td>"+
             "<td class='ciclo'>"+r.ciclo+"</td>"+*/
             "<td class='curso'>"+r.curso+"</td>"+
