@@ -470,11 +470,15 @@ var redimensionG = {
       //var src = $("#imageCurso").attr('src').split('/');
       if ($('header').width() <= 400 ){
           //$("#imageCurso").attr('src',src[0]+'/coursecel/'+src[2]);
-        $("#imageCurso").css({"width":"250","height":"133"});
+        $("#imageCurso").css({"width":"250","height":"166"});
       }
       else if ($('header').width() <= 600 ){
           //$("#imageCurso").attr('src',src[0]+'/coursecel/'+src[2]);
           $("#imageCurso").css({"width":"300","height":"199"});
+      }
+      else if ($('header').width() <= 800 ){
+          //$("#imageCurso").attr('src',src[0]+'/coursetablet/'+src[2]);
+          $("#imageCurso").css({"width":"350","height":"233"});
       }
       else if ($('header').width() <= 1000 ){
           //$("#imageCurso").attr('src',src[0]+'/coursetablet/'+src[2]);
