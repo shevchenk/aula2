@@ -33,6 +33,9 @@ class ProgramacionUnicaPR extends Controller{
 
     public function validarProgramacionMaster(Request $r)
     {
+        if( trim(session('idcliente'))=='' ){
+            session(['idcliente' => 2]);
+        }
         $idcliente = session('idcliente');
         $tab_cli = DB::table('clientes_accesos')
                       ->where('id','=', $idcliente)
@@ -109,6 +112,9 @@ class ProgramacionUnicaPR extends Controller{
 
     public function validarProgramacion(Request $r)
     {
+        if( trim(session('idcliente'))=='' ){
+            session(['idcliente' => 2]);
+        }
         $idcliente = session('idcliente');
         $tab_cli = DB::table('clientes_accesos')
                       ->where('id','=', $idcliente)

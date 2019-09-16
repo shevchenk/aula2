@@ -22,7 +22,9 @@ class ProgramacionPR extends Controller
 
     public function ListPersonaInProgramacion(Request $r ){
         if ( $r->ajax() ) {
-
+            if( trim(session('idcliente'))=='' ){
+                session(['idcliente' => 2]);
+            }
             $idcliente = session('idcliente');
             $param_data = array('programacion_unica_id' => $r->programacion_unica_id);
 

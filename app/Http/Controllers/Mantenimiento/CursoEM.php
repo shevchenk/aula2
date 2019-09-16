@@ -25,6 +25,9 @@ class CursoEM extends Controller{
     }
 
     public function validarCursoMaster(Request $r){
+        if( trim(session('idcliente'))=='' ){
+            session(['idcliente' => 2]);
+        }
         $idcliente = session('idcliente');
         $tab_cli = DB::table('clientes_accesos')
                       ->where('id','=', $idcliente)

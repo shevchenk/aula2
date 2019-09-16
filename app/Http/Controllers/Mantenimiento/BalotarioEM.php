@@ -113,6 +113,9 @@ class BalotarioEM extends Controller
 
     public function ValidarTipoEvaluacionBalotario(Request $r ){
         if ( $r->ajax() ) {
+            if( trim(session('idcliente'))=='' ){
+                session(['idcliente' => 2]);
+            }
             $idcliente = session('idcliente');
             $tab_cli = DB::table('clientes_accesos')
                       ->where('id','=', $idcliente)

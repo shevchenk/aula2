@@ -23,6 +23,9 @@ Route::get(
         if( session()->has('dni') && session()->has('menu')
             && session()->has('opciones')
         ){
+            if( $ruta=='secureaccess.inicio' AND session('privilegio_id')==3 ){
+                return redirect('proceso.alumno.gestor.gestor');
+            }
             $valores['valida_ruta_url'] = $ruta;
             $valores['menu'] = session('menu');
 

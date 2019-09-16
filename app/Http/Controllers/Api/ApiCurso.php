@@ -291,16 +291,19 @@ class ApiCurso extends Controller
         $menu = Persona::Menu();
         $opciones=array();
         $cargo='';
+        $privilegio_id='';
         foreach ($menu as $key => $value) {
             array_push($opciones, $value->opciones);
             $cargo=$value->privilegio;
+            $privilegio_id=$value->privilegio_id;
         }
         $opciones=implode("||", $opciones);
         $session= array(
             'menu'=>$menu,
             'opciones'=>$opciones,
             'dni'=>$dni,
-            'cargo'=>$cargo
+            'cargo'=>$cargo,
+            'privilegio_id'=>$privilegio_id,
         );
         session($session);
         return true;
