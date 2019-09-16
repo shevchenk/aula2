@@ -40,11 +40,11 @@ class Curso extends Model
             DB::raw('p.programacion_unica_id as pu_id'),
             DB::raw('pu.curso_id as curso_id'),
             'palu.dni',
-            DB::raw("CONCAT(palu.nombre,' ', palu.paterno,' ', palu.materno) as alumno"),
+            DB::raw("CONCAT(palu.paterno,' ', palu.materno,' ', palu.nombre) as alumno"),
             'c.curso','c.imagen','pu.ciclo','pu.carrera','pu.semestre',
             DB::raw('DATE(pu.fecha_inicio) as fecha_inicio'),
             DB::raw('DATE(pu.fecha_final) as fecha_final'),
-            DB::raw("CONCAT(pdoc.nombre,' ', pdoc.paterno,' ', pdoc.materno) as docente"),
+            DB::raw("CONCAT(pdoc.paterno,' ', pdoc.materno,' ', pdoc.nombre) as docente"),
             DB::raw("IFNULL(GROUP_CONCAT( CONCAT(te.tipo_evaluacion,' => ',e.nota) SEPARATOR '<br>' ), '') evals")
             )
             ->where(

@@ -43,7 +43,7 @@
                     <form id="ProgramacionUnicaForm">
                         <div class="panel panel-primary">
                             <div class="panel-heading" style="background-color: #337ab7;color:#fff">
-                                <center>.::Programación del Presente Semestre::.</center>
+                                <center>.::Programación de Cursos::.</center>
                             </div>
                             <div class="panel-body table-responsive no-padding">
                                 <div class="col-md-12">
