@@ -52,14 +52,14 @@
                                     <table id="TableProgramacionUnica" class="table table-bordered table-hover">
                                         <thead>
                                             <tr class="cabecera">
-                                                <th class="col-xs-2">
+                                                <!--th class="col-xs-2">
                                                     <div class="form-group">
                                                         <label><h4>Especialidad:</h4></label>
                                                             <input type="text" class="form-control" name="txt_carrera" id="txt_carrera" placeholder="Especialidad" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
                                                         </div>
                                                     </div>
                                                 </th>
-                                                <!--th class="col-xs-1">
+                                                <th class="col-xs-1">
                                                     <div class="form-group">
                                                         <label><h4>Semestre:</h4></label>
                                                             <input type="text" class="form-control" name="txt_semestre" id="txt_semestre" placeholder="Semestre" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
@@ -107,8 +107,8 @@
                                         </tbody>
                                         <tfoot>
                                             <tr class="cabecera">
-                                                <th>Especialidad</th>
-                                                <!--th>Semestre</th>
+                                                <!--th>Especialidad</th>
+                                                <th>Semestre</th>
                                                 <th>Ciclo</th-->
                                                 <th>Curso</th>
                                                 <th>Docente</th>

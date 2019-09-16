@@ -50,7 +50,7 @@
                                     <table id="TableProgramacionUnica" class="table table-bordered table-hover">
                                         <thead>
                                             <tr class="cabecera">
-                                                <th class="col-xs-2">
+                                                <!--th class="col-xs-2">
                                                     <div class="form-group">
                                                         <label><h4>Especialidad:</h4></label>
                                                         <div class="input-group">
@@ -58,7 +58,7 @@
                                                         </div>
                                                     </div>
                                                 </th>
-                                                <!--th class="col-xs-1">
+                                                <th class="col-xs-1">
                                                     <div class="form-group">
                                                         <label><h4>Semestre:</h4></label>
                                                         <div class="input-group">
@@ -104,8 +104,8 @@
                                         </tbody>
                                         <tfoot>
                                             <tr class="cabecera">
-                                                <th>Especialidad</th>
-                                                <!--th>Semestre</th>
+                                                <!--th>Especialidad</th>
+                                                <th>Semestre</th>
                                                 <th>Ciclo</th-->
                                                 <th>Curso</th>
                                                 <th>Fecha Inicio</th>
