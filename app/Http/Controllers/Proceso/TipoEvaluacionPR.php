@@ -38,6 +38,19 @@ class TipoEvaluacionPR extends Controller
         }
     }
 
+    public function LoadValidacion(Request $r )
+    {
+        if ( $r->ajax() ) {
+            $r['validacion'] = '1';
+            $r['dni'] = Auth::user()->dni;
+            $renturnModel = TipoEvaluacion::runLoad($r);
+            $return['rst'] = 1;
+            $return['data'] = $renturnModel;
+            $return['msj'] = "No hay registros aún";
+            return response()->json($return);
+        }
+    }
+
     public function validarTipoEvaluacion(Request $r)
     {
         if( trim(session('idcliente'))=='' ){

@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
+use App\Models\Mantenimiento\Balotario;
 
 use DB;
 
@@ -15,6 +16,47 @@ class Evaluacion extends Model
 
     public static function listarPreguntas($r)
     {
+
+      if( $r->has('validacion') ){
+          $balotario= DB::table('v_balotarios AS b')
+                      ->where('b.tipo_evaluacion_id','=', $r->tipo_evaluacion_id)
+                      ->where('b.programacion_unica_id','=', $r->programacion_unica_id)
+                      ->first();
+
+          DB::beginTransaction();
+
+          if(!isset($balotario->id)){
+            $balotario = new Balotario();
+            $balotario->programacion_unica_id = $r->programacion_unica_id;
+            $balotario->tipo_evaluacion_id = $r->tipo_evaluacion_id;
+            $balotario->persona_id_created_at=1;
+            $balotario->cantidad_maxima =-1;
+            $balotario->cantidad_pregunta =20;
+          }
+          else{
+            $balotario = Balotario::find($balotario->id);
+            $balotario->estado=1;
+            $balotario->persona_id_updated_at=2;
+          }
+          $balotario->save();
+
+          $curso =  DB::table('v_programaciones_unicas')
+                    ->where('id',$r->programacion_unica_id)
+                    ->first();
+
+          $sql="
+          INSERT INTO v_balotarios_preguntas (balotario_id, pregunta_id, estado, created_at, persona_id_created_at)
+          SELECT $balotario->id, p.id, 1, NOW(), 1
+          FROM v_preguntas p
+          LEFT JOIN v_balotarios_preguntas bp ON bp.pregunta_id=p.id AND bp.balotario_id=$balotario->id
+          WHERE p.curso_id = $curso->curso_id
+          AND bp.id IS NULL
+          ";
+          DB::insert($sql);
+
+          DB::commit();
+      }
+
       $balotario = DB::table('v_balotarios')
                         ->where('programacion_unica_id', $r->programacion_unica_id)
                         ->where('tipo_evaluacion_id', $r->tipo_evaluacion_id)
@@ -120,6 +162,7 @@ class Evaluacion extends Model
         $evaluacion = Evaluacion::find($r->id);
         $evaluacion->nota = trim( $r->nota );
         $evaluacion->estado_cambio = trim( $r->estado_cambio );
+        $evaluacion->fecha_examen = trim( $r->fecha_examen );
         $evaluacion->persona_id_updated_at=Auth::user()->id;
         $evaluacion->save();
     }

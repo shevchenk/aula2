@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
+use App\Models\Proceso\Evaluacion;
 use DB;
 
 class TipoEvaluacion extends Model
@@ -13,6 +14,31 @@ class TipoEvaluacion extends Model
 
     public static function runLoad($r)
     {
+        if( $r->has('validacion') ){
+            $tipo_evaluacion_id=6;
+            $evaluacion = Evaluacion::where('programacion_id', '=', $r->programacion_id)
+                            ->where('tipo_evaluacion_id', '=', $tipo_evaluacion_id)
+                            ->where('estado_cambio','<',2)
+                            ->first();
+
+            //$r['fecha_evaluacion'] = $value->fecha_evaluacion;
+            if(!isset($evaluacion->id)) // Insert
+            {
+              $evaluacion = new Evaluacion;
+              $evaluacion->programacion_id = $r->programacion_id;
+              $evaluacion->tipo_evaluacion_id = $tipo_evaluacion_id;
+              $evaluacion->persona_id_created_at=Auth::user()->id;
+            }
+            else{
+              $evaluacion->persona_id_updated_at=Auth::user()->id;
+            }
+              
+              $evaluacion->fecha_evaluacion_inicial = date('Y-m-d');
+              $evaluacion->fecha_evaluacion_final = '2050-12-31';
+              $evaluacion->estado=1;
+              $evaluacion->save();
+        }
+
         $sql=DB::table('v_tipos_evaluaciones as te')
                   ->leftJoin('v_evaluaciones AS e',function($join){
                       $join->on('te.id','=','e.tipo_evaluacion_id')
@@ -27,7 +53,9 @@ class TipoEvaluacion extends Model
                       'te.tipo_evaluacion_externo_id',
                       'te.estado',
                       DB::raw('MAX(e.estado_cambio) AS estado_cambio'),
-                      DB::raw('MAX(e.id) AS evaluacion_id')
+                      DB::raw('MAX(e.id) AS evaluacion_id'),
+                      DB::raw('MAX( CONCAT(e.fecha_examen,"|",e.id,"|",e.estado_cambio,"|",e.nota) ) AS evaluacion_resultado'),
+                      DB::raw('MAX( CONCAT(e.id,"|",e.estado_cambio,"|",e.nota) ) AS evaluacion')
                     )
                   ->where('te.estado',1)
                   ->where(
@@ -49,7 +77,7 @@ class TipoEvaluacion extends Model
                         if( $r->has("estado_cambio") ){
                             $estado_cambio= explode(",",$r->estado_cambio);
                             if( $estado_cambio !='' ){
-                                $query->whereIn('e.estado_cambio', $estado_cambio);
+                                //$query->whereIn('e.estado_cambio', $estado_cambio);
                             }
                         }
                         

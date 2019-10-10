@@ -274,6 +274,7 @@ class EvaluacionPR extends Controller
           $evaluacion_fecha_final = '';
           $evaluacion_id=0;
           $evaluacion_estado_cambio=0;
+          $renturnModel = NULL;
           if( isset($evaluacion->estado_cambio) )
           {
             $evaluacion_estado_cambio = $evaluacion->estado_cambio;
@@ -283,7 +284,7 @@ class EvaluacionPR extends Controller
                             ->where('tipo_evaluacion_id', '=', $r->tipo_evaluacion_id)
                             ->where('modo', '=', 1)
                             ->first();
-              if (count($balotario) == 0) {
+              if (!isset($balotario->id) AND !$r->has('validacion')) {
                 $renturnModel = NULL;
                 $evaluacion_id = 0;
                 $val_evaluacion = 'error_balotario';
@@ -301,6 +302,45 @@ class EvaluacionPR extends Controller
               $evaluacion_fecha_inicial = $evaluacion->fecha_evaluacion_inicial;
               $evaluacion_fecha_final = $evaluacion->fecha_evaluacion_final;
             }
+          }
+          else{
+              $renturnModel = NULL;
+              $evaluacion_id = 0;
+              $val_evaluacion = 'error_intento';
+              if( $r->has('validacion') ){
+                  $evaluacion = Evaluacion::where('programacion_id', '=', $r->programacion_id)
+                                ->where('tipo_evaluacion_id', '=', $r->tipo_evaluacion_id)
+                                ->where('estado_cambio', '>',0)
+                                ->where('estado',1)
+                                ->whereRaw('DATE(fecha_examen)=CURDATE()')
+                                ->get();
+                  if( count($evaluacion)<2 ){
+                      DB::beginTransaction();
+
+                      $sql="UPDATE v_evaluaciones
+                            SET estado_cambio = 2
+                            WHERE estado = 1
+                            AND estado_cambio = 1
+                            AND tipo_evaluacion_id = $r->tipo_evaluacion_id
+                            AND programacion_id = $r->programacion_id
+                            ";
+                      DB::update($sql);
+
+                      $evaluacion = new Evaluacion;
+                      $evaluacion->programacion_id = $r->programacion_id;
+                      $evaluacion->tipo_evaluacion_id = $r->tipo_evaluacion_id;
+                      $evaluacion->persona_id_created_at=1;
+                      $evaluacion->fecha_evaluacion_inicial = date('Y-m-d');
+                      $evaluacion->fecha_evaluacion_final = '2050-12-31';
+                      $evaluacion->estado=1;
+                      $evaluacion->save();
+                      DB::commit();
+
+                      $val_evaluacion = '';
+                      $renturnModel = Evaluacion::listarPreguntas($r);
+                      $evaluacion_id = $evaluacion->id;
+                  }
+              }
           }
 
             $return['rst'] = 1;
@@ -339,6 +379,7 @@ class EvaluacionPR extends Controller
               $val = false;
               $nota_puntaje = 0;
               $puntos= 20/count($datos);
+              //dd($puntos.'=>'.count($datos));
               foreach ($datos as $key => $value)
               {
                 $r['evaluacion_id'] = $value->evaluacion_id;
@@ -358,6 +399,7 @@ class EvaluacionPR extends Controller
                 $r['id'] = $id_evaluacion;
                 $r['nota'] = $nota_puntaje;
                 $r['estado_cambio'] = 1;
+                $r['fecha_examen'] = date('Y-m-d H:i:s');
                 Evaluacion::runEdit($r);
 
             }
