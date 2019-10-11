@@ -309,7 +309,7 @@ HTMLiniciarEvaluacion=function(result){
                         "pregunta" : r.pregunta,
                         "imagen" : $.trim(r.imagen),
                         "cantidad_pregunta" : r.cantidad_pregunta,
-                        "alternativas" : r.alternativas
+                        "alternativas" : r.alternativas_ex
                     });
         data_evaluacion_preg = data_evaluacion_preg;
       });
@@ -339,6 +339,7 @@ verContenidoIniciarEvaluacion = function (){
               html += '<p style="padding: 10px 15px;">'+(ceval+1)+'.- '+data_evaluacion_preg[ceval].pregunta+' </p>';
 
                 var alternativas = data_evaluacion_preg[ceval].alternativas.split("|");
+                alternativas.sort();
                 $.each(alternativas, function(index, a){
                     var data = a.split(":");
                     html += '<button type="button" class="list-group-item"><span class="badge" style="background-color: #FFF; padding: 0px 0px;">';
@@ -347,11 +348,11 @@ verContenidoIniciarEvaluacion = function (){
 
                     html += '<div class="radio">'+
                                       '<label style="font-size: 1.5em">'+
-                                          '<input type="radio" id="rbp'+data[0]+'" name="rbalternativas'+data_evaluacion_preg[ceval].pregunta_id+'" value="'+data[0]+'" aria-label="...">'+
+                                          '<input type="radio" id="rbp'+data[1]+'" name="rbalternativas'+data_evaluacion_preg[ceval].pregunta_id+'" value="'+data[1]+'" aria-label="...">'+
                                           '<span class="cr"><i class="cr-icon fa fa-circle" style="color: #337ab7;"></i></span>'+                                          
                                       '</label>'+
                                   '</div></span>';
-                    html += data[1]+'</button>';
+                    html += data[2]+'</button>';
                 });
               html += '</ul>';
             }

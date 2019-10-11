@@ -80,7 +80,8 @@ class Evaluacion extends Model
               'p.pregunta',
               'p.imagen',
               'p.puntaje',
-              DB::raw('GROUP_CONCAT(CONCAT(r.id, ":", r.respuesta) SEPARATOR "|") as alternativas')
+              DB::raw('GROUP_CONCAT(CONCAT(r.id, ":", r.respuesta) SEPARATOR "|") as alternativas'),
+              DB::raw('GROUP_CONCAT(CONCAT( ROUND(RAND()*10), ":", r.id, ":", r.respuesta) SEPARATOR "|") as alternativas_ex')
               )
               ->where(
                   function($query) use ($r){
