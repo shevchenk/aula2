@@ -111,7 +111,6 @@ class Evaluacion extends Model
         return $result;
     }
 
-
     public static function verResultados($r)
     {
       $sql = DB::table('v_evaluaciones AS e')
@@ -144,8 +143,8 @@ class Evaluacion extends Model
         return $result;
     }
 
-
-    public static function runNew($r){
+    public static function runNew($r)
+    {
 
         $evaluacion = new Evaluacion;
         $evaluacion->programacion_id = trim( $r->programacion_id );
@@ -158,7 +157,8 @@ class Evaluacion extends Model
         $evaluacion->save();
     }
 
-    public static function runEdit($r){
+    public static function runEdit($r)
+    {
 
         $evaluacion = Evaluacion::find($r->id);
         $evaluacion->nota = trim( $r->nota );
@@ -168,7 +168,8 @@ class Evaluacion extends Model
         $evaluacion->save();
     }
     
-    public static function runGenerateReprogramacion($r){
+    public static function runGenerateReprogramacion($r)
+    {
 
         $result= Programacion::select("ve.*")
                 ->join('v_evaluaciones as ve',function($join){
@@ -221,7 +222,20 @@ class Evaluacion extends Model
         }else{
             return 2;
         }
+    }
 
+    public static function verEvaluacion($r)
+    {
+        $sql = DB::table('v_evaluaciones AS e')
+                ->join('v_programaciones AS p', 'p.id','=','e.programacion_id')
+                ->join('v_programaciones_unicas AS pu', 'pu.id','=','p.programacion_unica_id')
+                ->join('v_cursos AS c', 'c.id','=','pu.curso_id')
+                ->join('v_personas AS pe', 'pe.id','=','p.persona_id')
+                ->selectRaw('pe.paterno, pe.materno, pe.nombre, pe.dni
+                , DATE(e.fecha_examen) fecha_examen, e.nota, c.curso')
+                ->where('e.id', $r->id)
+                ->first();
+        return $sql;
     }
 
 }

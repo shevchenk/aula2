@@ -162,7 +162,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
         /*
          * Package Service Providers...
          */
@@ -179,6 +178,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         ZanySoft\LaravelPDF\PdfServiceProvider::class,
+        Xaoc\LaravelTcpdf\LaravelTcpdfServiceProvider::class,
     ],
 
     /*

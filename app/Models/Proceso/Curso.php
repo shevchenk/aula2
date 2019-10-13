@@ -30,7 +30,7 @@ class Curso extends Model
             ->leftJoin('v_evaluaciones AS e', function($join){
                 $join->on('e.programacion_id','=','p.id')
                 ->where('e.estado','=',1)
-                ->where('e.estado_cambio','<',2);
+                ->where('e.estado_cambio','=',1);
             })
             ->leftJoin('v_tipos_evaluaciones AS te', function($join){
                 $join->on('te.id','=','e.tipo_evaluacion_id');
@@ -45,7 +45,7 @@ class Curso extends Model
             DB::raw('DATE(pu.fecha_inicio) as fecha_inicio'),
             DB::raw('DATE(pu.fecha_final) as fecha_final'),
             DB::raw("CONCAT(pdoc.paterno,' ', pdoc.materno,' ', pdoc.nombre) as docente"),
-            DB::raw("IFNULL(GROUP_CONCAT( CONCAT(te.tipo_evaluacion,' => ',e.nota) SEPARATOR '<br>' ), '') evals")
+            DB::raw("IFNULL(GROUP_CONCAT( CONCAT(te.tipo_evaluacion,' => ',e.fecha_examen,' => ',e.nota,' => ',e.id) SEPARATOR '<br>' ), '') evals")
             )
             ->where(
                 function($query) use ($r){

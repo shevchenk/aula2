@@ -112,6 +112,19 @@ HTMLCargarEvaluacion=function(result){
     $('#TableEvaluacion').DataTable().destroy();
     //alert('llegoo');
     $.each(result.data.data,function(index,r){
+        evals={
+          fecha_examen:'',
+          nota:'',
+          btn:''
+        };
+        if( $.trim(r.evals)!='' ){
+            evals.fecha_examen = r.evals.split('<br>')[0].split(' => ')[1];
+            evals.nota = r.evals.split('<br>')[0].split(' => ')[2];
+            id = r.evals.split('<br>')[0].split(' => ')[3];
+            evals.btn = '<a class="btn btn-lg btn-dropbox" href="ReportDinamic/Proceso.EvaluacionPR@DescargarCertificado?id='+id+'" target="__blank">'+
+                          '<i class="fa fa-file-pdf-o"></i>'+
+                        '</a>';
+        }
         //estadohtml='<span id="'+r.id+'" onClick="CambiarEstado(1,'+r.id+')" class="btn btn-danger">Inactivo</span>';
         /*if(r.estado==1){
             estadohtml='<span id="'+r.id+'" onClick="CambiarEstado(0,'+r.id+')" class="btn btn-success">Activo</span>';
@@ -123,8 +136,10 @@ HTMLCargarEvaluacion=function(result){
             "<td class='ciclo'>"+r.ciclo+"</td>"+*/
             "<td class='curso'>"+r.curso+"</td>"+
             "<td class='docente'>"+r.docente+"</td>"+
-            "<td class='fecha_inicio'>"+r.fecha_inicio+"</td>"+
-            "<td class='fecha_final'>"+r.fecha_final+"</td>";
+            "<td class='fecha_examen'>"+evals.fecha_examen+"</td>"+
+            "<td class='nota'>"+evals.nota+"</td>"+
+            "<td class='btn'>"+evals.btn+"</td>"
+            ;
             //"<td class='evals'>"+r.evals+"</td>";
         //html +='<a class="btn btn-primary btn-sm" onClick="CargarContenido('+r.pu_id+','+r.curso_id+',\''+r.curso+'\')"><i class="fa fa-plus fa-lg"></i> </a></td>';
         html+="</tr>";

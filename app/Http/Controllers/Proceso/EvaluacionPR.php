@@ -18,14 +18,29 @@ use App\Models\Mantenimiento\Balotario;
 use App\Models\Proceso\EvaluacionDetalle;
 
 use App\Models\Mantenimiento\Respuesta;
+use App\Models\Tcpdf\Pdf;
+use TCPDF_FONTS;
+use Hash;
 
-class EvaluacionPR extends Controller
+class EvaluacionPR extends Controller 
 {
     private $api;
+    private $servidor;
 
     public function __construct()
     {
         $this->api = new Api();
+        $this->servidor = 'localhost/aula2/public';
+        if( $_SERVER['SERVER_NAME']=='miaula.formacioncontinua.pe' ){
+            $this->servidor = 'miaula.formacioncontinua.pe';
+        }
+        elseif( $_SERVER['SERVER_NAME']=='capamiaula.formacioncontinua.pe' ){
+            $this->servidor = 'capamiaula.formacioncontinua.pe';
+        }
+
+        if( !isset($_GET['key']) ){
+            $this->middleware('auth');
+        }
     }
 
     public function index(){
@@ -425,6 +440,97 @@ class EvaluacionPR extends Controller
             $return['rst'] = $rst;
             return response()->json($return);
         }
+    }
+
+    public function DescargarCertificado(Request $r){
+        $key = array('','');
+        if( $r->has('key') ){
+            $key = explode('.$/$.',$r->key);
+            if( count($key) == 2 AND Hash::check($key[1], $key[0]) ){
+                $r['id'] = $key[1];
+            }
+            else{
+                $r['id'] = 0;
+            }
+        }
+
+        $evaluacion = Evaluacion::verEvaluacion($r);
+        $mes=['','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Diciembre'];
+        $fecha= explode("-","2019-01-01");
+        $nombre='';
+        $curso='';
+
+        if( isset($evaluacion->fecha_examen) ){
+            $fecha= explode("-", $evaluacion->fecha_examen);
+            $nombre = $evaluacion->nombre." ".$evaluacion->paterno." ".$evaluacion->materno;
+            $curso = $evaluacion->curso;
+        }
+        /*$nombre = 'DEL AGUILA JIMENEZ CAROLINA FIORELLA DEL CARMEN';
+        $nombre = 'ISAAC LUIS EDUARDO MORI GUERRA';
+        $curso= 'VALIDACION DE INSTRUMENTO DE INVESTIGACION Y PROCESAMIENTO DE DATOS';
+        $curso= 'MATEMÁTICA FINANCIERA Y GESTIÓN DE DOCUMENTOS FINANCIEROS Y MERCANTILES';
+        $curso= 'SEO TÉCNICO: POSICIONAMIENTO AVANZADO';
+        $curso= 'NORMAS DE REDACCIÓN APLICADAS EN LA INVESTIGACIÓN CIENTÍFICA (NORMAS APA Y CHICAGO)';*/
+
+        $pdf = new Pdf('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $imageFile = 'certificado/certificado4.jpg';
+        $pdf->ActivarFondo($imageFile);
+
+        if ( $r->has('key') ){
+            $pdf->ActivarValidacion();
+        }
+
+        $key=bcrypt($r->id);
+
+        $qrData = array(
+            'url' => $this->servidor."/ReportDinamic/Proceso.EvaluacionPR@DescargarCertificado?key=".$key.".$/$.".$r->id,
+            'posx' => 250,
+            'posy' => 35,
+            'w' => 30,
+            'h' => 30,
+            'color' => array(0,32,96)
+        );
+        $pdf->ActivarQR($qrData);
+
+
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('Jorge Salcedo');
+        $pdf->SetTitle('Certificado Digital');
+        $pdf->SetSubject('Certificado del Curso');
+        $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetAutoPageBreak(TRUE, 0);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+        $pdf->AddPage();
+        $pdf->Ln(55);
+        $fontname = TCPDF_FONTS::addTTFfont('fonts/Calibri Regular.ttf', 'TrueTypeUnicode', '', 32);
+        $pdf->SetTextColor(0, 32, 96);
+        
+        
+        $pdf->SetFont($fontname, '', 17, '', false);
+        $pdf->Cell(50, 17, 'Otorgado a:   ', 0, 0, 'R', 0, '');
+        $pdf->SetFont($fontname, '', 25, '', false);
+        $pdf->MultiCell(190, 0, $nombre, 'B', 'C', 0, 1, '', '',true);
+        
+        $pdf->SetFont($fontname, '', 17, '', false);
+        $pdf->Cell(119, 15, 'Por su participación en el curso virtual de:', 0, 1, 'R', 0, '');
+        
+        $pdf->SetFont($fontname, '', 25, '', false);
+        $pdf->Cell(20, 0, '', 0, 0, 'R', 0, '');
+        $pdf->MultiCell(220, 0, $curso, 'B', 'C', 0, 1, '', '', true);
+
+        $pdf->SetFont($fontname, '', 17, '', false);
+        $pdf->Cell(123, 15, 'con una duración de 210 horas académicas.', 0, 1, 'R', 0, '');
+        $pdf->Cell(140, 12, 'Lima,', 0, 0, 'R', 0, '');
+        $pdf->SetFont($fontname, '', 25, '', false);
+        $pdf->Cell(100, 0, $fecha[2].' de '.$mes[$fecha[1]*1].' del '.$fecha[0], 0, 1, 'C', 0, '');
+
+        $pdf->Image('certificado/secretaria.png', 60, 165, 70, 30, '', '', '', true, 300, '', false, false, 0, false, false, false);
+        $pdf->Image('certificado/director.png', 140, 168, 70, 30, '', '', '', true, 300, '', false, false, 0, false, false, false);
+        $pdf->Output('example_002.pdf', 'I');
     }
 
 }

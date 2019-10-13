@@ -152,18 +152,12 @@
                                       </th>
                                       <th class="col-xs-1">
                                           <div class="form-group">
-                                              <label><h4>Fecha Inicio</h4></label>
-                                              <div class="input-group">
-                                                  <input type="text" class="form-control" name="txt_fecha_inicio" id="txt_fecha_inicio" placeholder="Hora Inicial" onkeypress="return masterG.enterGlobal(event,'#txt_curso',1);">
-                                              </div>
+                                              <label><h4>Fecha Examen</h4></label>
                                           </div>
                                       </th>
                                       <th class="col-xs-1">
                                           <div class="form-group">
-                                              <label><h4>Fecha Final</h4></label>
-                                              <div class="input-group">
-                                                  <input type="text" class="form-control" name="txt_fecha_final" id="txt_fecha_final" placeholder="Hora Final" onkeypress="return masterG.enterGlobal(event,'#txt_curso',1);">
-                                              </div>
+                                              <label><h4>Nota</h4></label>
                                           </div>
                                       </th>
                                       <!--th class="col-xs-2">
@@ -174,7 +168,7 @@
                                               </div>>
                                           </div>
                                       </th-->
-                                      <!--<th class="col-xs-1">[-]</th>-->
+                                      <th class="col-xs-1">[-]</th>
                                   </tr>
                               </thead>
                               <tbody>
@@ -186,10 +180,10 @@
                                     <th>Ciclo</th-->
                                     <th>Curso</th>
                                     <th>Docente</th>
-                                    <th>Fecha Inicio</th>
-                                    <th>Fecha Final</th>
+                                    <th>Fecha Examen</th>
+                                    <th>Nota</th>
                                     <!--th>Evaluaciones</th-->
-                                    <!--<th>[-]</th>-->
+                                    <th>[-]</th>
                                   </tr>
                               </tfoot>
                           </table>
