@@ -475,12 +475,12 @@ class EvaluacionPR extends Controller
         $curso= 'NORMAS DE REDACCIÓN APLICADAS EN LA INVESTIGACIÓN CIENTÍFICA (NORMAS APA Y CHICAGO)';*/
 
         $pdf = new Pdf('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-        $imageFile = 'certificado/certificado4.jpg';
-        $pdf->ActivarFondo($imageFile);
 
+        $imageFile = 'certificado/certificado4.jpg';
         if ( $r->has('key') OR $nota<13 ){
-            $pdf->ActivarValidacion();
+            $imageFile = 'certificado/certificado4_v.png';
         }
+        $pdf->ActivarFondo($imageFile);
 
         $key=bcrypt($r->id);
 

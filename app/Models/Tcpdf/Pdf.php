@@ -36,7 +36,7 @@ class Pdf extends TCPDF
             $bMargin = $this->getBreakMargin();
             $auto_page_break = $this->AutoPageBreak;
             $this->SetAutoPageBreak(false, 0);
-            $this->Image($this->imageFile, 0, 0, 298, 210, 'jpg', '', '', false, 300, '', false, false, 0);
+            $this->Image($this->imageFile, 0, 0, 298, 210, '', '', '', false, 300, '', false, false, 0);
             $this->SetAutoPageBreak($auto_page_break, $bMargin);
             $this->setPageMark();
         }
