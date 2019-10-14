@@ -13,6 +13,7 @@ var data_alter_preg = [];
 
 var tipo_evaluacionG = '';
 var cursoG = '';
+var trG;
 
 $(document).ready(function() {
 
@@ -121,7 +122,11 @@ HTMLCargarEvaluacion=function(result){
             evals.fecha_examen = r.evals.split('<br>')[0].split(' => ')[1];
             evals.nota = r.evals.split('<br>')[0].split(' => ')[2];
             id = r.evals.split('<br>')[0].split(' => ')[3];
-            evals.btn = '<a class="btn btn-lg btn-dropbox" href="ReportDinamic/Proceso.EvaluacionPR@DescargarCertificado?id='+id+'" target="__blank">'+
+            color='dropbox';
+            if( evals.nota<13 ){
+              color='danger';
+            }
+            evals.btn = '<a class="btn btn-lg btn-'+color+'" href="ReportDinamic/Proceso.EvaluacionPR@DescargarCertificado?id='+id+'" target="__blank">'+
                           '<i class="fa fa-file-pdf-o"></i>'+
                         '</a>';
         }
@@ -162,11 +167,16 @@ HTMLCargarEvaluacion=function(result){
             masterG.CargarPaginacion('HTMLCargarEvaluacion','AjaxEvaluacion',result.data,'#TableEvaluacion_paginate');
         }
     });
+
+    /*if( $.trim(trG)!='' ){
+        masterG.pintar_fila(trG);
+    }*/
 };
 
 
 CargarEvaluaciones=function(id, programacion_unica_id, curso_id,curso, imagen, boton){
-    masterG.pintar_fila(boton); //Pinta la fila
+    trG = boton;
+    masterG.pintar_fila(trG); //Pinta la fila
     //alert(id+'- '+ programacion_unica_id+'- '+ curso_id+'- '+ curso+'- '+ boton);
 
     /*$("#imageCurso").attr("src","img/course/"+imagen);
@@ -208,12 +218,14 @@ HTMLCargarTipoEvaluacion=function(result){
               html+='<button type="button" id="btniniciareval" name="btniniciareval" class="btn btn-default" onClick="iniciarEvaluacion('+r.id+','+programacion_id+','+programacion_unica_id+',\''+r.tipo_evaluacion+'\',\''+curso+'\')" style="font-weight: bold;">Iniciar Evaluación</button>';
             }
             else{
-              html+='<button type="button" id="btniniciareval" name="btniniciareval" class="btn btn-info" onClick="iniciarEvaluacion('+r.id+','+programacion_id+','+programacion_unica_id+',\''+r.tipo_evaluacion+'\',\''+curso+'\')" style="font-weight: bold;">Mejorar mi Evaluación</button> &nbsp;&nbsp;';
+              if( r.evaluacion_resultado.split("|")[3]*1<13 ){
+                html+='<button type="button" id="btniniciareval" name="btniniciareval" class="btn btn-info" onClick="iniciarEvaluacion('+r.id+','+programacion_id+','+programacion_unica_id+',\''+r.tipo_evaluacion+'\',\''+curso+'\')" style="font-weight: bold;">Mejorar mi Evaluación</button> &nbsp;&nbsp;';
+              }
               html+='<button type="button" id="btniniciareval" name="btniniciareval" class="btn btn-primary" onClick="verEvaluacion('+r.evaluacion_id+','+programacion_id+',\''+r.tipo_evaluacion+'\',\''+curso+'\')" style="font-weight: bold;">Ver Resultados</button> &nbsp;&nbsp;';
             }
             colorrst='danger';
             textorst='DESAPROBADO';
-            if( r.evaluacion_resultado.split("|")[3]*1>=10.5 ){
+            if( r.evaluacion_resultado.split("|")[3]*1>=13 ){
               colorrst='success';
               textorst='APROBADO';
             }
@@ -407,7 +419,7 @@ HTMLverEvaluacion=function(result){
                 total_p = total_p + r.puntaje*1;
             });
 
-            if(total_p.toFixed(2) > 10.5)
+            if(total_p.toFixed(2) >= 13)
               html += '<li class="list-group-item list-group-item-success" style="font-weight: bold;"><span class="badge">'+total_p.toFixed(2)+'</span>APROBADO</li>';
             else
               html += '<li class="list-group-item list-group-item-danger" style="font-weight: bold;"><span class="badge">'+total_p.toFixed(2)+'</span>DESAPROBADO</li>';
@@ -492,7 +504,7 @@ HTMLAgregarEvaluacion=function(result){
     if( result.rst==1 ){
         msjG.mensaje('success',result.msj,4000);
 
-        //AjaxEvaluacion.Cargar(HTMLCargarEvaluacion);
+        AjaxEvaluacion.Cargar(HTMLCargarEvaluacion);
         AjaxTipoEvaluacion.Cargar(HTMLCargarTipoEvaluacion);
 
         $("#TipoEvaluacionForm").slideDown('fast');

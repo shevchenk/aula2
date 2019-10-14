@@ -64,7 +64,7 @@ class Pdf extends TCPDF
                 $this->qrData['posy'], 
                 $this->qrData['w'], 
                 $this->qrData['h'], 
-                $style,'N'
+                $style,''
             );
             $this->SetFont('times', 'BI', 11);
             $wt= $this->qrData['posx'] + floor(($this->qrData['w']-18)/2);

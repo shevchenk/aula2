@@ -459,11 +459,13 @@ class EvaluacionPR extends Controller
         $fecha= explode("-","2019-01-01");
         $nombre='';
         $curso='';
+        $nota=0;
 
         if( isset($evaluacion->fecha_examen) ){
             $fecha= explode("-", $evaluacion->fecha_examen);
             $nombre = $evaluacion->nombre." ".$evaluacion->paterno." ".$evaluacion->materno;
             $curso = $evaluacion->curso;
+            $nota = $evaluacion->nota;
         }
         /*$nombre = 'DEL AGUILA JIMENEZ CAROLINA FIORELLA DEL CARMEN';
         $nombre = 'ISAAC LUIS EDUARDO MORI GUERRA';
@@ -476,7 +478,7 @@ class EvaluacionPR extends Controller
         $imageFile = 'certificado/certificado4.jpg';
         $pdf->ActivarFondo($imageFile);
 
-        if ( $r->has('key') ){
+        if ( $r->has('key') OR $nota<13 ){
             $pdf->ActivarValidacion();
         }
 
