@@ -530,8 +530,8 @@ class EvaluacionPR extends Controller
         $pdf->SetFont($fontname, '', 25, '', false);
         $pdf->Cell(100, 0, $fecha[2].' de '.$mes[$fecha[1]*1].' del '.$fecha[0], 0, 1, 'C', 0, '');
 
-        //$pdf->Image('certificado/secretaria.png', 60, 165, 70, 30, '', '', '', true, 300, '', false, false, 0, false, false, false);
-        //$pdf->Image('certificado/director.png', 140, 168, 70, 30, '', '', '', true, 300, '', false, false, 0, false, false, false);
+        $pdf->Image('certificado/secretaria.png', 60, 165, 70, 30, '', '', '', true, 300, '', false, false, 0, false, false, false);
+        $pdf->Image('certificado/director.png', 140, 168, 70, 30, '', '', '', true, 300, '', false, false, 0, false, false, false);
         $pdf->Output('example_002.pdf', 'I');
     }
 
