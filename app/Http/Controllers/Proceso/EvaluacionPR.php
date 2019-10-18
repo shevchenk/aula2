@@ -477,8 +477,11 @@ class EvaluacionPR extends Controller
         $pdf = new Pdf('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
         $imageFile = 'certificado/certificado4.jpg';
-        if ( $r->has('key') OR $nota<13 ){
+        if ( $nota<13 ){
             $imageFile = 'certificado/certificado4_v.png';
+        }
+        elseif ( $r->has('key') ){
+            $imageFile = 'certificado/certificado4_qr.png';
         }
         $pdf->ActivarFondo($imageFile);
 
@@ -487,7 +490,7 @@ class EvaluacionPR extends Controller
         $qrData = array(
             'url' => $this->servidor."/ReportDinamic/Proceso.EvaluacionPR@DescargarCertificado?key=".$key.".$/$.".$r->id,
             'posx' => 250,
-            'posy' => 35,
+            'posy' => 25,
             'w' => 30,
             'h' => 30,
             'color' => array(0,32,96)
@@ -507,31 +510,59 @@ class EvaluacionPR extends Controller
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
         $pdf->AddPage();
-        $pdf->Ln(55);
         $fontname = TCPDF_FONTS::addTTFfont('fonts/Calibri Regular.ttf', 'TrueTypeUnicode', '', 32);
         $pdf->SetTextColor(0, 32, 96);
         
-        
-        $pdf->SetFont($fontname, '', 17, '', false);
-        $pdf->Cell(50, 17, 'Otorgado a:   ', 0, 0, 'R', 0, '');
-        $pdf->SetFont($fontname, '', 25, '', false);
-        $pdf->MultiCell(190, 0, $nombre, 'B', 'C', 0, 1, '', '',true);
-        
-        $pdf->SetFont($fontname, '', 17, '', false);
-        $pdf->Cell(135, 15, 'Por su participación y aprobación en el curso de:', 0, 1, 'R', 0, '');
-        
-        $pdf->SetFont($fontname, '', 25, '', false);
-        $pdf->Cell(20, 0, '', 0, 0, 'R', 0, '');
-        $pdf->MultiCell(220, 0, $curso, 'B', 'C', 0, 1, '', '', true);
+        if( $nota<13 OR ($nota>=13 AND !$r->has('key')) ){
+            $pdf->Ln(55);
+            $pdf->SetFont($fontname, '', 17, '', false);
+            $pdf->Cell(50, 17, 'Otorgado a:   ', 0, 0, 'R', 0, '');
+            $pdf->SetFont($fontname, '', 25, '', false);
+            $pdf->MultiCell(190, 0, $nombre, 'B', 'C', 0, 1, '', '',true);
+            
+            $pdf->SetFont($fontname, '', 17, '', false);
+            $pdf->Cell(135, 15, 'Por su participación y aprobación en el curso de:', 0, 1, 'R', 0, '');
+            
+            $pdf->SetFont($fontname, '', 25, '', false);
+            $pdf->Cell(20, 0, '', 0, 0, 'R', 0, '');
+            $pdf->MultiCell(220, 0, $curso, 'B', 'C', 0, 1, '', '', true);
 
-        $pdf->SetFont($fontname, '', 17, '', false);
-        $pdf->Cell(123, 15, 'con una duración de 210 horas académicas.', 0, 1, 'R', 0, '');
-        $pdf->Cell(140, 12, 'Lima,', 0, 0, 'R', 0, '');
-        $pdf->SetFont($fontname, '', 25, '', false);
-        $pdf->Cell(100, 0, $fecha[2].' de '.$mes[$fecha[1]*1].' del '.$fecha[0], 0, 1, 'C', 0, '');
+            $pdf->SetFont($fontname, '', 17, '', false);
+            $pdf->Cell(123, 15, 'con una duración de 210 horas académicas.', 0, 1, 'R', 0, '');
+            $pdf->Cell(140, 12, 'Lima,', 0, 0, 'R', 0, '');
+            $pdf->SetFont($fontname, '', 25, '', false);
+            $pdf->Cell(100, 0, $fecha[2].' de '.$mes[$fecha[1]*1].' del '.$fecha[0], 0, 1, 'C', 0, '');
 
-        $pdf->Image('certificado/secretaria.png', 60, 165, 70, 30, '', '', '', true, 300, '', false, false, 0, false, false, false);
-        $pdf->Image('certificado/director.png', 140, 168, 70, 30, '', '', '', true, 300, '', false, false, 0, false, false, false);
+            $pdf->Image('certificado/secretaria.png', 60, 165, 70, 30, '', '', '', true, 300, '', false, false, 0, false, false, false);
+            $pdf->Image('certificado/director.png', 140, 168, 70, 30, '', '', '', true, 300, '', false, false, 0, false, false, false);
+        }
+        elseif ($nota>=13 AND $r->has('key')){
+            $pdf->Ln(45);
+            $pdf->SetFont($fontname, '', 16, '', false);
+            $pdf->MultiCell(0, 0, 'La Secretaría General da constancia de la valides de este certificado, cuyos datos se encuentran registrados en nuestro sistema informático.', 0, 'L', 0, 1, '', '',true);
+
+            $pdf->Ln(15);
+            $pdf->SetFont($fontname, '', 16, '', false);
+            $pdf->Cell(90, 10, 'Este certificado ha sido otorgado a:', 0, 0, '', 0, '');
+            $pdf->SetFont($fontname, '', 24, '', false);
+            $pdf->MultiCell(164, 0, $nombre, 0, 'C', 0, 1, '', '',true);
+
+            $pdf->SetFont($fontname, '', 16, '', false);
+            $pdf->Cell(0, 15, 'Por haber participado y aprobado el curso de:', 0, 1, '', 0, '');
+
+            $pdf->SetFont($fontname, '', 24, '', false);
+            $pdf->MultiCell(0, 0, $curso, '', 'C', 0, 1, '', '', true);
+            
+            $pdf->Ln(1);
+            $pdf->SetFont($fontname, '', 16, '', false);
+            $pdf->MultiCell(0, 0, 'Con una duración de 210 horas académicas, realizando su evaluación final el día '.$fecha[2].'-'.$fecha[1].'-'.$fecha[0].' obteniendo la nota de: '.($nota*1), '', '', 0, 0, '', '', true);
+
+            $pdf->Ln(25);
+            $fecha = explode( "-", date('Y-m-d') );
+            $pdf->Cell(160, 0, 'Lima,', 0, 0, 'R', 0, '');
+            $pdf->Cell(70, 0, $fecha[2].' de '.$mes[$fecha[1]*1].' del '.$fecha[0], 0, 1, 'C', 0, '');
+            $pdf->Image('certificado/secretaria.png', 80, 165, 70, 30, '', '', '', true, 300, '', false, false, 0, false, false, false);
+        }
         $pdf->Output('example_002.pdf', 'I');
     }
 
