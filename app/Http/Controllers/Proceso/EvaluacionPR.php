@@ -495,7 +495,10 @@ class EvaluacionPR extends Controller
             'h' => 30,
             'color' => array(0,32,96)
         );
-        $pdf->ActivarQR($qrData);
+
+        if( $nota>=13 ){
+            $pdf->ActivarQR($qrData);
+        }
 
 
         $pdf->SetCreator(PDF_CREATOR);
