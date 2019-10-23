@@ -30,12 +30,12 @@ class EvaluacionPR extends Controller
     public function __construct()
     {
         $this->api = new Api();
-        $this->servidor = 'localhost/aula2/public';
+        $this->servidor = 'http://localhost/aula2/public';
         if( $_SERVER['SERVER_NAME']=='miaula.formacioncontinua.pe' ){
-            $this->servidor = 'miaula.formacioncontinua.pe';
+            $this->servidor = 'http://miaula.formacioncontinua.pe';
         }
         elseif( $_SERVER['SERVER_NAME']=='capamiaula.formacioncontinua.pe' ){
-            $this->servidor = 'capamiaula.formacioncontinua.pe';
+            $this->servidor = 'http://capamiaula.formacioncontinua.pe';
         }
 
         if( !isset($_GET['key']) ){
@@ -496,7 +496,7 @@ class EvaluacionPR extends Controller
             'color' => array(0,32,96)
         );
 
-        if( $nota>=13 ){
+        if( $nota>=13 AND !$r->has('key') ){
             $pdf->ActivarQR($qrData);
         }
 

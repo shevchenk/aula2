@@ -59,7 +59,7 @@ class Pdf extends TCPDF
             );
             $this->write2DBarcode(
                 $this->qrData['url'], 
-                'QRCODE,H', 
+                'QRCODE', 
                 $this->qrData['posx'], 
                 $this->qrData['posy'], 
                 $this->qrData['w'], 
