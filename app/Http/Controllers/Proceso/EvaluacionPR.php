@@ -489,10 +489,10 @@ class EvaluacionPR extends Controller
 
         $qrData = array(
             'url' => $this->servidor."/ReportDinamic/Proceso.EvaluacionPR@DescargarCertificado?key=".$key.".$/$.".$r->id,
-            'posx' => 20,
-            'posy' => 25,
-            'w' => 50,
-            'h' => 50,
+            'posx' => 230,
+            'posy' => 30,
+            'w' => 40,
+            'h' => 40,
             'color' => array(0,32,96)
         );
 
