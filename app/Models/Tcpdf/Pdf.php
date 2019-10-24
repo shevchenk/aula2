@@ -55,20 +55,24 @@ class Pdf extends TCPDF
                 'border' => false,
                 'padding' => 0,
                 'fgcolor' => $this->qrData['color'],
-                'bgcolor' => false
+                'bgcolor' => false,
+                'module_width' => 2, // width of a single module in points
+                'module_height' => 2 // height of a single module in points
             );
+
             $this->write2DBarcode(
                 $this->qrData['url'], 
-                'QRCODE', 
+                'QRCODE,M', 
                 $this->qrData['posx'], 
                 $this->qrData['posy'], 
                 $this->qrData['w'], 
                 $this->qrData['h'], 
-                $style,''
+                $style, 'N'
             );
+
             $this->SetFont('times', 'BI', 11);
             $wt= $this->qrData['posx'] + floor(($this->qrData['w']-18)/2);
-            $ht= $this->qrData['posy'] + $this->qrData['h'] - 2;
+            $ht= $this->qrData['posy'] + $this->qrData['h'];
             $this->Text($wt, $ht, 'QRCODE');
         }
     }
