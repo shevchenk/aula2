@@ -26,7 +26,8 @@ var AjaxContenido={
     },
     CargarUnidadContenido:function(evento){
         url='AjaxDinamic/Mantenimiento.UnidadContenidoEM@ListUnidadContenido';
-        data={};
+        data=$("#ModalContenidoForm").serialize().split("txt_").join("").split("slct_").join("");
+        $("#ModalContenidoForm input[type='hidden']").not('.mant').remove();
         masterG.postAjax(url,data,evento);
     },        
 };

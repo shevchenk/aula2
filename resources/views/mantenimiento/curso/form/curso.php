@@ -35,6 +35,19 @@
                             </div>  
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <br><br>
+                        <table class="table table-bordered table-hover">
+                            <thead class="bg-info">
+                                <tr>
+                                    <th style="text-align: center;">Unidad de Contenido</th>
+                                    <th style="text-align: center;"><a class="btn btn-sm btn-success" onClick="AgregarUC();"><i class="fa fa-plus fa-lg"></i></a></th>
+                                </tr>
+                            </thead>
+                            <tbody id='tb_te'>
+                            </tbody>
+                        </table>
+                    </div>
                 </form>
                 </div>
             </div>

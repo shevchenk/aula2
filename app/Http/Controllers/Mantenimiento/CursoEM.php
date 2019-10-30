@@ -178,4 +178,78 @@ class CursoEM extends Controller{
             return response()->json($return);
         }
     }
+
+    public function CargarUnidadContenido(Request $r ){
+        if ( $r->ajax() ) {
+            $renturnModel = Curso::CargarUnidadContenido($r);
+            $return['rst'] = 1;
+            $return['data'] = $renturnModel;
+            $return['msj'] = "No hay registros aún";
+            return response()->json($return);
+        }
+    }
+
+    public function validarTipoEvaluacionMaster(Request $r){
+        if( trim(session('idcliente'))=='' ){
+            session(['idcliente' => 2]);
+        }
+        $idcliente = session('idcliente');
+        $tab_cli = DB::table('clientes_accesos')
+                      ->where('id','=', $idcliente)
+                      ->where('estado','=', 1)
+                      ->first();
+        // URL (CURL)
+        $cli_links =  DB::table('clientes_accesos_links')
+                      ->where('cliente_acceso_id','=', $idcliente)
+                      ->where('tipo','=', 8)
+                      ->first(); //falta validar
+        $buscar = array("pkey");
+        $reemplazar = array($tab_cli->keycli);
+        $url = str_replace($buscar, $reemplazar, $cli_links->url);
+        if( session('empresa_id')!=null ){
+          $url.="&empresa_id=".session('empresa_id');
+        }
+        
+        $objArr = $this->api->curl($url);
+        // --
+        $return_response = '';
+
+        if (empty($objArr))
+        {
+            $return_response = $this->api->response(422,"error","Ingrese sus datos de envio");
+        }
+        else if(isset($objArr->data->key->id) && isset($objArr->data->key->token))
+        {
+            $tab_cli =  DB::table('clientes_accesos')
+                        ->select('id', 'nombre', 'key', 'url', 'ip')
+                        ->where('id','=', $objArr->data->key->id)
+                        ->where('key','=', $objArr->data->key->token)
+                        //->where('ip','=', $this->api->getIPCliente())
+                        ->where('estado','=', 1)
+                        ->first();
+
+            if( isset($tab_cli->id) )
+            {
+                $val = $this->insertarCurso($objArr);
+                if($val['return'] == true){
+                  $return_response = $this->api->response(200,"success","Proceso ejecutado satisfactoriamente");
+                }else
+                    $return_response = $this->api->response(422,"error","Revisa tus parametros de envio");
+            }
+            else
+            {
+                $return_response = $this->api->response(422 ,"error","Su Parametro de seguridad son incorrectos");
+            }
+        }
+        else
+        {
+            $return_response = $this->api->response(422,"error","Revisa tus parametros de envio");
+        }
+
+        $renturnModel = Curso::runLoad($r);
+        $return['rst'] = 1;
+        $return['data'] = $renturnModel;
+        $return['msj'] = "No hay registros aún";
+        return response()->json($return);
+    }
 }

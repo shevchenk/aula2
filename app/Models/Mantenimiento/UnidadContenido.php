@@ -12,7 +12,14 @@ class UnidadContenido extends Model
 
     public static function ListUnidadContenido($r){
         $sql=UnidadContenido::select('id','unidad_contenido','estado')
-            ->where('estado','=','1');
+            ->where('estado','=','1')
+            ->where(
+                function($query) use($r){
+                    if( $r->has('curso_id') ){
+                        $query->where('curso_id',$r->curso_id);
+                    }
+                }
+            );
         $result = $sql->orderBy('unidad_contenido','asc')->get();
         return $result;
     }

@@ -137,11 +137,11 @@ onImagen = function (event) {
 };
 CargarPregunta=function(id,curso,boton){   
      masterG.pintar_fila(boton);
-     CargarSlct(3);
      $("#PreguntaForm #txt_curso_id").val(id);
      $("#ModalPreguntaForm #txt_curso_id").val(id);
      $("#ModalPreguntaForm #txt_curso").val(curso);
      AjaxPregunta.Cargar(HTMLCargarPregunta);
+     CargarSlct(3);
      $("#PreguntaForm").css("display","");
      $("#RespuestaForm").css("display","none");
      

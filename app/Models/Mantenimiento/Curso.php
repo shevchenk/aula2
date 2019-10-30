@@ -4,7 +4,7 @@ namespace App\Models\Mantenimiento;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Mantenimiento\Menu;
+use App\Models\Mantenimiento\UnidadContenido;
 use DB;
 
 class Curso extends Model
@@ -20,6 +20,7 @@ class Curso extends Model
 
     public static function runEdit($r)
     {
+        DB::beginTransaction();
         $usuario = Auth::user()->id;
         $curso = Curso::find($r->id);
         $curso->persona_id_updated_at = $usuario;
@@ -33,11 +34,49 @@ class Curso extends Model
         }
         $curso->imagen = $url;
         $curso->save();
+
+        DB::table('v_unidades_contenido')
+        ->where('curso_id','=', $r->id)
+        ->update(
+            array(
+                'estado' => 0,
+                'persona_id_updated_at' => $usuario,
+                'updated_at' => date('Y-m-d H:i:s')
+                )
+            );
+
+        $unidad_contenido= $r->unidad_contenido;
+        $id_unidad_contenido= $r->id_unidad_contenido;
+        if( $r->has('unidad_contenido') ){
+            for ($i=0; $i < count($unidad_contenido) ; $i++) { 
+                $UC=UnidadContenido::find($id_unidad_contenido[$i]);
+
+                if( !isset($UC->id) )
+                {
+                    $UC = new UnidadContenido;
+                    $UC->curso_id = $r->id;
+                    $UC->persona_id_created_at = $usuario;
+                }
+                else{
+                    $UC->persona_id_updated_at = $usuario;
+                }
+                $UC->unidad_contenido=$unidad_contenido[$i];
+                $UC->estado=1;
+                $UC->save();
+            }
+        }
+        DB::commit();
     }
     
     public static function runLoad($r){
         $result=DB::table('v_cursos AS c')
-                ->select('c.id','c.curso','c.curso_externo_id','c.estado','c.imagen')
+                ->leftJoin('v_unidades_contenido AS vuc', function($join){
+                    $join->on('vuc.curso_id','=','c.id')
+                    ->where('vuc.estado',1);
+                })
+                ->select('c.id','c.curso','c.curso_externo_id','c.estado','c.imagen'
+                    ,DB::raw(' GROUP_CONCAT(vuc.unidad_contenido SEPARATOR "|") AS unidad_contenido ')
+                )
                 ->where(
                     function($query) use ($r){
                         $query->where('c.estado','=', 1);
@@ -51,7 +90,9 @@ class Curso extends Model
                             $query->where('empresa_externo_id', session('empresa_id'));
                         }
                     }
-                )->paginate(10);
+                )
+                ->groupBy('c.id','c.curso','c.curso_externo_id','c.estado','c.imagen')
+                ->paginate(10);
 
         return $result;
     }
@@ -82,6 +123,14 @@ class Curso extends Model
         return $url. $type;
     }
     
+    public static function CargarUnidadContenido($r){
+        $sql=DB::table('v_unidades_contenido')
+            ->select('id','unidad_contenido')
+            ->where('curso_id', $r->id)
+            ->where('estado','=','1');
+        $result = $sql->orderBy('unidad_contenido','asc')->get();
+        return $result;
+    }
 }
 
 ?>

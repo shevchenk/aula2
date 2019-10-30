@@ -13,14 +13,14 @@ $(document).ready(function() {
     });
     
 
-    AjaxCurso.Cargar(HTMLCargarCurso);
+    AjaxCurso.CargarAjax(HTMLCargarCurso);
     
     $("#CursoForm #TableCurso select").change(function(){ AjaxCurso.Cargar(HTMLCargarCurso); });
     $("#CursoForm #TableCurso input").blur(function(){ AjaxCurso.Cargar(HTMLCargarCurso); });
     
     $('#ModalCurso').on('shown.bs.modal', function (event) {
 
-        if( AddEdit==1 ){        
+        if( AddEdit==1 ){
             $(this).find('.modal-footer .btn-primary').text('Guardar').attr('onClick','AgregarEditarAjax();');
         }
         else{
@@ -30,6 +30,7 @@ $(document).ready(function() {
         $('#ModalCursoForm #txt_curso').val( CursoG.curso );
         $('#ModalCursoForm #txt_file_nombre').val( CursoG.imagen );
         masterG.SelectImagen(CursoG.imagen,'#txt_file_imagen');
+        AjaxCurso.CargarUnidadContenido(HTMLCargarUnidadContenido);
     });
 
     $('#ModalCurso').on('hidden.bs.modal', function (event) {
@@ -83,6 +84,7 @@ HTMLCargarCurso=function(result){
         }
         html+="<tr id='trid_"+r.id+"'>"+
             "<td class='curso'>"+r.curso+"</td>"+
+            "<td class='curso'><ul><li>"+$.trim(r.unidad_contenido).split("|").join("</li><li>")+"</li></ul></td>"+
             '<td>'+imagen+'<input type="hidden" class="imagen" value="'+r.imagen+'"></td>';
         html+="<td>";
         html+='<a class="btn btn-primary btn-sm" onClick="AgregarEditar(0,'+r.id+')"><i class="fa fa-edit fa-lg"></i> </a></td>';
@@ -106,6 +108,35 @@ HTMLCargarCurso=function(result){
             masterG.CargarPaginacion('HTMLCargarCurso','AjaxCurso',result.data,'#TableCurso_paginate');
         }
     });
-
 };
+
+AgregarUC=function(){
+    var html='<tr>';
+    html+='<td><textarea name="txt_unidad_contenido[]" class="form-control"></textarea><input type="hidden" name="txt_id_unidad_contenido[]" value="0"></td>';
+    html+='<td><a class="btn btn-sm btn-danger" onClick="EliminarTr(this);"><i class="fa fa-trash fa-lg"></i></a></td>';
+    html+='</tr>';
+    
+    $("#tb_te").append(html);
+}
+
+EliminarTr=function(t){
+    $(t).parent().parent().remove();
+}
+
+HTMLCargarUnidadContenido=function(result){
+    var html='';
+    $("#tb_te").html(html);
+    $.each(result.data,function(index,r){
+        var html='<tr>';
+        html+='<td>';
+        html+='<textarea name="txt_unidad_contenido[]" class="form-control">'+r.unidad_contenido+'</textarea>';
+        html+='<input type="hidden" name="txt_id_unidad_contenido[]" value="'+r.id+'">';
+        html+='</td>';
+        html+='<td><a class="btn btn-sm btn-danger" onClick="EliminarTr(this);"><i class="fa fa-trash fa-lg"></i></a></td>';
+        html+='</tr>';
+        
+        $("#tb_te").append(html);
+    });
+}
+
 </script>

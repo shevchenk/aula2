@@ -22,7 +22,6 @@ $(document).ready(function() {
 
 CargarContenido=function(id,curso_id,curso,imagen,boton){   
      masterG.pintar_fila(boton);
-     CargarSlct(2);
      $("#ContenidoForm #txt_programacion_unica_id").val(id);
      $("#ModalContenidoForm #txt_programacion_unica_id").val(id);
      $("#ModalContenidoForm #txt_curso_id").val(curso_id);
@@ -30,6 +29,7 @@ CargarContenido=function(id,curso_id,curso,imagen,boton){
      $("#ContenidoForm #div_cabecera").text(curso);
      $("#imageCurso").attr("src",imagen);
      redimensionG.validar();
+     CargarSlct(2);
      AjaxContenido.Cargar(HTMLCargarContenido);
      $("#ContenidoForm").css("display","");
      $("#ContenidoProgramacionForm").css("display","none");

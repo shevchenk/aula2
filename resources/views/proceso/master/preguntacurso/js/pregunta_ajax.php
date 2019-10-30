@@ -28,7 +28,7 @@ var AjaxPregunta={
     },
     CargarUnidadContenido:function(evento){
         url='AjaxDinamic/Mantenimiento.UnidadContenidoEM@ListUnidadContenido';
-        data={};
+        data={curso_id:$("#PreguntaForm #txt_curso_id").val()};
         masterG.postAjax(url,data,evento);
     },  
 };
