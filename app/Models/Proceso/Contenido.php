@@ -216,6 +216,7 @@ class Contenido extends Model
                 DB::raw('IFNULL(v_contenidos.fecha_inicio_d,"") as fecha_inicio_d'),DB::raw('IFNULL(v_contenidos.fecha_final_d,"") as fecha_final_d'),DB::raw('IFNULL(v_contenidos.fecha_ampliada_d,"") as fecha_ampliada_d'))
                 ->join('v_cursos as vc','vc.id','=','v_contenidos.curso_id')
                 ->join('v_unidades_contenido as vuc','vuc.id','=','v_contenidos.unidad_contenido_id')
+                ->join('v_tipos_contenidos as vtc','vtc.id','=','v_contenidos.tipo_respuesta')
                 ->where(
                     function($query) use ($r){
                       $query->where('v_contenidos.estado','=',1);
@@ -249,7 +250,7 @@ class Contenido extends Model
                     }
                 )
             ->orderBy('vuc.unidad_contenido','asc')
-            ->orderBy('v_contenidos.tipo_respuesta','asc')->get();
+            ->orderBy('vtc.tipo_contenido','asc')->get();
         return $result;
     }
 

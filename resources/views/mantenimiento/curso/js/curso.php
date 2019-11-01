@@ -84,7 +84,7 @@ HTMLCargarCurso=function(result){
         }
         html+="<tr id='trid_"+r.id+"'>"+
             "<td class='curso'>"+r.curso+"</td>"+
-            "<td class='curso'><ul><li>"+$.trim(r.unidad_contenido).split("|").join("</li><li>")+"</li></ul></td>"+
+            "<td class='unidad_contenido'><ul><li>"+$.trim(r.unidad_contenido).split("|").join("</li><li>")+"</li></ul></td>"+
             '<td>'+imagen+'<input type="hidden" class="imagen" value="'+r.imagen+'"></td>';
         html+="<td>";
         html+='<a class="btn btn-primary btn-sm" onClick="AgregarEditar(0,'+r.id+')"><i class="fa fa-edit fa-lg"></i> </a></td>';

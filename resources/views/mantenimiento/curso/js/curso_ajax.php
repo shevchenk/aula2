@@ -34,7 +34,17 @@ var AjaxCurso={
         url='AjaxDinamic/Mantenimiento.CursoEM@CargarUnidadContenido';
         
         masterG.postAjax(url,data,evento);
-    }
+    },
+    CargarTipoEvaluacionAjax:function(evento,pag){
+        if( typeof(pag)!='undefined' ){
+            $("#CursoForm").append("<input type='hidden' value='"+pag+"' name='page'>");
+        }
+        data=$("#CursoForm").serialize().split("txt_").join("").split("slct_").join("");
+        $("#CursoForm input[type='hidden']").not('.mant').remove();
+        url='AjaxDinamic/Mantenimiento.CursoEM@CargarTipoEvaluacionMaster';
+        
+        masterG.postAjax(url,data,evento);
+    },
 };
 
 </script>

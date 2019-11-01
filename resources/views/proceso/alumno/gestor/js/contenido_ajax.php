@@ -66,5 +66,10 @@ var AjaxContenido={
         url='AjaxDinamic/Proceso.ContenidoRespuestaPR@EditStatus';
         masterG.postAjax(url,data,evento);
     },
+    ListarTipoContenido:function(evento){
+        url='AjaxDinamic/Mantenimiento.TipoContenidoMA@ListarTipoContenido';
+        data={};
+        masterG.postAjax(url,data,evento);
+    },
 };
 </script>

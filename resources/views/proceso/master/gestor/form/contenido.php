@@ -53,9 +53,11 @@
                             <select class="form-control selectpicker"  data-actions-box='true' name="slct_tipo_respuesta" id="slct_tipo_respuesta">
                                 <option value>.::Seleccione::.</option>
                                 <option value="0">Documento de Apoyo</option>
+                                <option value="4">Documento de Apoyo Externo</option>
                                 <option value="1">Tarea</option>
-                                <option value="2">Videoconferencia</option>
                                 <option value="3">Video</option>
+                                <option value="5">Video Externo</option>
+                                <option value="2">Videoconferencia</option>
                             </select>
                         </div>
                     </div>
@@ -175,7 +177,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12" style="display: none;">
                         <div class="form-group">
                             <label>Estado</label>
                             <select class="form-control selectpicker show-menu-arrow" name="slct_estado" id="slct_estado">

@@ -38,6 +38,8 @@ $(document).ready(function() {
         todayBtn: false
     });
 
+    AjaxContenido.ListarTipoContenido(HTMLListarTipoContenido);
+
     $('#ModalContenido').on('shown.bs.modal', function (event) {
         $('#ModalContenidoForm #txt_contenido').val( ContenidoG.contenido );
         $('#ModalContenidoForm #slct_unidad_contenido_id').selectpicker( 'val',ContenidoG.unidad_contenido_id );
@@ -82,24 +84,34 @@ $(document).ready(function() {
     });
 
     $( "#ModalContenidoForm #slct_tipo_respuesta" ).change(function() {
-        $("#ModalContenidoForm .ponente,#ModalContenidoForm .linkvideo").css('display','none');
-        if( $('#ModalContenidoForm #slct_tipo_respuesta').val()=='1' ) {
-            $( "#ModalContenidoForm #respuesta,#ModalContenidoForm #tarea" ).css("display","");
-            $( "#ModalContenidoForm #video" ).css("display","none");
-            $( "#ModalContenidoForm #respuesta .anotacion" ).html("Fecha de entrega de tareas");
-        }else if( $('#ModalContenidoForm #slct_tipo_respuesta').val()=='2' ) {
-            $( "#ModalContenidoForm #video,#ModalContenidoForm #respuesta" ).css("display","");
-            $( "#ModalContenidoForm #tarea" ).css("display","none");
-            $( "#ModalContenidoForm #respuesta .anotacion" ).html("Videoconferencia");
-            $( ".ponente,.linkvideo" ).css('display','');
-        }else if( $('#ModalContenidoForm #slct_tipo_respuesta').val()=='3' ) {
-            $( ".ponente,.linkvideo" ).css('display','');
-        }else{
-            $( "#ModalContenidoForm #video,#ModalContenidoForm #respuesta,#ModalContenidoForm #tarea" ).css("display","none");
-        }
-
+        ValidaTipoRespuesta();
     });
 });
+
+HTMLListarTipoContenido=function(result){
+    var html="<option value=''>.::Seleccione::.</option>";
+    $.each(result.data,function(index,r){
+        html+="<option value="+r.id+">"+r.tipo_contenido+"</option>";
+    });
+    $("#ModalContenidoForm #slct_tipo_respuesta").html(html); 
+    $("#ModalContenidoForm #slct_tipo_respuesta").selectpicker('refresh');
+}
+
+ValidaTipoRespuesta=function(){
+    $("#ModalContenidoForm .ponente,#ModalContenidoForm .linkvideo,#ModalContenidoForm #video,#ModalContenidoForm #respuesta,#ModalContenidoForm #tarea,#ModalContenidoForm #profesor_tarea").css('display','none');
+    tipoRespuesta= $('#ModalContenidoForm #slct_tipo_respuesta').val();
+    if( tipoRespuesta=='1' ) {
+        $( "#ModalContenidoForm #respuesta,#ModalContenidoForm #tarea,#ModalContenidoForm #profesor_tarea" ).css("display","");
+        $( "#ModalContenidoForm #respuesta .anotacion" ).html("Fecha de entrega de tareas");
+        $( "#ModalContenidoForm #respuesta .profesor" ).html("Fecha de revisión de tareas");
+    }else if( tipoRespuesta=='2' ) {
+        $( "#ModalContenidoForm #video,#ModalContenidoForm #respuesta" ).css("display","");
+        $( "#ModalContenidoForm #respuesta .anotacion" ).html("Videoconferencia");
+        $( ".ponente,.linkvideo" ).css('display','');
+    }else if( tipoRespuesta=='3' || tipoRespuesta=='5' ) {
+        $( ".ponente,.linkvideo" ).css('display','');
+    }
+}
 
 ValidaForm3=function(){
     var r=true;
@@ -294,6 +306,8 @@ HTMLCargarContenido=function(result){
             color="bg-green";
         }else if(r.tipo_respuesta == 3){
             color="bg-orange";
+        }else if(r.tipo_respuesta == 4 || r.tipo_respuesta == 5){
+            color="alert-info";
         }
 
         html+='<div class="col-lg-4" id="trid_'+r.id+'" style="margin-top: 15px; -moz-box-shadow: 0 0 5px #888; -webkit-box-shadow: 0 0 5px#888; box-shadow: 0 0 5px #888;">'+
