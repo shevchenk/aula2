@@ -384,7 +384,7 @@ HTMLCargarContenido=function(result){
                                 '</p>'+
                             '</div>';
                 }else{
-                  html+='<div style="height: 85px;"></div>';
+                  html+='<div></div>';
                 }
 
                 html+='</div>'+

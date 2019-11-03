@@ -25,7 +25,7 @@ $(document).ready(function() {
         }
         else{
             $(this).find('.modal-footer .btn-primary').text('Actualizar').attr('onClick','AgregarEditarAjax();');
-            $("#ModalCursoForm").append("<input type='hidden' value='"+CursoG.id+"' name='id'>");
+            $('#ModalCursoForm #txt_id').val( CursoG.id );
         }
         $('#ModalCursoForm #txt_curso').val( CursoG.curso );
         $('#ModalCursoForm #txt_file_nombre').val( CursoG.imagen );

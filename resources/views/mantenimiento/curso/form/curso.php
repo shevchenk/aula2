@@ -13,6 +13,7 @@
                         <div class="form-group">
                             <label>Curso</label>
                             <textarea class="form-control" id="txt_curso" name="txt_curso" disabled=""></textarea>
+                            <input type="hidden" class="mant" id="txt_id" name="txt_id">
                         </div>
                     </div>
                     <div class="col-md-12">
