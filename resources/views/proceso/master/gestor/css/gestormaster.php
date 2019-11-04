@@ -22,24 +22,49 @@ body {
   }
 }
 
+@media (min-width: 0px) and (max-width: 750px) {
+  .formatotexto{
+    min-height: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+}
+
 .formatotexto{
   margin-bottom: 15px;
   margin-top:10px;
   font-size: 15px;
   padding: 5px 5px;
-  border-radius: 10px;
   background-color: #F5F5F5;
   border: 3px solid #F8F8F8;
+  min-height: 200px;
+  border-radius: 20px;
+}
+
+.row>.col-lg-3>button{
+  border-radius: 20px;
 }
 
 .formatotitulo{
   margin-bottom: 15px;
   margin-top:10px;
-  font-size: 15px;
+  font-size: 20px;
   padding: 5px 5px;
   border-radius: 10px;
   text-align: center;
-  min-height: 75px;
+  min-height: 85px;
+  display: grid;
+  align-items: center;
+}
+
+.CabContenido{
+  min-height: 650px;
+  max-height: 650px;
+  overflow-y: auto;
+}
+
+.CabContenidoG:hover, .CabContenidoG:focus {
+  border: 10px solid #000;
 }
 
 a {
@@ -1128,6 +1153,5 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
 .js .animate-box {
   opacity: 0;
 }
-
 /*# sourceMappingURL=style.css.map */
 </style>

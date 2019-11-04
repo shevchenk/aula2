@@ -119,7 +119,7 @@
                 <img id="imageCurso" src="img/course/fundamentos.jpg" class="img-responsive">
             </div>
             
-                <div class="panel-body" id="DivPadre">
+                <div class="panel-body">
                     <div class="panel box box-primary"> 
                         <div class="box-header with-border collapsed" data-toggle="collapse" data-parent="#DivPadre" href="#collapse1" width="100%"> 
                             <div class="progress active" style="height: auto !important; width: 90%; margin-inline: auto;"> 
@@ -130,24 +130,26 @@
                         </div> 
                         <div id="collapse1" class="panel-collapse collapse"> 
                             <div class="box-body">
-                                <div class="col-lg-4 col-md-6" id="trid_247" style="margin-top: 15px;">
+                                <div class="col-lg-4 col-md-6 CabContenidoG CabContenido" id="trid_247">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="text-justify bg-blue formatotitulo">
-                                                <span>Apoyo interno1 : Inicios del cambio climático en el distrito de Lima y Callao, efectos secundarios.</span>
+                                            <div class="bg-blue formatotitulo">
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn-primary btn-flat btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <span>Apoyo interno1 : Inicios del cambio climático en el distrito de Lima y Callao, efectos secundarios.</span>
+                                                    <button type="button" class="btn bg-navy btn-flat btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                                         Links de Apoyo
                                                         <i class="caret"></i>
                                                     </button>
                                                     <ul class="dropdown-menu">
                                                         <li>
                                                             <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
-                                                            <i class="fa fa-book fa-lg"></i> Link Nro 1 </a>
+                                                                <i class="fa fa-book fa-lg"></i> Link Nro 1
+                                                            </a>
                                                         </li>
                                                         <li>
                                                             <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
-                                                            <i class="fa fa-book fa-lg"></i> Link Nro 2 </a>
+                                                                <i class="fa fa-book fa-lg"></i> Link Nro 2
+                                                            </a>
                                                         </li>
                                                         <li>
                                                             <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
@@ -155,375 +157,319 @@
                                                         </li>
                                                         <li>
                                                             <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
-                                                            <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora </a>
+                                                                <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora
+                                                            </a>
                                                         </li>
                                                         <li>
                                                             <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
-                                                            <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora </a>
+                                                                <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora
+                                                            </a>
                                                         </li>
                                                         <li>
                                                             <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
-                                                            <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora </a>
+                                                                <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora
+                                                            </a>
                                                         </li>
                                                         <li>
                                                             <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
-                                                            <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora </a>
+                                                                <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora
+                                                            </a>
                                                         </li>
                                                         <li>
                                                             <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
-                                                            <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora </a>
+                                                                <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora
+                                                            </a>
                                                         </li>
                                                         <li>
                                                             <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
-                                                            <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora </a>
+                                                                <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora
+                                                            </a>
                                                         </li>
                                                         <li>
                                                             <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
-                                                            <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora </a>
+                                                                <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora
+                                                            </a>
                                                         </li>
                                                     </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" style="text-align: center;">
+                                            <img src="img/course/c218.png" alt="" style="max-width: 60%;">
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="text-justify formatotexto">
+                                                Apoyo Interno, indica que la información es realizada por las institución y ayudará al alumno en su formación continua para seguir creciendo profesional y personalmente. Estamos para servirles
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-6">
+                                            <button type="button" onclick="CambiarEstado3(0,247)" class="col-xs-12 btn btn-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                <span class="fa fa-trash fa-lg"></span> Eliminar
+                                            </button>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <button type="button" onclick="AgregarEditar3(0,247)" class="col-xs-12 btn btn-primary" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                <span class="fa fa-edit fa-lg"></span> Editar
+                                            </button>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6"></div>
+                                        <div class="col-lg-3 col-md-6"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 CabContenidoG CabContenido" id="trid_247">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="bg-red formatotitulo">
+                                                <div class="btn-group">
+                                                    <span>Tarea para la casa2</span>
+                                                    <button type="button" class="btn bg-navy btn-flat btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        Links de Apoyo
+                                                        <i class="caret"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
+                                                                <i class="fa fa-book fa-lg"></i> Link Nro 1
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
+                                                                <i class="fa fa-book fa-lg"></i> Link Nro 2
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
+                                                                <i class="fa fa-book fa-lg"></i> Link Probando yo ando
+                                                            </a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-12" style="text-align: center;">
-                                            <img src="img/course/c189.jpg" alt="" style="max-width: 60%;">
+                                            <img src="img/course/c217.png" alt="" style="max-width: 60%;">
                                         </div>
-                                        <div class="col-md-12 col-sm-12" style="border-right: 2px solid #e9e9e9;">
-                                            <div class="text-justify formatotexto" style="min-height: 200px;">
-                                                <p class="contenido">Apoyo Interno, indica que la información es realizada por las institución y ayudará al alumno en su formación continua para seguir creciendo profesional y personalmente. Estamos para servirles</p>
+                                        <div class="col-md-6 col-sm-6" style="border-right: 2px solid #e9e9e9;">
+                                            <div class="text-justify formatotexto">
+                                                Apoyo Interno, indica que la información es realizada por las institución y ayudará al alumno en su formación continua para seguir creciendo profesional y personalmente. Estamos para servirles
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="text-justify formatotexto">
+                                                <ul>
+                                                    <li>Fecha Ini. : 2019-11-01</li>
+                                                    <li>Fecha Fin. : 2019-11-05<br>
+                                                    <li>Fecha Amp. : 2019-11-05<br>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-3 " style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
-                                            <button type="button" onclick="CambiarEstado3(0,247)" class="col-xs-12 btn btn-danger" data-placement="top" title="Eliminar">
+                                        <div class="col-lg-3 col-md-6">
+                                            <button type="button" onclick="CambiarEstado3(0,247)" class="col-xs-12 btn btn-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                                 <span class="fa fa-trash fa-lg"></span> Eliminar
                                             </button>
                                         </div>
-                                        <div class="col-md-3" style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
-                                            <button type="button" onclick="AgregarEditar3(0,247)" style="" class="col-xs-12 btn btn-primary" data-toggle="tooltip" data-placement="top" title="Editar">
+                                        <div class="col-lg-3 col-md-6">
+                                            <button type="button" onclick="AgregarEditar3(0,247)" class="col-xs-12 btn btn-primary" data-toggle="tooltip" data-placement="top" title="Editar">
                                                 <span class="fa fa-edit fa-lg"></span> Editar
                                             </button>
                                         </div>
-                                        <div class="col-md-3" style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
+                                        <div class="col-lg-3 col-md-6">
+                                            <button type="button" onclick="CargarContenidoProgramacion(248,33,'Tema1: Hola Mundo xd','Tarea','2019-11-01','2019-11-05','2019-11-05')" class="col-xs-12 btn btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ampliación de Respuesta">
+                                                <span class="fa fa-list fa-lg"></span>Ampl.
+                                            </button>
                                         </div>
-                                        <div class="col-md-3" style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;"></div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <button type="button" onclick="CargarContenidoRespuesta(248,'Tema1: Hola Mundo xd','Tarea','2019-11-01','2019-11-05','2019-11-05')" class="col-xs-12 btn btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Respuesta de Contenido">
+                                                <span class="fa fa-list fa-lg"></span>Resp.
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-6" id="trid_247" style="margin-top: 15px;">
+                                <div class="col-lg-4 col-md-6 CabContenidoG CabContenido" id="trid_247">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="text-justify bg-red" style="margin-bottom: 15px; margin-top:10px; font-size: 15px; padding: 5px 5px; background-color: #dd4b39; border-radius: 10px; border: 3px solid #F8F8F8;">
-                                                <p style="text-align:center">Tarea para la casa2</p>
+                                            <div class="bg-red formatotitulo">
+                                                <span>Tarea para la casa3</span>
                                             </div>
                                         </div>
                                         <div class="col-md-12" style="text-align: center;">
-                                            <div class="col-lg-8 col-md-12 col-sm-12">
-                                                <img src="img/course/c217.png" alt="" style="max-width: 100%;">
+                                            <img src="img/course/c217.png" alt="" style="max-width: 60%;">
+                                        </div>
+                                        <div class="col-md-6 col-sm-6" style="border-right: 2px solid #e9e9e9;">
+                                            <div class="text-justify formatotexto">
+                                                Apoyo Interno, indica que la información es realizada por las institución y ayudará al alumno en su formación continua para seguir creciendo profesional y personalmente. Estamos para servirles
                                             </div>
-                                            <div class="col-lg-4 col-md-12 col-sm-12">
-                                                <div class="text-justify" style="">
-                                                    <p>
-                                                        <ul>
-                                                            <li>Fecha Ini. : 2019-11-01</li>
-                                                            <li>Fecha Fin. : 2019-11-05<br>
-                                                            <li>Fecha Amp. : 2019-11-05<br>
-                                                        </ul>
-                                                    </p>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="text-justify formatotexto">
+                                                <ul>
+                                                    <li>Fecha Ini. : 2019-11-01</li>
+                                                    <li>Fecha Fin. : 2019-11-05</li>
+                                                    <li>Fecha Amp. : 2019-11-05</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-6">
+                                            <button type="button" onclick="CambiarEstado3(0,247)" class="col-xs-12 btn btn-danger" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                <span class="fa fa-trash fa-lg"></span> Eliminar
+                                            </button>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <button type="button" onclick="AgregarEditar3(0,247)" class="col-xs-12 btn btn-primary" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                <span class="fa fa-edit fa-lg"></span> Editar
+                                            </button>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <button type="button" onclick="CargarContenidoProgramacion(248,33,'Tema1: Hola Mundo xd','Tarea','2019-11-01','2019-11-05','2019-11-05')" class="col-xs-12 btn btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ampliación de Respuesta">
+                                                <span class="fa fa-list fa-lg"></span>Ampl.
+                                            </button>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <button type="button" onclick="CargarContenidoRespuesta(248,'Tema1: Hola Mundo xd','Tarea','2019-11-01','2019-11-05','2019-11-05')" class="col-xs-12 btn btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Respuesta de Contenido">
+                                                <span class="fa fa-list fa-lg"></span>Resp.
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 CabContenidoG CabContenido" id="trid_247">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="bg-blue formatotitulo">
+                                                <div class="btn-group">
+                                                    <span>Apoyo interno4</span>
+                                                    <button type="button" class="btn bg-navy btn-flat btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                        Links de Apoyo
+                                                        <i class="caret"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
+                                                                <i class="fa fa-book fa-lg"></i> Link Nro 1
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
+                                                                <i class="fa fa-book fa-lg"></i> Link Nro 2
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
+                                                                <i class="fa fa-book fa-lg"></i> Link Probando yo ando
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
+                                                                <i class="fa fa-book fa-lg"></i> Link Probando yo ando
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
+                                                                <i class="fa fa-book fa-lg"></i> Link Probando yo ando
+                                                            </a>
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-6" style="border-right: 2px solid #e9e9e9;">
-                                            <div class="text-justify" style="min-height: 200px;">
-                                                <p class="contenido">Apoyo Interno, indica que la información es realizada por las institución y ayudará al alumno en su formación continua para seguir creciendo profesional y personalmente. Estamos para servirles</p>
-                                            </div>
-                                            <div></div>
+                                        <div class="col-md-12" style="text-align: center;">
+                                            <img src="img/course/c220.png" alt="" style="max-width: 60%;">
                                         </div>
-                                        <div class="col-md-6 col-sm-6" style="font-weight: normal; padding-right: 5px; padding-left: 5px; margin-top: 15px; overflow-y: auto; max-height: 200px;">
-                                            <ul>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
-                                                    <i class="fa fa-book fa-lg"></i> Pruebas</a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
-                                                    <i class="fa fa-book fa-lg"></i> 2 </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
-                                                    <i class="fa fa-book fa-lg"></i> Probando yo ando</a>
-                                                </li>
-                                            </ul>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="text-justify formatotexto">
+                                                Apoyo Interno, indica que la información es realizada por las institución y ayudará al alumno en su formación continua para seguir creciendo profesional y personalmente. Estamos para servirles
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-3 " style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
+                                        <div class="col-lg-3 col-md-6">
                                             <button type="button" onclick="CambiarEstado3(0,247)" class="col-xs-12 btn btn-danger" data-placement="top" title="Eliminar">
                                                 <span class="fa fa-trash fa-lg"></span> Eliminar
                                             </button>
                                         </div>
-                                        <div class="col-md-3" style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
+                                        <div class="col-lg-3 col-md-6">
                                             <button type="button" onclick="AgregarEditar3(0,247)" style="" class="col-xs-12 btn btn-primary" data-toggle="tooltip" data-placement="top" title="Editar">
                                                 <span class="fa fa-edit fa-lg"></span> Editar
                                             </button>
                                         </div>
-                                        <div class="col-md-3" style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
-                                            <button type="button" onclick="CargarContenidoProgramacion(248,33,'Tema1: Hola Mundo xd','Tarea','2019-11-01','2019-11-05','2019-11-05')" style="" class="col-xs-12 btn btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ampliación de Respuesta"><span class="fa fa-list fa-lg"></span>Ampl.</button>
+                                        <div class="col-lg-3 col-md-6">
                                         </div>
-                                        <div class="col-md-3" style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
-                                            <button type="button" onclick="CargarContenidoRespuesta(248,'Tema1: Hola Mundo xd','Tarea','2019-11-01','2019-11-05','2019-11-05')" class="col-xs-12 btn btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Respuesta de Contenido"><span class="fa fa-list fa-lg"></span>Resp.</button>
+                                        <div class="col-lg-3 col-md-6">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-6" id="trid_247" style="margin-top: 15px;">
+                                <div class="col-lg-4 col-md-6 CabContenidoG CabContenido" id="trid_247">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="text-justify bg-red" style="margin-bottom: 15px; margin-top:10px; font-size: 15px; padding: 5px 5px; background-color: #dd4b39; border-radius: 10px; border: 3px solid #F8F8F8;">
-                                                <p style="text-align:center">Tarea para la casa3</p>
+                                            <div class="bg-blue formatotitulo">
+                                                <span>Apoyo interno5</span>
                                             </div>
                                         </div>
                                         <div class="col-md-12" style="text-align: center;">
-                                            <div class="col-lg-8 col-md-12 col-sm-12">
-                                                <img src="img/course/c217.png" alt="" style="max-width: 100%;">
-                                            </div>
-                                            <div class="col-lg-4 col-md-12 col-sm-12">
-                                                <div class="text-justify" style=">
-                                                    <p>
-                                                        <ul>
-                                                            <li>Fecha Ini. : 2019-11-01</li>
-                                                            <li>Fecha Fin. : 2019-11-05<br>
-                                                            <li>Fecha Amp. : 2019-11-05<br>
-                                                        </ul>
-                                                    </p>
-                                                </div>
-                                            </div>
+                                            <img src="img/course/c220.png" alt="" style="max-width: 60%;">
                                         </div>
-                                        <div class="col-md-12 col-sm-12" style="border-right: 2px solid #e9e9e9;">
-                                            <div class="text-justify" style="min-height: 200px;">
-                                                <p class="contenido">Apoyo Interno, indica que la información es realizada por las institución y ayudará al alumno en su formación continua para seguir creciendo profesional y personalmente. Estamos para servirles</p>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="text-justify formatotexto">
+                                                Apoyo Interno, indica que la información es realizada por las institución y ayudará al alumno en su formación continua para seguir creciendo profesional y personalmente. Estamos para servirles
                                             </div>
-                                            <div></div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-3 " style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
+                                        <div class="col-lg-3 col-md-6">
                                             <button type="button" onclick="CambiarEstado3(0,247)" class="col-xs-12 btn btn-danger" data-placement="top" title="Eliminar">
                                                 <span class="fa fa-trash fa-lg"></span> Eliminar
                                             </button>
                                         </div>
-                                        <div class="col-md-3" style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
+                                        <div class="col-lg-3 col-md-6">
                                             <button type="button" onclick="AgregarEditar3(0,247)" style="" class="col-xs-12 btn btn-primary" data-toggle="tooltip" data-placement="top" title="Editar">
                                                 <span class="fa fa-edit fa-lg"></span> Editar
                                             </button>
                                         </div>
-                                        <div class="col-md-3" style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
-                                            <button type="button" onclick="CargarContenidoProgramacion(248,33,'Tema1: Hola Mundo xd','Tarea','2019-11-01','2019-11-05','2019-11-05')" style="" class="col-xs-12 btn btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ampliación de Respuesta"><span class="fa fa-list fa-lg"></span>Ampl.</button>
+                                        <div class="col-lg-3 col-md-6">
                                         </div>
-                                        <div class="col-md-3" style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
-                                            <button type="button" onclick="CargarContenidoRespuesta(248,'Tema1: Hola Mundo xd','Tarea','2019-11-01','2019-11-05','2019-11-05')" class="col-xs-12 btn btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Respuesta de Contenido"><span class="fa fa-list fa-lg"></span>Resp.</button>
+                                        <div class="col-lg-3 col-md-6">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-6" id="trid_247" style="margin-top: 15px;">
+                                <div class="col-lg-4 col-md-6 CabContenidoG CabContenido" id="trid_247">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="text-justify bg-blue" style="">
-                                                <p style="text-align:center">Apoyo interno4</p>
+                                            <div class="bg-blue formatotitulo">
+                                                <span>Apoyo interno6</span>
                                             </div>
                                         </div>
                                         <div class="col-md-12" style="text-align: center;">
                                             <img src="img/course/c220.png" alt="" style="max-width: 60%;">
                                         </div>
                                         <div class="col-md-6 col-sm-6" style="border-right: 2px solid #e9e9e9;">
-                                            <div class="text-justify" style="min-height: 200px;">
-                                                <p class="contenido">Apoyo Interno, indica que la información es realizada por las institución y ayudará al alumno en su formación continua para seguir creciendo profesional y personalmente. Estamos para servirles</p>
+                                            <div class="text-justify formatotexto">
+                                                Apoyo Interno, indica que la información es realizada por las institución y ayudará al alumno en su formación continua para seguir creciendo profesional y personalmente. Estamos para servirles
                                             </div>
-                                            <div></div>
                                         </div>
-                                        <div class="col-md-6 col-sm-6" style="font-weight: normal; padding-right: 5px; padding-left: 5px; margin-top: 15px; overflow-y: scroll; max-height: 200px;">
-                                            <ul>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
-                                                    <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
-                                                    <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
-                                                    <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
-                                                    <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
-                                                    <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
-                                                    <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">
-                                                    <i class="fa fa-book fa-lg"></i> Link yo pruebo ahora </a>
-                                                </li>
-                                            </ul>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="text-justify formatotexto">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-3 " style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
+                                        <div class="col-lg-3 col-md-6">
                                             <button type="button" onclick="CambiarEstado3(0,247)" class="col-xs-12 btn btn-danger" data-placement="top" title="Eliminar">
                                                 <span class="fa fa-trash fa-lg"></span> Eliminar
                                             </button>
                                         </div>
-                                        <div class="col-md-3" style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
+                                        <div class="col-lg-3 col-md-6">
                                             <button type="button" onclick="AgregarEditar3(0,247)" style="" class="col-xs-12 btn btn-primary" data-toggle="tooltip" data-placement="top" title="Editar">
                                                 <span class="fa fa-edit fa-lg"></span> Editar
                                             </button>
                                         </div>
-                                        <div class="col-md-3" style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
+                                        <div class="col-lg-3 col-md-6">
                                         </div>
-                                        <div class="col-md-3" style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6" id="trid_247" style="margin-top: 15px;">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="text-justify bg-blue" style="">
-                                                <p style="text-align:center">Apoyo interno5</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12" style="text-align: center;">
-                                            <img src="img/course/c220.png" alt="" style="max-width: 60%;">
-                                        </div>
-                                        <div class="col-md-6 col-sm-6" style="border-right: 2px solid #e9e9e9;">
-                                            <div class="text-justify" style="min-height: 200px;">
-                                                <p class="contenido">Apoyo Interno, indica que la información es realizada por las institución y ayudará al alumno en su formación continua para seguir creciendo profesional y personalmente. Estamos para servirles</p>
-                                            </div>
-                                            <div></div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6" style="font-weight: normal; padding-right: 5px; padding-left: 5px; margin-top: 15px; overflow-y: scroll; max-height: 200px;">
-                                            <ul>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">Link Nro <i class="fa fa-book fa-lg"></i> 2 </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">Link Nro <i class="fa fa-book fa-lg"></i> 2 </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">Link <si class="fa fa-book fa-lg"></i> Probando yo ando</a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">Link yo <si class="fa fa-book fa-lg"></i> pruebo ahora </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">Link yo <si class="fa fa-book fa-lg"></i> pruebo ahora </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">Link yo <si class="fa fa-book fa-lg"></i> pruebo ahora </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">Link yo <si class="fa fa-book fa-lg"></i> pruebo ahora </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">Link yo <si class="fa fa-book fa-lg"></i> pruebo ahora </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">Link yo <si class="fa fa-book fa-lg"></i> pruebo ahora </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">Link yo <si class="fa fa-book fa-lg"></i> pruebo ahora </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-3 " style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
-                                            <button type="button" onclick="CambiarEstado3(0,247)" class="col-xs-12 btn btn-danger" data-placement="top" title="Eliminar">
-                                                <span class="fa fa-trash fa-lg"></span> Eliminar
-                                            </button>
-                                        </div>
-                                        <div class="col-md-3" style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
-                                            <button type="button" onclick="AgregarEditar3(0,247)" style="" class="col-xs-12 btn btn-primary" data-toggle="tooltip" data-placement="top" title="Editar">
-                                                <span class="fa fa-edit fa-lg"></span> Editar
-                                            </button>
-                                        </div>
-                                        <div class="col-md-3" style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
-                                        </div>
-                                        <div class="col-md-3" style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6" id="trid_247" style="margin-top: 15px;">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="text-justify bg-blue" style=">
-                                                <p style="text-align:center">Apoyo interno6</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12" style="text-align: center;">
-                                            <img src="img/course/c220.png" alt="" style="max-width: 60%;">
-                                        </div>
-                                        <div class="col-md-6 col-sm-6" style="border-right: 2px solid #e9e9e9;">
-                                            <div class="text-justify" style="min-height: 200px;">
-                                                <p class="contenido">Apoyo Interno, indica que la información es realizada por las institución y ayudará al alumno en su formación continua para seguir creciendo profesional y personalmente. Estamos para servirles</p>
-                                            </div>
-                                            <div></div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6" style="font-weight: normal; padding-right: 5px; padding-left: 5px; margin-top: 15px; overflow-y: scroll; max-height: 200px;">
-                                            <ul>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">Link Nro <i class="fa fa-book fa-lg"></i> 2 </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">Link Nro <i class="fa fa-book fa-lg"></i> 2 </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">Link <si class="fa fa-book fa-lg"></i> Probando yo ando</a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">Link yo <si class="fa fa-book fa-lg"></i> pruebo ahora </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">Link yo <si class="fa fa-book fa-lg"></i> pruebo ahora </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">Link yo <si class="fa fa-book fa-lg"></i> pruebo ahora </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">Link yo <si class="fa fa-book fa-lg"></i> pruebo ahora </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">Link yo <si class="fa fa-book fa-lg"></i> pruebo ahora </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">Link yo <si class="fa fa-book fa-lg"></i> pruebo ahora </a>
-                                                </li>
-                                                <li>
-                                                    <a href="https://www.youtube.com/watch?v=-wgz-PgW8B4&amp;list=RDGMEM2VCIgaiSqOfVzBAjPJm-agVM-wgz-PgW8B4&amp;start_radio=1" target="_blank">Link yo <si class="fa fa-book fa-lg"></i> pruebo ahora </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-3 " style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
-                                            <button type="button" onclick="CambiarEstado3(0,247)" class="col-xs-12 btn btn-danger" data-placement="top" title="Eliminar">
-                                                <span class="fa fa-trash fa-lg"></span> Eliminar
-                                            </button>
-                                        </div>
-                                        <div class="col-md-3" style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
-                                            <button type="button" onclick="AgregarEditar3(0,247)" style="" class="col-xs-12 btn btn-primary" data-toggle="tooltip" data-placement="top" title="Editar">
-                                                <span class="fa fa-edit fa-lg"></span> Editar
-                                            </button>
-                                        </div>
-                                        <div class="col-md-3" style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
-                                        </div>
-                                        <div class="col-md-3" style="padding-right: 0px; padding-left: 5px; margin-top: 5px; overflow:hidden;">
+                                        <div class="col-lg-3 col-md-6">
                                         </div>
                                     </div>
                                 </div>

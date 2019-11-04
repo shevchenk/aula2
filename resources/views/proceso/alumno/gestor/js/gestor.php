@@ -108,9 +108,9 @@ HTMLCargarEvaluacion=function(result){
             /*"<td class='semestre'>"+r.semestre+"</td>"+
             "<td class='ciclo'>"+r.ciclo+"</td>"+*/
             "<td class='curso'>"+r.curso+"</td>"+
-            "<td class='docente'>"+r.docente+"</td>"+
-            "<td class='fecha_inicio'>"+r.fecha_inicio+"</td>"+
-            "<td class='fecha_final'>"+r.fecha_final+"</td>";
+            /*"<td class='docente'>"+r.docente+"</td>"+*/
+            "<td class='fecha_inicio'>"+r.fecha_inicio+"</td>";
+            /*"<td class='fecha_final'>"+r.fecha_final+"</td>";*/
         //html+='<a class="btn btn-default btn-sm" onClick="verContenido(0,'+r.id+')"><i class="fa fa-plus fa-lg"></i> </a></td>';
      //   html +='<a class="btn btn-primary btn-sm" onClick="CargarContenido('+r.pu_id+','+r.curso_id+',\''+r.curso+'\',\''+r.foto+'\',this)"><i class="fa fa-plus fa-lg"></i> </a></td>';
         html+="</tr>";

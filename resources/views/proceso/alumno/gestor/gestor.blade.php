@@ -81,14 +81,14 @@
                                             </div>
                                         </div>
                                     </th>
-                                    <th class="col-xs-2">
+                                    <!--th class="col-xs-2">
                                         <div class="form-group">
                                             <label><h4>Docente</h4></label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control" name="txt_docente" id="txt_docente" placeholder="Docente" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
                                             </div>
                                         </div>
-                                    </th>
+                                    </th-->
                                     <th class="col-xs-2">
                                         <div class="form-group">
                                             <label><h4>Fecha Inicio</h4></label>
@@ -97,14 +97,14 @@
                                             </div>
                                         </div>
                                     </th>
-                                    <th class="col-xs-2">
+                                    <!--th class="col-xs-2">
                                         <div class="form-group">
                                             <label><h4>Fecha Final</h4></label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control" name="txt_fecha_final" id="txt_fecha_final" placeholder="Fecha Final" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
                                             </div>
                                         </div>
-                                    </th>
+                                    </th-->
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -115,9 +115,9 @@
                                             <th>Semestre</th>
                                             <th>Ciclo</th-->
                                             <th>Curso</th>
-                                            <th>Docente</th>
+                                            <!--th>Docente</th-->
                                             <th>Fecha Inicio</th>
-                                            <th>Fecha Final</th>
+                                            <!--th>Fecha Final</th-->
                                         </tr>
                                     </tfoot>
                                 </table>
