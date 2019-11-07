@@ -66,7 +66,7 @@ body {
 
 .CursoTitulo{
   width: 100%;
-  font-size: 30px;
+  font-size: 24px;
   background: #0F325E;
   color: #EEE;
   text-align: center;
@@ -77,13 +77,14 @@ body {
 
 .UnidadContenido{
   width: 100%;
-  font-size: 24px;
+  font-size: 18px;
   background: #254E80;
   color: #EEE;
   text-align: center;
   min-height: 50px;
   line-height: 50px;
   margin: 10px 10px;
+  cursor: pointer;
 }
 
 .CabContenidoG:hover, .CabContenidoG:focus {
