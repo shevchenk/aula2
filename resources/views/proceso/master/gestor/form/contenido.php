@@ -28,18 +28,18 @@
                         <div class="col-lg-5 col-md-12">
                             <div class="form-group">
                                 <label>Titulo de Contenido</label>
-                                <textarea type="text"  class="form-control" id="txt_titulo_contenido" name="txt_titulo_contenido"></textarea>
+                                <textarea type="text" rows='4'  class="form-control" id="txt_titulo_contenido" name="txt_titulo_contenido"></textarea>
                             </div>
                         </div>
                         <div class="col-lg-7 col-md-12">
                             <div class="form-group">
                                 <label>Contenido</label>
-                                <textarea type="text"  class="form-control" id="txt_contenido" name="txt_contenido"></textarea>
+                                <textarea type="text" rows='4'  class="form-control" id="txt_contenido" name="txt_contenido"></textarea>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Tipo de Contenido</label>
+                                <label>Tipo de Recurso</label>
                                 <select class="form-control selectpicker"  data-actions-box='true' name="slct_tipo_respuesta" id="slct_tipo_respuesta">
                                     <option value>.::Seleccione::.</option>
                                 </select>
@@ -89,9 +89,11 @@
                                         <input type="file" style="display: none;" onchange="masterG.onImagen(event,'#txt_file_nombre','#txt_file_archivo','#txt_file_imagen');">
                                     </label>
                                 </div>
+                            </div>
+                            <divl class="col-lg-12 col-md-12">
                                 <label>Link del Contenido</label>
                                 <textarea class="form-control" id="txt_video" name="txt_video"></textarea>
-                            </div>
+                            </divl>
                         </div>
                         <div id="respuesta">
                             <div class="col-md-12">

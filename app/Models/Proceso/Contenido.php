@@ -270,22 +270,26 @@ class Contenido extends Model
 
     // --
     public static function runLoadContenidoProgra($r){
-        $result=Contenido::select('v_contenidos.id','v_contenidos.contenido','v_contenidos.ruta_contenido',
-                'v_contenidos.referencia','v_contenidos.titulo_contenido','v_contenidos.video',
-                'v_contenidos.tipo_respuesta',DB::raw('IFNULL(v_contenidos.fecha_inicio,"") as fecha_inicio'),
-                DB::raw('IFNULL(v_contenidos.fecha_final,"") as fecha_final'),'vuc.unidad_contenido',
-                DB::raw('IFNULL(v_contenidos.fecha_ampliada,"") as fecha_ampliada'),
-                DB::raw('IFNULL(v_contenidos.hora_inicio,"") as hora_inicio'),
-                DB::raw('IFNULL(v_contenidos.hora_final,"") as hora_final'),
-                'v_contenidos.foto as foto_contenido','v_contenidos.unidad_contenido_id',
-                'vc.curso', 'v_contenidos.estado','v_contenidos.curso_id','v_contenidos.programacion_unica_id',
-                DB::raw('CASE v_contenidos.tipo_respuesta  WHEN 0 THEN "Solo vista" WHEN 1 THEN "Requiere Respuesta" END AS tipo_respuesta_nombre'))
-            ->join('v_cursos as vc','vc.id','=','v_contenidos.curso_id')
-            ->join('v_unidades_contenido as vuc','vuc.id','=','v_contenidos.unidad_contenido_id')
-            ->where('v_contenidos.programacion_unica_id','=',$r->programacion_unica_id)
-            ->where('v_contenidos.estado','=',1)
+        $result=DB::table('v_contenidos AS vc')
+                ->select('vc.id','vc.contenido','vc.ruta_contenido',
+                DB::raw('IFNULL(vc.referencia,"") as referencia'),
+                'vc.titulo_contenido','vc.video','vc.tipo_respuesta','vtc.color',
+                DB::raw('IFNULL(vc.fecha_inicio,"") as fecha_inicio'),
+                DB::raw('IFNULL(vc.fecha_final,"") as fecha_final'),'vuc.unidad_contenido',
+                DB::raw('IFNULL(vc.fecha_ampliada,"") as fecha_ampliada'),
+                DB::raw('IFNULL(vc.hora_inicio,"") as hora_inicio'),
+                DB::raw('IFNULL(vc.hora_final,"") as hora_final'),
+                'vc.foto as foto_contenido','vc.unidad_contenido_id',
+                'vcu.curso', 'vc.estado','vc.curso_id','vc.programacion_unica_id',
+                DB::raw('CASE vc.tipo_respuesta  WHEN 0 THEN "Solo vista" WHEN 1 THEN "Requiere Respuesta" END AS tipo_respuesta_nombre'))
+            ->join('v_cursos as vcu','vcu.id','=','vc.curso_id')
+            ->join('v_unidades_contenido as vuc','vuc.id','=','vc.unidad_contenido_id')
+            ->join('v_tipos_contenidos as vtc','vtc.id','=','vc.tipo_respuesta')
+            ->where('vc.programacion_unica_id','=',$r->programacion_unica_id)
+            ->where('vc.estado','=',1)
             ->orderBy('vuc.unidad_contenido','asc')
-            ->orderBy('v_contenidos.tipo_respuesta','asc')->get();
+            ->orderBy('vtc.orden','asc')
+            ->orderBy('vc.titulo_contenido','asc')->get();
         return $result;
     }
 

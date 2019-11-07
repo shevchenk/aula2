@@ -247,11 +247,7 @@ HTMLCargarContenido=function( result ){
         if(index==0){
             html+='<div class="panel box box-primary">'+ 
                         '<div class="box-header with-border collapsed" data-toggle="collapse" data-parent="#DivContenido" href="#collapse'+index+'" width="100%">'+
-                            '<div class="progress active" style="height: auto !important; width: 90%; margin-inline: auto;">'+
-                                '<div class="progress-bar progress-bar-default progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%; font-size:24px; line-height:20pt;">'+
-                                  '<div style="margin: 10px 10px;">'+r.unidad_contenido+'</div>'+
-                                '</div>'+
-                            '</div>'+
+                            '<div class="UnidadContenido">'+r.unidad_contenido+'</div>'+
                         '</div>'+
                         '<div id="collapse'+index+'" class="panel-collapse collapse">'+
                             '<div class="box-body">';
@@ -264,11 +260,7 @@ HTMLCargarContenido=function( result ){
                     '</div>';
             html+='<div class="panel box box-primary">'+ 
                         '<div class="box-header with-border collapsed" data-toggle="collapse" data-parent="#DivContenido" href="#collapse'+index+'" width="100%">'+
-                            '<div class="progress active" style="height: auto !important; width: 90%; margin-inline: auto;">'+
-                                '<div class="progress-bar progress-bar-default progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%; font-size:24px; line-height:20pt;">'+
-                                  '<div style="margin: 10px 10px;">'+r.unidad_contenido+'</div>'+
-                                '</div>'+
-                            '</div>'+
+                            '<div class="UnidadContenido">'+r.unidad_contenido+'</div>'+
                         '</div>'+
                         '<div id="collapse'+index+'" class="panel-collapse collapse">'+
                             '<div class="box-body">';
@@ -281,7 +273,7 @@ HTMLCargarContenido=function( result ){
         if( $.trim(r.referencia)!='' ){
             var res_uri = r.referencia.split("|");
             referencias=''+
-                '<button type="button" class="btn bg-navy btn-flat btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">'+
+                '<button type="button" class="btn bg-navy btn-flat dropdown-toggle parpadea form-control" data-toggle="dropdown" aria-expanded="false">'+
                     'Referencias'+
                     '<i class="caret"></i>'+
                 '</button>'+
@@ -367,7 +359,7 @@ HTMLCargarContenido=function( result ){
                     '<input type="hidden" class="video" value="'+r.video+'">'+
                     '<div class="row">'+
                         '<div class="col-md-12">'+
-                            '<div class="formatotitulo '+r.color+'">'+
+                            '<div class="formatotitulo" style="background-color:'+r.color+'">'+
                                 '<div class="btn-group">'+
                                     '<span>'+r.titulo_contenido+'</span>'+
                                     referencias+

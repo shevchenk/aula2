@@ -35,7 +35,8 @@ body {
   margin-top:10px;
   font-size: 15px;
   padding: 5px 5px;
-  border: 3px solid #B6B6B6;
+  background-color: #F5F5F5;
+  border: 3px solid #F8F8F8;
   min-height: 200px;
   border-radius: 20px;
   color: rgba(0, 0, 0, 0.5);
@@ -64,6 +65,10 @@ body {
   overflow-y: auto;
 }
 
+.CabContenidoG:hover, .CabContenidoG:focus {
+  border: 5px solid #B6B6B6;
+}
+
 .CursoTitulo{
   width: 100%;
   font-size: 30px;
@@ -84,10 +89,6 @@ body {
   min-height: 50px;
   line-height: 50px;
   margin: 10px 10px;
-}
-
-.CabContenidoG:hover, .CabContenidoG:focus {
-  border: 5px solid #B6B6B6;
 }
 
 .parpadea {

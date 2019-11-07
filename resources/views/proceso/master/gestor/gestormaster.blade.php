@@ -39,17 +39,13 @@
 
     <form id="ContenidoForm" style="display: none">
         <div class="panel panel-success" style="padding-bottom: 10px;">
-            <div class="progress active" style="height: auto !important;">
-                <div class="progress-bar progress-bar-aqua progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%; font-size:30px; line-height:20pt;">
-                  <div id="div_cabecera" style="margin: 10px 10px;"></div>
-                </div>
-            </div>
+            <div id="div_cabecera" class="CursoTitulo"></div>
             <div align="center">
                 <img id="imageCurso" src="img/course/fundamentos.jpg" class="img-responsive">
             </div>
             <div class="panel-body" id="DivContenido">
             </div>
-            <div class="col-md-12 text-center" style="margin-top: 10px;">
+            <div class="panel-footer col-md-12 text-center" style="margin-top: 10px;">
                 <input type= "hidden" name="txt_programacion_unica_id" id="txt_programacion_unica_id" class="form-control mant" >
                 <div class='btn btn-primary btn-lg' onClick="AgregarEditar3(1)" >
                     <i class="fa fa-plus fa-lg"></i>&nbsp;Nuevo
