@@ -57,7 +57,7 @@ HTMLCargarContenido=function(result){
         if( $.trim(r.referencia)!='' ){
             var res_uri = r.referencia.split("|");
             referencias=''+
-                '<button type="button" class="btn bg-navy btn-flat btn-sm dropdown-toggle parpadea" data-toggle="dropdown" aria-expanded="false">'+
+                '<button type="button" class="btn bg-navy btn-flat btn-sm dropdown-toggle parpadea form-control" data-toggle="dropdown" aria-expanded="false">'+
                     'Referencias'+
                     '<i class="caret"></i>'+
                 '</button>'+
