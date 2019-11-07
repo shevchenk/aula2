@@ -67,7 +67,7 @@ class TipoContenido extends Model
     {  
         $sql= TipoContenido::select('id','tipo_contenido','estado')
             ->where('estado','=','1');
-        $result = $sql->orderBy('tipo_contenido','asc')->get();
+        $result = $sql->orderBy('orden','asc')->get();
         return $result;
     }
 }

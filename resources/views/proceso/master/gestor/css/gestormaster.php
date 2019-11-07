@@ -11,10 +11,10 @@
 * ======================================================= */
 body {
   font-family: "Roboto", Arial, sans-serif;
-  font-weight: 300;
+  /*font-weight: 300;
   font-size: 20px;
   line-height: 1.6;
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.5);*/
 }
 @media screen and (max-width: 992px) {
   body {
@@ -39,6 +39,7 @@ body {
   border: 3px solid #F8F8F8;
   min-height: 200px;
   border-radius: 20px;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .row>.col-lg-3>button{
@@ -66,7 +67,7 @@ body {
 .CabContenidoG:hover, .CabContenidoG:focus {
   border: 10px solid #000;
 }
-
+/*
 a {
   color: #da1212;
   -webkit-transition: 0.5s;
@@ -107,7 +108,7 @@ figure {
 ::selection {
   color: #fff;
   background: #da1212;
-}
+}*/
 
 #fh5co-page {
   width: 100%;
@@ -716,6 +717,7 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
 }
 
 /* Owl Override Style */
+/*
 .owl-carousel .owl-controls,
 .owl-carousel-posts .owl-controls {
   margin-top: 0;
@@ -876,7 +878,7 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
   box-shadow: none !important;
   outline: none !important;
 }
-
+*/
 /*
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
   background: #ec1919 !important;
@@ -980,6 +982,7 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
   box-shadow: none;
 }
 */
+/*
 .form-control {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1000,7 +1003,7 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
   box-shadow: none;
   border-color: #da1212;
 }
-
+*/
 #message {
   height: 130px;
 }
