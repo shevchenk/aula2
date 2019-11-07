@@ -54,7 +54,7 @@ class ContenidoRespuestaPR extends Controller
                                              ->where('persona_id','=', Auth::user()->id)
                                              ->where('estado','=', 1)
                                              ->first();
-              if (count($programacion) == 0)
+              if ( !isset($programacion->id) )
               {
                   $return['rst'] = 4;
                   $return['msj'] = 'La programación esta inactivo!';
@@ -76,7 +76,7 @@ class ContenidoRespuestaPR extends Controller
                     $contenidoprogra = ContenidoProgramacion::where('contenido_id', '=', $r->contenido_id)
                                                   ->where('estado','=', 1)
                                                   ->first();
-                    if (count($contenidoprogra) == 0)
+                    if ( !isset($contenidoprogra) )
                         $msj = false;
                     else
                     {

@@ -56,7 +56,7 @@ body {
   min-height: 85px;
   display: grid;
   align-items: center;
-  color: #2C454B;
+  color: #FFF;
 }
 
 .CabContenido{

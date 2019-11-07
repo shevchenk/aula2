@@ -18,7 +18,7 @@ $(document).ready(function() {
 
     // PROCESO DE RESPUESTA
     $('#btnGrabarRpta').on('click', function () {
-      AjaxContenido.AgregarRespuestaContenido(HTMLCargarContenRpta);
+      AjaxContenidoV2.AgregarRespuestaContenido(HTMLCargarContenRpta);
       $('#txt_respuesta').val('');
     });
     // --
@@ -173,7 +173,7 @@ HTMLCargarContenido=function(result){
                         '<div class="col-lg-8 col-md-10">';
                         if( r.tipo_respuesta==1 ){
                             html+=''+
-                            '<button type="button" onClick="CargarContenidoProgramacion('+r.id+','+r.programacion_unica_id+')" class="col-xs-12 btn btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Responder Tarea">'+
+                            '<button type="button" onClick="CargarContenidoProgramacion('+r.id+','+r.programacion_unica_id+',\''+r.unidad_contenido+'\',\''+r.titulo_contenido+'\',\''+r.fecha_inicio+'\',\''+r.fecha_final+'\',\''+r.fecha_ampliada+'\''+')" class="col-xs-12 btn btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Responder Tarea">'+
                                 '<span class="fa fa-list fa-lg"></span>Responder Tarea'+
                             '</button>';
                         }
@@ -252,25 +252,25 @@ AgregarEditar3=function(val,id){
 
 CambiarEstado3=function(estado,id){
     sweetalertG.confirm("¿Estás seguro?", "Confirme la eliminación", function(){
-        AjaxContenido.CambiarEstadoRespuestaContenido(HTMLCambiarEstado3,estado,id);
+        AjaxContenidoV2.CambiarEstadoRespuestaContenido(HTMLCambiarEstado3,estado,id);
     });
 }
 
 HTMLCambiarEstado3=function(result){
     if( result.rst==1 ){
         msjG.mensaje('success',result.msj,4000);
-        //AjaxContenido.Cargar(HTMLCargarContenido);
-        AjaxContenido.CargarRespuestaContenido(HTMLCargarContenidoRpta);
+        //AjaxContenidoV2.Cargar(HTMLCargarContenido);
+        AjaxContenidoV2.CargarRespuestaContenido(HTMLCargarContenidoRpta);
     }
 }
 
 HTMLCargarContenRpta=function(result){
     if( result.rst==1 ){
         msjG.mensaje('success',result.msj,4000);
-        AjaxContenido.CargarRespuestaContenido(HTMLCargarContenidoRpta);
+        AjaxContenidoV2.CargarRespuestaContenido(HTMLCargarContenidoRpta);
     }else if( result.rst==3 ){
         msjG.mensaje('warning',result.msj,5000);
-        AjaxContenido.CargarRespuestaContenido(HTMLCargarContenidoRpta);
+        AjaxContenidoV2.CargarRespuestaContenido(HTMLCargarContenidoRpta);
     }
     else{
         msjG.mensaje('warning',result.msj,3000);
@@ -279,7 +279,6 @@ HTMLCargarContenRpta=function(result){
 
 HTMLCargarContenidoRpta=function(result){
     var html="";
-    $('#TableRespuestaAlu').DataTable().destroy();
 
     $.each(result.data,function(index,r){
         estadohtml='<a id="'+r.id+'" onClick="CambiarEstado3(1,'+r.id+')" class="btn btn-danger btn-sm"><i class="fa fa-trash fa-lg"></i></a>';
@@ -295,27 +294,31 @@ HTMLCargarContenidoRpta=function(result){
         html+="</tr>";
     });
     $("#TableRespuestaAlu tbody").html(html);
-    $("#TableRespuestaAlu").DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false
-
-    });
 };
 
-CargarContenidoProgramacion=function(id, programacion_unica_id){
+CargarContenidoProgramacion=function(id, programacion_unica_id,unidad,titulo,fi,ff,fa){
+     
+
+     var html="<h3>"+unidad+"=> "+titulo+"</h3><br>"+
+            "Fecha Inicio: "+fi+"  |  "+
+            "Fecha Fin: "+ff;
+        if( $.trim(fa)!='' ){
+            html+="  |  Fecha Ampliada: "+fa;
+        }
+     $("#titulo_tarea_pro").html(html);
      $("#frmRepuestaAlum #txt_contenido_id").val(id);
      $("#frmRepuestaAlum #programacion_unica_id").val(programacion_unica_id);
+     AjaxContenidoV2.CargarRespuestaContenido(HTMLCargarContenidoRpta);
      $('#div_contenido_respuesta').show();
-     AjaxContenido.CargarRespuestaContenido(HTMLCargarContenidoRpta);
 };
 
 VerCursos=function(){
     $("#CursosForm").css("display","");
     $("#ContenidoForm").css("display","none");
+}
+
+CancelarTarea=function(){
+    $('#div_contenido_respuesta').css("display",'none');
 }
 
 </script>

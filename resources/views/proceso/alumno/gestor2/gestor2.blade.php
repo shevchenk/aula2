@@ -57,7 +57,7 @@
     <div id="div_contenido_respuesta" class="box-body no-padding">
         <div class="panel panel-warnimg">
             <div class="panel-heading" style="background-color: #FFE699;color:black">
-                <center>.::Desarrollo de la Tarea::.</center>
+                <center>.::Desarrollo de la Tarea::.<b id="titulo_tarea_pro"></b></center>
             </div>
             <div class="col-md-4" style="margin-top: 40px;">
                 <div class="panel panel-info">
@@ -86,7 +86,7 @@
                             <div class="col-md-12" style="margin-top:10px;">
                                 <div class="col-md-2"></div>
                                 <div class="col-md-4">
-                                    <button type="button" id="btnCancelRpta" name="btnCancelRpta" class="col-xs-12 btn btn-default">Cancelar</button>
+                                    <button type="button" onClick="CancelarTarea();" class="col-xs-12 btn btn-default">Cancelar</button>
                                 </div>
                                 <div class="col-md-4">
                                     <button type="button" id="btnGrabarRpta" name="btnGrabarRpta" class="col-xs-12 btn btn-primary"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Enviar</button>
