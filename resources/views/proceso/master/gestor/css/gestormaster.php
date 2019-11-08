@@ -59,7 +59,7 @@ body {
   min-height: 200px;
   border-radius: 20px;
   color: rgba(0, 0, 0, 0.5);
-  font-family: initial !important;
+  font-family: Source Sans Pro,Helvetica Neue,Helvetica,Arial,sans-serif !important;
 }
 
 .row>.col-lg-3>button{
@@ -74,7 +74,7 @@ body {
   border-radius: 10px;
   text-align: center;
   color: rgba(0, 0, 0, 0.5);
-  font-family: initial !important;
+  font-family: Source Sans Pro,Helvetica Neue,Helvetica,Arial,sans-serif !important;
 }
 
 .CabContenido{
