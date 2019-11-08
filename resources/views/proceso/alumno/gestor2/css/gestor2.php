@@ -66,7 +66,7 @@ body {
 
 .CursoTitulo{
   width: 100%;
-  font-size: 24px;
+  font-size: 20px;
   background: #0F325E;
   color: #EEE;
   text-align: center;
@@ -77,8 +77,8 @@ body {
 
 .UnidadContenido{
   width: 100%;
-  font-size: 18px;
-  background: #8F969D;
+  font-size: 15px;
+  background: #8F969D42;
   color: #3A3A3A;;
   text-align: center;
   min-height: 50px;
@@ -88,7 +88,7 @@ body {
 }
 
 .parpadea {
-  color:red !important;
+  
   animation-name: parpadeo;
   animation-duration: 2s;
   animation-timing-function: linear;
