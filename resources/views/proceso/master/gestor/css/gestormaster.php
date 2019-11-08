@@ -35,7 +35,6 @@ body {
   margin-top:10px;
   font-size: 15px;
   padding: 5px 5px;
-  border: 3px solid #B6B6B6;
   min-height: 200px;
   border-radius: 20px;
   color: rgba(0, 0, 0, 0.5);
