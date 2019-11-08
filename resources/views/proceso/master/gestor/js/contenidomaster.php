@@ -376,12 +376,10 @@ HTMLCargarContenido=function( result ){
                         html+=''+
                         '</div>'+
                         '<div class="col-md-12">'+
-                            '<div class="formatotitulo" style="background-color:'+r.color+'">'+
-                                '<div class="btn-group">'+
-                                    '<span>'+r.titulo_contenido+'</span>'+
-                                    referencias+
-                                '</div>'+
-                            '</div>'+
+                        referencias+
+                        '</div>'+
+                        '<div class="col-md-12 formatotitulo">'+
+                            '<span>'+r.titulo_contenido+'</span>'+
                         '</div>'+
                         contenidos+
                     '</div>'+

@@ -52,10 +52,7 @@ body {
   padding: 5px 5px;
   border-radius: 10px;
   text-align: center;
-  min-height: 85px;
-  display: grid;
-  align-items: center;
-  color: #FFF;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .CabContenido{
