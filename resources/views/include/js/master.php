@@ -471,6 +471,7 @@ var redimensionG = {
 
       if ($('header').width() <= 400 ){
         $("#imageCurso").css({"width":"250","height":"166"});
+
       }
       else if ($('header').width() <= 600 ){
           $("#imageCurso").css({"width":"300","height":"199"});

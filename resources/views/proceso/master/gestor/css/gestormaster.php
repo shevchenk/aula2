@@ -10,7 +10,7 @@
 *
 * ======================================================= */
 body {
-  font-family: "Roboto", Arial, sans-serif;
+  
   /*font-weight: 300;
   font-size: 20px;
   line-height: 1.6;
@@ -19,6 +19,27 @@ body {
 @media screen and (max-width: 992px) {
   body {
     font-size: 16px;
+  }
+}
+
+@media (min-width: @screen-sm-min) {
+  .ListadoCursos{
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+
+@media (min-width: @screen-md-min) {
+  .ListadoCursos{
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+}
+
+@media (min-width: @screen-lg-min) {
+  .ListadoCursos{
+    margin-left: 100px;
+    margin-right: 100px;
   }
 }
 
@@ -38,6 +59,7 @@ body {
   min-height: 200px;
   border-radius: 20px;
   color: rgba(0, 0, 0, 0.5);
+  font-family: initial !important;
 }
 
 .row>.col-lg-3>button{
@@ -52,6 +74,7 @@ body {
   border-radius: 10px;
   text-align: center;
   color: rgba(0, 0, 0, 0.5);
+  font-family: initial !important;
 }
 
 .CabContenido{
@@ -75,7 +98,7 @@ body {
   width: 100%;
   font-size: 15px;
   background: #8F969D42;
-  color: #3A3A3A;;
+  color: #3A3A3A;
   text-align: center;
   min-height: 50px;
   line-height: 50px;
