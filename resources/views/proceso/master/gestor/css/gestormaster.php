@@ -74,8 +74,8 @@ body {
 .UnidadContenido{
   width: 100%;
   font-size: 18px;
-  background: #254E80;
-  color: #EEE;
+  background: #8F969D;
+  color: #3A3A3A;;
   text-align: center;
   min-height: 50px;
   line-height: 50px;
