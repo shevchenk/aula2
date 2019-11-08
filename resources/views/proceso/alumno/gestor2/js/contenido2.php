@@ -142,14 +142,6 @@ HTMLCargarContenido=function(result){
                     '<input type="hidden" class="estado" value="'+r.estado+'">'+
                     '<input type="hidden" class="video" value="'+r.video+'">'+
                     '<div class="row">'+
-                        '<div class="col-md-12">'+
-                            '<div class="formatotitulo" style="background-color:'+r.color+'">'+
-                                '<div class="btn-group">'+
-                                    '<span>'+r.titulo_contenido+'</span>'+
-                                    referencias+
-                                '</div>'+
-                            '</div>'+
-                        '</div>'+
                         '<div class="col-md-12" style="text-align: center;">';
                         if( r.ruta_contenido!='' || r.video!='' ){
                             href=r.video;
@@ -160,12 +152,20 @@ HTMLCargarContenido=function(result){
                             '<a href="'+href+'" target="_blank">';
                         }
                             html+=''+
-                            '<img src="file/content/'+r.foto_contenido+'" alt="" style="max-width: 60%;">';
+                            '<img src="file/content/'+r.foto_contenido+'" alt="" style="width: 100%; max-height:250px;">';
                         if( r.ruta_contenido!='' || r.video!='' ){
                             html+=''+
                             '</a>';
                         }
                         html+=''+
+                        '</div>'+
+                        '<div class="col-md-12">'+
+                            '<div class="formatotitulo" style="background-color:'+r.color+'">'+
+                                '<div class="btn-group">'+
+                                    '<span>'+r.titulo_contenido+'</span>'+
+                                    referencias+
+                                '</div>'+
+                            '</div>'+
                         '</div>'+
                         contenidos+
                     '</div>'+
