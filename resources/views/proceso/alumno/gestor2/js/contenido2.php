@@ -151,8 +151,12 @@ HTMLCargarContenido=function(result){
                             html+=''+
                             '<a href="'+href+'" target="_blank">';
                         }
+                        maxHeight=250;
+                        if( referencias!='' ){
+                            maxHeight=220;
+                        }
                             html+=''+
-                            '<img src="file/content/'+r.foto_contenido+'" alt="" style="width: 100%; max-height:250px;">';
+                            '<img src="file/content/'+r.foto_contenido+'" alt="" style="width: 100%; max-height:'+maxHeight+'px;">';
                         if( r.ruta_contenido!='' || r.video!='' ){
                             html+=''+
                             '</a>';
