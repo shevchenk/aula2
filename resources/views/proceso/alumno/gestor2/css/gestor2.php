@@ -35,7 +35,7 @@ body {
   margin-top:10px;
   font-size: 15px;
   padding: 5px 5px;
-  min-height: 200px;
+  min-height: 150px;
   border-radius: 20px;
   color: rgba(0, 0, 0, 0.5);
   font-family: Source Sans Pro,Helvetica Neue,Helvetica,Arial,sans-serif !important;
