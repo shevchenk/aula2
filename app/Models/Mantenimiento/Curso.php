@@ -24,15 +24,14 @@ class Curso extends Model
         $usuario = Auth::user()->id;
         $curso = Curso::find($r->id);
         $curso->persona_id_updated_at = $usuario;
-        $url='';
-        if(trim($r->file_archivo)!=''){
+        if( $r->has('file_archivo') AND $r->file_archivo!='' AND $r->file_nombre!=''){
             $type=explode(".",$r->file_nombre);
             $extension=".".$type[1];
             $este = new Curso;
             $url = "img/course/c".$curso->id.$extension; 
             $este->fileToFile($r->file_archivo, $url);
+            $curso->imagen = $url;
         }
-        $curso->imagen = $url;
         $curso->save();
 
         DB::table('v_unidades_contenido')
@@ -47,6 +46,7 @@ class Curso extends Model
 
         $unidad_contenido= $r->unidad_contenido;
         $id_unidad_contenido= $r->id_unidad_contenido;
+        $tipo_evaluacion_id= $r->tipo_evaluacion;
         if( $r->has('unidad_contenido') ){
             for ($i=0; $i < count($unidad_contenido) ; $i++) { 
                 $UC=UnidadContenido::find($id_unidad_contenido[$i]);
@@ -61,6 +61,7 @@ class Curso extends Model
                     $UC->persona_id_updated_at = $usuario;
                 }
                 $UC->unidad_contenido=$unidad_contenido[$i];
+                $UC->tipo_evaluacion_id=$tipo_evaluacion_id[$i];
                 $UC->estado=1;
                 $UC->save();
             }
@@ -125,7 +126,7 @@ class Curso extends Model
     
     public static function CargarUnidadContenido($r){
         $sql=DB::table('v_unidades_contenido')
-            ->select('id','unidad_contenido')
+            ->select('id','unidad_contenido','tipo_evaluacion_id')
             ->where('curso_id', $r->id)
             ->where('estado','=','1');
         $result = $sql->orderBy('unidad_contenido','asc')->get();

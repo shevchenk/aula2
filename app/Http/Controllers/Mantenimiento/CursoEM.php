@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Api\Api;
 use App\Models\Mantenimiento\Curso;
+use App\Models\Mantenimiento\TipoEvaluacion;
 use DB;
 
 class CursoEM extends Controller{
@@ -251,5 +252,111 @@ class CursoEM extends Controller{
         $return['data'] = $renturnModel;
         $return['msj'] = "No hay registros aún";
         return response()->json($return);
+    }
+
+    public function CargarTipoEvaluacionMaster(Request $r){
+        if( trim(session('idcliente'))=='' ){
+            session(['idcliente' => 2]);
+        }
+        $idcliente = session('idcliente');
+        $tab_cli = DB::table('clientes_accesos')
+                      ->where('id','=', $idcliente)
+                      ->where('estado','=', 1)
+                      ->first();
+        // URL (CURL)
+        $cli_links =  DB::table('clientes_accesos_links')
+                      ->where('cliente_acceso_id','=', $idcliente)
+                      ->where('tipo','=', 9)
+                      ->first(); //falta validar
+        $buscar = array("pkey");
+        $reemplazar = array($tab_cli->keycli);
+        $url = str_replace($buscar, $reemplazar, $cli_links->url);
+        if( session('empresa_id')!=null ){
+          $url.="&empresa_externo_id=".session('empresa_id');
+        }
+        
+        $objArr = $this->api->curl($url);
+        // --
+        $return_response = '';
+        $renturnModel=array();
+
+        if (empty($objArr))
+        {
+            $return_response = $this->api->response(422,"error","Ingrese sus datos de envio");
+        }
+        else if(isset($objArr->data->key->id) && isset($objArr->data->key->token))
+        {
+            $tab_cli =  DB::table('clientes_accesos')
+                        ->select('id', 'nombre', 'key', 'url', 'ip')
+                        ->where('id','=', $objArr->data->key->id)
+                        ->where('key','=', $objArr->data->key->token)
+                        //->where('ip','=', $this->api->getIPCliente())
+                        ->where('estado','=', 1)
+                        ->first();
+
+            if( isset($tab_cli->id) )
+            {
+                $val = $this->insertarTipoEvaluacion($objArr);
+                if($val['return'] == true){
+                  $return_response = $this->api->response(200,"success","Proceso ejecutado satisfactoriamente");
+                  $renturnModel = $val['tipo_evaluacion'];
+                }else
+                    $return_response = $this->api->response(422,"error","Revisa tus parametros de envio");
+            }
+            else
+            {
+                $return_response = $this->api->response(422 ,"error","Su Parametro de seguridad son incorrectos");
+            }
+        }
+        else
+        {
+            $return_response = $this->api->response(422,"error","Revisa tus parametros de envio");
+        }
+
+        $return['rst'] = 1;
+        $return['data'] = $renturnModel;
+        $return['msj'] = "No hay registros aún";
+        return response()->json($return);
+    }
+
+    public function insertarTipoEvaluacion($objArr)
+    {
+        
+        try
+        {
+          DB::beginTransaction();
+          $array=array();
+          foreach ($objArr->data->tipo as $k=>$value)
+          {
+              $tipoeval = TipoEvaluacion::where('tipo_evaluacion_externo_id','=', $value->tipo_evaluacion_externo_id)
+                          ->first();
+              if( !isset($tipoeval->id) ) //Insert
+              {
+                  $tipoeval = new TipoEvaluacion();
+                  $tipoeval->tipo_evaluacion_externo_id = $value->tipo_evaluacion_externo_id;
+                  $tipoeval->persona_id_created_at=1;
+              }
+              else
+              {
+                  $tipoeval->persona_id_updated_at=1;
+              }
+                
+              $tipoeval->tipo_evaluacion = $value->tipo_evaluacion;
+              $tipoeval->save();
+
+              array_push($array, array('id'=>$tipoeval->id, 'tipo_evaluacion'=>$tipoeval->tipo_evaluacion));
+          }
+
+          DB::commit();
+          $data['return']= true;
+          $data['tipo_evaluacion']=$array;
+        }
+        catch (\Exception $e)
+        {
+            //dd($e);
+            DB::rollback();
+            $data['return']= false;
+        }
+        return $data;
     }
 }

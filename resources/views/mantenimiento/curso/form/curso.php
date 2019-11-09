@@ -42,6 +42,7 @@
                             <thead class="bg-info">
                                 <tr>
                                     <th style="text-align: center;">Unidad de Contenido</th>
+                                    <th style="text-align: center;">Tipo de Evaluación<select id="slct_tipo_evaluacion" style="display: none;"></select></th>
                                     <th style="text-align: center;"><a class="btn btn-sm btn-success" onClick="AgregarUC();"><i class="fa fa-plus fa-lg"></i></a></th>
                                 </tr>
                             </thead>
