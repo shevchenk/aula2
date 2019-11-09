@@ -376,7 +376,7 @@ HTMLCargarContenido=function( result ){
                         html+=''+
                         '</div>'+
                         '<div class="col-md-12">'+
-                        referencias+
+                            referencias+
                         '</div>'+
                         '<div class="col-md-12 formatotitulo">'+
                             '<span>'+r.titulo_contenido+'</span>'+
