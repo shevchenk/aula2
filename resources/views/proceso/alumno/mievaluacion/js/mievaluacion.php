@@ -315,6 +315,19 @@ HTMLiniciarEvaluacion=function(result){
     $("#ResultEvaluacion").hide();
     return false;
   }
+  else if(result.val_fecha_evaluacion == 'error_cantidad')
+  {
+    swal("Validación!", "La evaluación aún no se encuentra lista, comuníquese con el adminitrador del aula", "warning");
+
+    AjaxTipoEvaluacion.Cargar(HTMLCargarTipoEvaluacion);
+
+    $("#TipoEvaluacionForm").slideDown('fast');
+    $("#EvaluacionForm").slideDown('fast');
+
+    $("#resultado").html('')
+    $("#ResultEvaluacion").hide();
+    return false;
+  }
   else
   {
       ceval=0;

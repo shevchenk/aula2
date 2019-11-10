@@ -289,7 +289,7 @@ class EvaluacionPR extends Controller
           $evaluacion_fecha_final = '';
           $evaluacion_id=0;
           $evaluacion_estado_cambio=0;
-          $renturnModel = NULL;
+          $renturnModel = array(array(),20);
           if( isset($evaluacion->estado_cambio) )
           {
             $evaluacion_estado_cambio = $evaluacion->estado_cambio;
@@ -300,7 +300,7 @@ class EvaluacionPR extends Controller
                             ->where('modo', '=', 1)
                             ->first();
               if (!isset($balotario->id) AND !$r->has('validacion')) {
-                $renturnModel = NULL;
+                $renturnModel = array(array(),20);
                 $evaluacion_id = 0;
                 $val_evaluacion = 'error_balotario';
               } else {
@@ -310,7 +310,7 @@ class EvaluacionPR extends Controller
             }
             else
             {
-              $renturnModel = NULL;
+              $renturnModel = array(array(),20);
               $evaluacion_id = 0;
               $val_evaluacion = 'error_fecha';
               //$evaluacion_fecha = date('Y-m-d');
@@ -319,7 +319,7 @@ class EvaluacionPR extends Controller
             }
           }
           else{
-              $renturnModel = NULL;
+              $renturnModel = array(array(),20);
               $evaluacion_id = 0;
               $val_evaluacion = 'error_intento';
               if( $r->has('validacion') ){
@@ -358,6 +358,10 @@ class EvaluacionPR extends Controller
               }
           }
 
+          if( count($renturnModel[0])<=$renturnModel[1] ){
+            $val_evaluacion='error_cantidad';
+          }
+
             $return['rst'] = 1;
 
             $return['evaluacion_id'] = $evaluacion_id;
@@ -365,7 +369,8 @@ class EvaluacionPR extends Controller
             $return['val_fecha_evaluacion'] = $val_evaluacion;
             $return['evaluacion_fecha_inicial'] = $evaluacion_fecha_inicial;
             $return['evaluacion_fecha_final'] = $evaluacion_fecha_final;
-            $return['data'] = $renturnModel;
+            $return['data'] = $renturnModel[0];
+            $return['cantidad'] = $renturnModel[1];
             $return['msj'] = "No hay registros aún";
             return response()->json($return);
         }

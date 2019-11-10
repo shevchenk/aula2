@@ -38,6 +38,7 @@ class Evaluacion extends Model
             $balotario->estado=1;
             $balotario->persona_id_updated_at=2;
           }
+          $balotario->modo =1;
           $balotario->save();
 
           $curso =  DB::table('v_programaciones_unicas')
@@ -48,6 +49,7 @@ class Evaluacion extends Model
           INSERT INTO v_balotarios_preguntas (balotario_id, pregunta_id, estado, created_at, persona_id_created_at)
           SELECT $balotario->id, p.id, 1, NOW(), 1
           FROM v_preguntas p
+          INNER JOIN v_unidades_contenido uc ON uc.id=p.unidad_contenido_id AND uc.tipo_evaluacion_id = $r->tipo_evaluacion_id
           LEFT JOIN v_balotarios_preguntas bp ON bp.pregunta_id=p.id AND bp.balotario_id=$balotario->id
           WHERE p.curso_id = $curso->curso_id
           AND bp.id IS NULL
@@ -107,7 +109,9 @@ class Evaluacion extends Model
               ->inRandomOrder()
               ->limit($balotario[0]->cantidad_pregunta)
               ->get();
-        $result = $sql;
+        $result=array('','');
+        $result[0] = $sql;
+        $result[1] = $balotario[0]->cantidad_pregunta;
         return $result;
     }
 

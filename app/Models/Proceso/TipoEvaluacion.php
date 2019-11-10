@@ -15,28 +15,44 @@ class TipoEvaluacion extends Model
     public static function runLoad($r)
     {
         if( $r->has('validacion') ){
-            $tipo_evaluacion_id=6;
-            $evaluacion = Evaluacion::where('programacion_id', '=', $r->programacion_id)
-                            ->where('tipo_evaluacion_id', '=', $tipo_evaluacion_id)
-                            ->where('estado_cambio','<',2)
-                            ->first();
+            $tipos_evaluaciones=
+            DB::table('v_programaciones AS p')
+            ->join('v_programaciones_unicas AS pu',function($join){
+                $join->on('pu.id','=','p.programacion_unica_id')
+                ->where('pu.estado',1);
+            })
+            ->join('v_unidades_contenido AS uc',function($join){
+                $join->on('uc.curso_id','=','pu.curso_id')
+                ->where('uc.estado',1);
+            })
+            ->select('uc.tipo_evaluacion_id')
+            ->where('p.id',$r->programacion_id)
+            ->groupBy('uc.tipo_evaluacion_id')
+            ->get();
 
-            //$r['fecha_evaluacion'] = $value->fecha_evaluacion;
-            if(!isset($evaluacion->id)) // Insert
-            {
-              $evaluacion = new Evaluacion;
-              $evaluacion->programacion_id = $r->programacion_id;
-              $evaluacion->tipo_evaluacion_id = $tipo_evaluacion_id;
-              $evaluacion->persona_id_created_at=Auth::user()->id;
+            foreach ($tipos_evaluaciones as $key => $value) {
+                $evaluacion = Evaluacion::where('programacion_id', '=', $r->programacion_id)
+                                ->where('tipo_evaluacion_id', '=', $value->tipo_evaluacion_id)
+                                ->where('estado_cambio','<',2)
+                                ->first();
+
+                //$r['fecha_evaluacion'] = $value->fecha_evaluacion;
+                if(!isset($evaluacion->id)) // Insert
+                {
+                  $evaluacion = new Evaluacion;
+                  $evaluacion->programacion_id = $r->programacion_id;
+                  $evaluacion->tipo_evaluacion_id = $value->tipo_evaluacion_id;
+                  $evaluacion->persona_id_created_at=Auth::user()->id;
+                }
+                else{
+                  $evaluacion->persona_id_updated_at=Auth::user()->id;
+                }
+                  
+                  $evaluacion->fecha_evaluacion_inicial = date('Y-m-d');
+                  $evaluacion->fecha_evaluacion_final = '2050-12-31';
+                  $evaluacion->estado=1;
+                  $evaluacion->save();
             }
-            else{
-              $evaluacion->persona_id_updated_at=Auth::user()->id;
-            }
-              
-              $evaluacion->fecha_evaluacion_inicial = date('Y-m-d');
-              $evaluacion->fecha_evaluacion_final = '2050-12-31';
-              $evaluacion->estado=1;
-              $evaluacion->save();
         }
 
         $sql=DB::table('v_tipos_evaluaciones as te')
