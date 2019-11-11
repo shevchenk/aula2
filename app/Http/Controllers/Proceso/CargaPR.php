@@ -93,7 +93,7 @@ class CargaPR extends Controller {
                     //$detfile[1]=trim($detfile[1]);
                     $curso_id=0;
                     if( isset($curso->id) ){
-                        $curso_id=$curso_id;
+                        $curso_id=$curso->id;
                     }
                     $unidadcontenido =UnidadContenido::where('unidad_contenido', '=', $detfile[1])
                                         ->where('curso_id', '=' ,$curso_id)
