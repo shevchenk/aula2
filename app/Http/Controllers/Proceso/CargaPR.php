@@ -91,8 +91,13 @@ class CargaPR extends Controller {
                                     ->first();
                     $detfile[1]=$this->ValidarUTF8($detfile[1]);
                     //$detfile[1]=trim($detfile[1]);
+                    $curso_id=0;
+                    if( isset($curso->id) ){
+                        $curso_id=$curso_id;
+                    }
                     $unidadcontenido =UnidadContenido::where('unidad_contenido', '=', $detfile[1])
-                                                    ->where('estado','=',1)->first();
+                                        ->where('curso_id', '=' ,$curso_id)
+                                        ->where('estado','=',1)->first();
 
 
                     if (!isset($unidadcontenido->id) or !isset($curso->id)) {
@@ -112,7 +117,10 @@ class CargaPR extends Controller {
                     } else {
                         $detfile[2]=$this->ValidarUTF8($detfile[2]);
                         //$detfile[2]=trim($detfile[2]);
-                        $vpregunta =Pregunta::where('pregunta', '=', $detfile[2] )->first();
+                        $vpregunta =Pregunta::where('pregunta', '=', $detfile[2] )
+                                    ->where('curso_id','=',$curso->id)
+                                    ->where('unidad_contenido_id','=',$unidadcontenido->id)
+                                    ->first();
                         if( isset($vpregunta->id) ){
                             $pregunta= Pregunta::find($vpregunta->id);
                             $pregunta->estado=1;

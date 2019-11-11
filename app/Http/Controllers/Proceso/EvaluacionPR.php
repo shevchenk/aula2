@@ -358,7 +358,7 @@ class EvaluacionPR extends Controller
               }
           }
 
-          if( count($renturnModel[0])<=$renturnModel[1] ){
+          if( count($renturnModel[0])<$renturnModel[1] ){
             $val_evaluacion='error_cantidad';
           }
 
