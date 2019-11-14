@@ -289,7 +289,7 @@ class EvaluacionPR extends Controller
           $evaluacion_fecha_final = '';
           $evaluacion_id=0;
           $evaluacion_estado_cambio=0;
-          $renturnModel = array(array(),20);
+          $renturnModel = array(array(),10);
           if( isset($evaluacion->estado_cambio) )
           {
             $evaluacion_estado_cambio = $evaluacion->estado_cambio;
@@ -300,7 +300,7 @@ class EvaluacionPR extends Controller
                             ->where('modo', '=', 1)
                             ->first();
               if (!isset($balotario->id) AND !$r->has('validacion')) {
-                $renturnModel = array(array(),20);
+                $renturnModel = array(array(),10);
                 $evaluacion_id = 0;
                 $val_evaluacion = 'error_balotario';
               } else {
@@ -310,7 +310,7 @@ class EvaluacionPR extends Controller
             }
             else
             {
-              $renturnModel = array(array(),20);
+              $renturnModel = array(array(),10);
               $evaluacion_id = 0;
               $val_evaluacion = 'error_fecha';
               //$evaluacion_fecha = date('Y-m-d');
@@ -319,7 +319,7 @@ class EvaluacionPR extends Controller
             }
           }
           else{
-              $renturnModel = array(array(),20);
+              $renturnModel = array(array(),10);
               $evaluacion_id = 0;
               $val_evaluacion = 'error_intento';
               if( $r->has('validacion') ){

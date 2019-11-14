@@ -31,13 +31,13 @@ class Evaluacion extends Model
             $balotario->tipo_evaluacion_id = $r->tipo_evaluacion_id;
             $balotario->persona_id_created_at=1;
             $balotario->cantidad_maxima =-1;
-            $balotario->cantidad_pregunta =20;
           }
           else{
             $balotario = Balotario::find($balotario->id);
             $balotario->estado=1;
             $balotario->persona_id_updated_at=2;
           }
+          $balotario->cantidad_pregunta =10;
           $balotario->modo =1;
           $balotario->save();
 
