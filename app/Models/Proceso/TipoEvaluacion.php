@@ -15,6 +15,10 @@ class TipoEvaluacion extends Model
     public static function runLoad($r)
     {
         if( $r->has('validacion') ){
+            DB::beginTransaction();
+            $sql="UPDATE v_evaluaciones SET estado=0 WHERE programacion_id='".$r->programacion_id."'";
+            DB::update($sql);
+
             $tipos_evaluaciones=
             DB::table('v_programaciones AS p')
             ->join('v_programaciones_unicas AS pu',function($join){
@@ -53,6 +57,7 @@ class TipoEvaluacion extends Model
                   $evaluacion->estado=1;
                   $evaluacion->save();
             }
+            DB::commit();
         }
 
         $sql=DB::table('v_tipos_evaluaciones as te')
