@@ -31,6 +31,7 @@ class TipoEvaluacion extends Model
             })
             ->select('uc.tipo_evaluacion_id')
             ->where('p.id',$r->programacion_id)
+            ->whereNotNull('uc.tipo_evaluacion_id')
             ->groupBy('uc.tipo_evaluacion_id')
             ->get();
 
