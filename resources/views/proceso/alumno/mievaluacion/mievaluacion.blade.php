@@ -110,30 +110,6 @@
                               <thead>
                                   <tr class="cabecera">
                                   <input type="hidden" name="txt_estado" class="mant" value="1">
-                                      <!--th class="col-xs-2">
-                                          <div class="form-group">
-                                              <label><h4>Especialidad:</h4></label>
-                                              <div class="input-group">
-                                                  <input type="text" class="form-control" name="txt_carrera" id="txt_carrera" placeholder="Especialidad" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
-                                              </div>
-                                          </div>
-                                      </th>
-                                      <th class="col-xs-1">
-                                          <div class="form-group">
-                                              <label><h4>Semestre:</h4></label>
-                                              <div class="input-group">
-                                                  <input type="text" class="form-control" name="txt_semestre" id="txt_semestre" placeholder="Semestre" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
-                                              </div>
-                                          </div>
-                                      </th>
-                                      <th class="col-xs-1">
-                                          <div class="form-group">
-                                              <label><h4>Ciclo:</h4></label>
-                                              <div class="input-group">
-                                                  <input type="text" class="form-control" name="txt_ciclo" id="txt_ciclo" placeholder="Ciclo" onkeypress="return masterG.enterGlobal(event, '#txt_curso', 1);">
-                                              </div>
-                                          </div>
-                                      </th-->
                                       <th class="col-xs-2">
                                           <div class="form-group">
                                               <label><h4>Curso</h4></label>
@@ -150,7 +126,7 @@
                                               </div>
                                           </div>
                                       </th>
-                                      <th class="col-xs-1">
+                                      <!--th class="col-xs-1">
                                           <div class="form-group">
                                               <label><h4>Fecha Examen</h4></label>
                                           </div>
@@ -160,30 +136,18 @@
                                               <label><h4>Nota</h4></label>
                                           </div>
                                       </th>
-                                      <!--th class="col-xs-2">
-                                          <div class="form-group text-center">
-                                              <label><h4> <div class=""><i class="glyphicon glyphicon-book"></i></div> Evaluaciones</h4></label>
-                                              <<div class="input-group">
-                                                  <input type="text" class="form-control" name="txt_nota" id="txt_nota" placeholder="Nota" onkeypress="return masterG.enterGlobal(event,'#txt_curso',1);">
-                                              </div>>
-                                          </div>
-                                      </th-->
-                                      <th class="col-xs-1">[-]</th>
+                                      <th class="col-xs-1">[-]</th-->
                                   </tr>
                               </thead>
                               <tbody>
                               </tbody>
                               <tfoot>
                                   <tr class="cabecera">
-                                    <!--th>Especialidad</th>
-                                    <th>Semestre</th>
-                                    <th>Ciclo</th-->
                                     <th>Curso</th>
                                     <th>Docente</th>
-                                    <th>Fecha Examen</th>
+                                    <!--th>Fecha Examen</th>
                                     <th>Nota</th>
-                                    <!--th>Evaluaciones</th-->
-                                    <th>[-]</th>
+                                    <th>[-]</th-->
                                   </tr>
                               </tfoot>
                           </table>

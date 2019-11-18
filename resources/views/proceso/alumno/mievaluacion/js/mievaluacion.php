@@ -136,17 +136,12 @@ HTMLCargarEvaluacion=function(result){
         }*/
         //html+="<tr id='trid_"+r.id+"' >"+
         html+='<tr id="trid_'+r.id+'" onClick="CargarEvaluaciones('+r.id+','+r.pu_id+','+r.curso_id+',\''+r.curso+'\',\''+r.foto_cab+'\',this)">'+
-            //"<td class='carrera'>"+r.carrera+"</td>"+
-            /*"<td class='semestre'>"+r.semestre+"</td>"+
-            "<td class='ciclo'>"+r.ciclo+"</td>"+*/
             "<td class='curso'>"+r.curso+"</td>"+
-            "<td class='docente'>"+r.docente+"</td>"+
-            "<td class='fecha_examen'>"+evals.fecha_examen+"</td>"+
+            "<td class='docente'>"+r.docente+"</td>"
+            /*"<td class='fecha_examen'>"+evals.fecha_examen+"</td>"+
             "<td class='nota'>"+evals.nota+"</td>"+
-            "<td class='btn'>"+evals.btn+"</td>"
+            "<td class='btn'>"+evals.btn+"</td>"*/
             ;
-            //"<td class='evals'>"+r.evals+"</td>";
-        //html +='<a class="btn btn-primary btn-sm" onClick="CargarContenido('+r.pu_id+','+r.curso_id+',\''+r.curso+'\')"><i class="fa fa-plus fa-lg"></i> </a></td>';
         html+="</tr>";
     });
     $("#TableEvaluacion tbody").html(html);
