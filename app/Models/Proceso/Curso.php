@@ -113,7 +113,7 @@ class Curso extends Model
                   }
                 }
             )->groupBy('p.id', 'p.programacion_unica_id', 'pu.curso_id', 'palu.dni', 'palu.nombre', 'palu.paterno', 
-                        'palu.materno', 'c.curso', 'c.imagen', 'pu.ciclo', 'pu.carrera', 'pu.semestre',
+                        'palu.materno', 'c.curso', 'c.valida_evaluacion', 'c.imagen', 'pu.ciclo', 'pu.carrera', 'pu.semestre',
                         'pu.fecha_inicio', 'pu.fecha_final', 'pdoc.nombre', 'pdoc.paterno', 'pdoc.materno');
         
         $result = $sql->orderBy('p.id','asc')->paginate(10);
