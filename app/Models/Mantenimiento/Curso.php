@@ -94,7 +94,7 @@ class Curso extends Model
                         }
                     }
                 )
-                ->groupBy('c.id','c.curso','c.curso_externo_id','c.estado','c.imagen')
+                ->groupBy('c.id','c.curso','c.curso_externo_id','c.valida_evaluacion','c.estado','c.imagen')
                 ->paginate(10);
 
         return $result;
