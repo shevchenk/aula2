@@ -115,17 +115,6 @@ class EvaluacionPR extends Controller
             $return_response = $this->api->response(422,"error","Revisa tus parametros de envio");
         }
 
-        // Creación de un archivo JSON para dar respuesta al cliente
-          /*$uploadFolder = 'txt/api';
-          $nombre_archivo = "cliente.json";
-          $file = $uploadFolder . '/' . $nombre_archivo;
-          unlink($file);
-          if($archivo = fopen($file, "a"))
-          {
-            fwrite($archivo, $return_response);
-            fclose($archivo);
-          }*/
-        // --
         $r['dni'] = Auth::user()->dni;
         $renturnModel = Curso::runLoad($r);
         $return['rst'] = 1;
@@ -290,7 +279,38 @@ class EvaluacionPR extends Controller
           $evaluacion_id=0;
           $evaluacion_estado_cambio=0;
           $renturnModel = array(array(),10);
-          if( isset($evaluacion->estado_cambio) )
+          $seguir=true;
+          if( $r->valida_evaluacion==2 OR $r->valida_evaluacion==3 ){
+            $evaluacion = Evaluacion::where('programacion_id', '=', $r->programacion_id)
+                          ->where('tipo_evaluacion_id', '=', $r->tipo_evaluacion_id)
+                          ->where('estado',1)
+                          ->first();
+            if( $r->valida_evaluacion==2 ){
+                $evaluacion = Evaluacion::where('programacion_id', '=', $r->programacion_id)
+                              ->where('orden', '<', $evaluacion->orden)
+                              ->where('nota', '<', $r->nota_minima)
+                              ->where('estado',1)
+                              ->first();
+                if( isset($evaluacion->id) ){
+                    $seguir=false;
+                    $val_evaluacion = 'error_tipo_2';
+                }
+            }
+            else{
+                $evaluacion = Evaluacion::where('programacion_id', '=', $r->programacion_id)
+                              ->where('orden', '<', $evaluacion->orden)
+                              ->where('estado_cambio', '=', '0')
+                              ->where('estado',1)
+                              ->first();
+                if( isset($evaluacion->id) ){
+                    $seguir=false;
+                    $val_evaluacion = 'error_tipo_3';
+                }
+            }
+
+          }
+
+          if( isset($evaluacion->estado_cambio) AND $seguir==true )
           {
             $evaluacion_estado_cambio = $evaluacion->estado_cambio;
             if($evaluacion->fecha_evaluacion_inicial <= date('Y-m-d') && $evaluacion->fecha_evaluacion_final >= date('Y-m-d'))
@@ -318,7 +338,7 @@ class EvaluacionPR extends Controller
               $evaluacion_fecha_final = $evaluacion->fecha_evaluacion_final;
             }
           }
-          else{
+          elseif( $seguir==true ){
               $renturnModel = array(array(),10);
               $evaluacion_id = 0;
               $val_evaluacion = 'error_intento';
@@ -358,12 +378,11 @@ class EvaluacionPR extends Controller
               }
           }
 
-          if( count($renturnModel[0])<$renturnModel[1] ){
+          if( count($renturnModel[0])<$renturnModel[1] AND $seguir==true ){
             $val_evaluacion='error_cantidad';
           }
 
             $return['rst'] = 1;
-
             $return['evaluacion_id'] = $evaluacion_id;
             $return['evaluacion_estado_cambio'] = $evaluacion_estado_cambio;
             $return['val_fecha_evaluacion'] = $val_evaluacion;
@@ -480,8 +499,11 @@ class EvaluacionPR extends Controller
         $curso= 'NORMAS DE REDACCIÓN APLICADAS EN LA INVESTIGACIÓN CIENTÍFICA (NORMAS APA Y CHICAGO)';*/
 
         $pdf = new Pdf('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
         $imageFile = 'certificado/certificado4.jpg';
+        /*if ( !is_file( $imageFile )){
+          $imageFile = 'certificado/certificado.jpg';
+        }*/
+
         if ( $nota<13 ){
             $imageFile = 'certificado/certificado4_v.png';
         }

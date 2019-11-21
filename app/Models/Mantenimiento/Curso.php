@@ -24,6 +24,7 @@ class Curso extends Model
         $usuario = Auth::user()->id;
         $curso = Curso::find($r->id);
         $curso->persona_id_updated_at = $usuario;
+        $curso->valida_evaluacion = $r->valida_evaluacion;
         if( $r->has('file_archivo') AND $r->file_archivo!='' AND $r->file_nombre!=''){
             $type=explode(".",$r->file_nombre);
             $extension=".".$type[1];
@@ -77,6 +78,7 @@ class Curso extends Model
                 })
                 ->select('c.id','c.curso','c.curso_externo_id','c.estado','c.imagen'
                     ,DB::raw(' GROUP_CONCAT(vuc.unidad_contenido SEPARATOR "|") AS unidad_contenido ')
+                    ,'c.valida_evaluacion'
                 )
                 ->where(
                     function($query) use ($r){

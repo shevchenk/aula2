@@ -40,6 +40,7 @@ class Curso extends Model
             DB::raw('p.programacion_unica_id as pu_id'),
             DB::raw('pu.curso_id as curso_id'),
             'palu.dni',
+            'c.valida_evaluacion',
             DB::raw("CONCAT(palu.paterno,' ', palu.materno,' ', palu.nombre) as alumno"),
             'c.curso','c.imagen','pu.ciclo','pu.carrera','pu.semestre',
             DB::raw('DATE(pu.fecha_inicio) as fecha_inicio'),

@@ -29,6 +29,7 @@ $(document).ready(function() {
             $('#ModalCursoForm #txt_id').val( CursoG.id );
         }
         $('#ModalCursoForm #txt_curso').val( CursoG.curso );
+        $('#ModalCursoForm #slct_valida_evaluacion').val( CursoG.valida_evaluacion );
         $('#ModalCursoForm #txt_file_nombre').val( CursoG.imagen );
         masterG.SelectImagen(CursoG.imagen,'#txt_file_imagen');
         AjaxCurso.CargarUnidadContenido(HTMLCargarUnidadContenido);
@@ -51,10 +52,12 @@ AgregarEditar=function(val,id){
     CursoG.id='';
     CursoG.curso='';
     CursoG.imagen='';
+    CursoG.valida_evaluacion='1';
     if( val==0 ){
         CursoG.id=id;
         CursoG.curso=$("#TableCurso #trid_"+id+" .curso").text();
         CursoG.imagen=$("#TableCurso #trid_"+id+" .imagen").val();
+        CursoG.valida_evaluacion=$("#TableCurso #trid_"+id+" .valida_evaluacion").val();
     }
     $('#ModalCurso').modal('show');
 }
@@ -88,7 +91,9 @@ HTMLCargarCurso=function(result){
         html+="<tr id='trid_"+r.id+"'>"+
             "<td class='curso'>"+r.curso+"</td>"+
             "<td class='unidad_contenido'><ul><li>"+$.trim(r.unidad_contenido).split("|").join("</li><li>")+"</li></ul></td>"+
-            '<td>'+imagen+'<input type="hidden" class="imagen" value="'+r.imagen+'"></td>';
+            '<td>'+imagen+'<input type="hidden" class="imagen" value="'+r.imagen+'">'+
+            '<input type="hidden" class="valida_evaluacion" value="'+r.valida_evaluacion+'">'+
+            '</td>';
         html+="<td>";
         html+='<a class="btn btn-primary btn-sm" onClick="AgregarEditar(0,'+r.id+')"><i class="fa fa-edit fa-lg"></i> </a></td>';
         html+="</tr>";

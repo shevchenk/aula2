@@ -92,6 +92,17 @@
 .radio label input[type="radio"]:disabled + .cr {
     opacity: .5;
 }
+
+.UnidadContenido{
+  width: 100%;
+  font-size: 15px;
+  background: #8F969D42;
+  color: #3A3A3A;
+  text-align: center;
+  min-height: 50px;
+  line-height: 50px;
+  margin: 10px 10px;
+}
 </style>
 
 <section class="content">
@@ -160,15 +171,21 @@
                 <form id="EvaluacionForm" style="display: none">
 
                   <div class="panel panel-primary active" style="padding-bottom: 10px;">
-                      <div class="progress active" style="height: auto !important;">
-                          <div class="progress-bar progress-bar-aqua progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%; font-size:30px; line-height:20pt;">
-                            <div id="div_cabecera" style="margin: 10px 10px;"></div>
-                          </div>
+                      <div class="UnidadContenido">
+                        <span id="div_cabecera"></span>
+                        <span id="span_color" class="col-md-2 list-group-item-success" style="font-weight: bold;float: none">
+                                Nota Final a la fecha:
+                                <span id="span_nota" class="badge" style="font:20px;">4.00</span>
+                                <span id="span_resultado">DESAPROBADO</span>
+                                <input type="hidden" id="txt_nota_minima" class="mant" value="0">
+                        </span>
                       </div>
+                          
                       <div class="panel-body table-responsive">
                           <input type= "hidden" name="txt_estado_cambio" id="txt_estado_cambio" class="form-control mant" value="0,1">  
                         <input type= "hidden" name="txt_programacion_id" id="txt_programacion_id" class="form-control mant">
                         <input type= "hidden" name="txt_programacion_unica_id" id="txt_programacion_unica_id" class="form-control mant">
+                        <input type= "hidden" name="txt_valida_evaluacion" id="txt_valida_evaluacion" class="form-control mant">
                         <input type="hidden" id="txt_curso" name="txt_curso" class="form-controlmant">
                         <style media="screen">
                         .rotar:hover{

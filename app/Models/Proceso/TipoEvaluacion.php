@@ -15,6 +15,7 @@ class TipoEvaluacion extends Model
     public static function runLoad($r)
     {
         if( $r->has('validacion') ){
+            
             DB::beginTransaction();
             $sql="UPDATE v_evaluaciones SET estado=0 WHERE programacion_id='".$r->programacion_id."'";
             DB::update($sql);
@@ -29,16 +30,22 @@ class TipoEvaluacion extends Model
                 $join->on('uc.curso_id','=','pu.curso_id')
                 ->where('uc.estado',1);
             })
-            ->select('uc.tipo_evaluacion_id')
+            ->join('v_tipos_evaluaciones AS te',function($join){
+                $join->on('te.id','=','uc.tipo_evaluacion_id');
+            })
+            ->select('uc.tipo_evaluacion_id','te.tipo_evaluacion_externo_id')
             ->where('p.id',$r->programacion_id)
             ->whereNotNull('uc.tipo_evaluacion_id')
-            ->groupBy('uc.tipo_evaluacion_id')
+            ->groupBy('uc.tipo_evaluacion_id','te.tipo_evaluacion_externo_id')
             ->get();
 
             foreach ($tipos_evaluaciones as $key => $value) {
+                $clave = array_search( $value->tipo_evaluacion_externo_id , array_column($r->evaluacion, 'tipo_evaluacion_id'));
+
                 $evaluacion = Evaluacion::where('programacion_id', '=', $r->programacion_id)
                                 ->where('tipo_evaluacion_id', '=', $value->tipo_evaluacion_id)
                                 ->where('estado_cambio','<',2)
+                                ->orderBy('id','desc')
                                 ->first();
 
                 //$r['fecha_evaluacion'] = $value->fecha_evaluacion;
@@ -55,18 +62,22 @@ class TipoEvaluacion extends Model
                   
                   $evaluacion->fecha_evaluacion_inicial = date('Y-m-d');
                   $evaluacion->fecha_evaluacion_final = '2050-12-31';
+                  $evaluacion->peso_evaluacion = $r->evaluacion[$clave]->peso_evaluacion;
+                  $evaluacion->orden = $r->evaluacion[$clave]->orden;
                   $evaluacion->estado=1;
                   $evaluacion->save();
             }
             DB::commit();
         }
 
+        $nota_minima = $r->evaluacion[0]->nota_minima;
+
         $sql=DB::table('v_tipos_evaluaciones as te')
-                  ->leftJoin('v_evaluaciones AS e',function($join){
+                  ->join('v_evaluaciones AS e',function($join){
                       $join->on('te.id','=','e.tipo_evaluacion_id')
                       ->where('e.estado',1);
                   })
-                  ->leftJoin('v_programaciones AS vp',function($join){
+                  ->join('v_programaciones AS vp',function($join){
                       $join->on('vp.id','=','e.programacion_id');
                   })
                   ->select(
@@ -74,10 +85,11 @@ class TipoEvaluacion extends Model
                       'te.tipo_evaluacion',
                       'te.tipo_evaluacion_externo_id',
                       'te.estado',
+                      DB::raw('MAX(e.orden) AS orden'),
                       DB::raw('MAX(e.estado_cambio) AS estado_cambio'),
                       DB::raw('MAX(e.id) AS evaluacion_id'),
-                      DB::raw('MAX( CONCAT(e.fecha_examen,"|",e.id,"|",e.estado_cambio,"|",e.nota) ) AS evaluacion_resultado'),
-                      DB::raw('MAX( CONCAT(e.id,"|",e.estado_cambio,"|",e.nota) ) AS evaluacion')
+                      DB::raw('MAX( CONCAT(IFNULL(e.fecha_examen,""),"|",e.id,"|",e.estado_cambio,"|",e.nota,"|",e.orden,"|",e.peso_evaluacion,"|'.$nota_minima.'") ) AS evaluacion_resultado'),
+                      DB::raw('MAX( CONCAT(e.id,"|",e.estado_cambio,"|",e.nota,"|",e.orden,"|",e.peso_evaluacion,"|'.$nota_minima.'") ) AS evaluacion')
                     )
                   ->where('te.estado',1)
                   ->where(
@@ -106,7 +118,8 @@ class TipoEvaluacion extends Model
                       }
                   );
 //                  if($r->has("programacion_unica_id")){
-                      $sql->groupBy('te.id','te.tipo_evaluacion','te.tipo_evaluacion_externo_id','te.estado');
+                      $sql->groupBy('te.id','te.tipo_evaluacion','te.tipo_evaluacion_externo_id','te.estado')
+                      ->orderBy('orden');
 //                  }
         $result = $sql->paginate(20);
         return $result;

@@ -43,6 +43,54 @@ class TipoEvaluacionPR extends Controller
         if ( $r->ajax() ) {
             $r['validacion'] = '1';
             $r['dni'] = Auth::user()->dni;
+
+            $programacion= Programacion::find($r->programacion_id);
+
+            if( trim(session('idcliente'))=='' ){
+                session(['idcliente' => 2]);
+            }
+            $idcliente = session('idcliente');
+
+            $tab_cli = DB::table('clientes_accesos')
+                      ->where('id','=', $idcliente)
+                      ->where('estado','=', 1)
+                      ->first();
+
+            $cli_links = DB::table('clientes_accesos_links')
+                          ->where('cliente_acceso_id','=', $idcliente)
+                          ->where('tipo','=', 10)
+                          ->first();
+            $buscar = array("pkey", "pei");
+            $reemplazar = array($tab_cli->keycli, $programacion->programacion_externo_id);
+            $url = str_replace($buscar, $reemplazar, $cli_links->url);
+            $objArr = $this->api->curl($url);
+            $r['nota_minima'] = 0;
+
+            if (empty($objArr))
+            {
+                $return_response = $this->api->response(422,"error","Ingrese sus datos de envio");
+            }
+            else if( isset($objArr->data->key->id) && isset($objArr->data->key->token) )
+            {
+            
+                $tab_cli = DB::table('clientes_accesos')
+                            ->select('id', 'key')
+                            ->where('id','=', $objArr->data->key->id)
+                            ->where('key','=', $objArr->data->key->token)
+                            //->where('ip','=', $this->api->getIPCliente())
+                            ->where('estado','=', 1)
+                            ->first();
+                if($objArr->data->key->id == @$tab_cli->id && $objArr->data->key->token == @$tab_cli->key)
+                {
+                    $r['evaluacion'] = $objArr->data->evaluacion;
+                }
+                else
+                {
+                    $return_response = $this->api->response(422 ,"error","Su Parametro de seguridad son incorrectos");
+                }
+            }
+
+
             $renturnModel = TipoEvaluacion::runLoad($r);
             $return['rst'] = 1;
             $return['data'] = $renturnModel;

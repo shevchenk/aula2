@@ -41,6 +41,31 @@
                         <table class="table table-bordered table-hover">
                             <thead class="bg-info">
                                 <tr>
+                                    <th style="text-align: center;">Seleccione la forma de la evaluación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>
+                                    <select name="slct_valida_evaluacion" id="slct_valida_evaluacion" class="form-control">
+                                        <option value="1">
+                                        Rendir las evaluaciones sin orden determinado
+                                        </option>
+                                        <option value="2">
+                                        Rendir las evaluaciones según el orden y que haya aprobado la evaluación anterior
+                                        </option>
+                                        <option value="3">
+                                        Rendir las evaluaciones según el orden sin importar la nota de la evaluación anterior
+                                        </option>
+                                    </select>
+                                </td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-12">
+                        <br><br>
+                        <table class="table table-bordered table-hover">
+                            <thead class="bg-info">
+                                <tr>
                                     <th style="text-align: center;">Unidad de Contenido</th>
                                     <th style="text-align: center;">Tipo de Evaluación<select id="slct_tipo_evaluacion" style="display: none;"></select></th>
                                     <th style="text-align: center;"><a class="btn btn-sm btn-success" onClick="AgregarUC();"><i class="fa fa-plus fa-lg"></i></a></th>

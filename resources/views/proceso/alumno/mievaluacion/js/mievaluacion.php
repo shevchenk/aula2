@@ -135,7 +135,7 @@ HTMLCargarEvaluacion=function(result){
             estadohtml='<span id="'+r.id+'" onClick="CambiarEstado(0,'+r.id+')" class="btn btn-success">Activo</span>';
         }*/
         //html+="<tr id='trid_"+r.id+"' >"+
-        html+='<tr id="trid_'+r.id+'" onClick="CargarEvaluaciones('+r.id+','+r.pu_id+','+r.curso_id+',\''+r.curso+'\',\''+r.foto_cab+'\',this)">'+
+        html+='<tr id="trid_'+r.id+'" onClick="CargarEvaluaciones('+r.id+','+r.pu_id+','+r.curso_id+',\''+r.curso+'\',\''+r.valida_evaluacion+'\',this)">'+
             "<td class='curso'>"+r.curso+"</td>"+
             "<td class='docente'>"+r.docente+"</td>"
             /*"<td class='fecha_examen'>"+evals.fecha_examen+"</td>"+
@@ -169,7 +169,7 @@ HTMLCargarEvaluacion=function(result){
 };
 
 
-CargarEvaluaciones=function(id, programacion_unica_id, curso_id,curso, imagen, boton){
+CargarEvaluaciones=function(id, programacion_unica_id, curso_id,curso, valida_evaluacion, boton){
     trG = boton;
     masterG.pintar_fila(trG); //Pinta la fila
     //alert(id+'- '+ programacion_unica_id+'- '+ curso_id+'- '+ curso+'- '+ boton);
@@ -178,6 +178,7 @@ CargarEvaluaciones=function(id, programacion_unica_id, curso_id,curso, imagen, b
     redimensionG.validar();*/
     $("#EvaluacionForm #div_cabecera").text(curso);
     $("#EvaluacionForm #txt_programacion_id").val(id);
+    $("#EvaluacionForm #txt_valida_evaluacion").val(valida_evaluacion);
     $("#EvaluacionForm #txt_programacion_unica_id").val(programacion_unica_id);
     $("#EvaluacionForm #txt_curso").val(curso);
 
@@ -192,9 +193,15 @@ HTMLCargarTipoEvaluacion=function(result){
     var programacion_unica_id = $("#EvaluacionForm #txt_programacion_unica_id").val();
     var curso = $("#EvaluacionForm #txt_curso").val();
     var html="";
+    var pesos=0;
+    var subtotal=0;
+    var nota_minima=0;
     //console.log(result.data.data);
 
     $.each(result.data.data,function(index, r){
+        nota_minima = r.evaluacion_resultado.split("|")[6]*1;
+        pesos+=r.evaluacion_resultado.split("|")[5]*1;
+        subtotal+=(r.evaluacion_resultado.split("|")[3]*1) * (r.evaluacion_resultado.split("|")[5]*1);
         if(index == 0){
           html+='<div class="col-md-12">';
         }
@@ -206,21 +213,21 @@ HTMLCargarTipoEvaluacion=function(result){
               '</div>'+
               '<div class="panel-body text-center">';
 
-          if(r.evaluacion.split("|")[1] == 0 && $.trim(r.evaluacion_resultado)==''){
+          if(r.evaluacion_resultado.split("|")[2] == 0 && r.evaluacion_resultado.split("|")[0]==''){
             html+='<button type="button" id="btniniciareval" name="btniniciareval" class="btn btn-default" onClick="iniciarEvaluacion('+r.id+','+programacion_id+','+programacion_unica_id+',\''+r.tipo_evaluacion+'\',\''+curso+'\')" style="font-weight: bold;">Iniciar Evaluación</button>';
           }else {
-            if(r.evaluacion.split("|")[1] == 0){
+            if(r.evaluacion_resultado.split("|")[2] == 0){
               html+='<button type="button" id="btniniciareval" name="btniniciareval" class="btn btn-default" onClick="iniciarEvaluacion('+r.id+','+programacion_id+','+programacion_unica_id+',\''+r.tipo_evaluacion+'\',\''+curso+'\')" style="font-weight: bold;">Iniciar Evaluación</button>';
             }
             else{
-              if( r.evaluacion_resultado.split("|")[3]*1<13 ){
+              if( r.evaluacion_resultado.split("|")[3]*1<r.evaluacion_resultado.split("|")[6]*1 ){
                 html+='<button type="button" id="btniniciareval" name="btniniciareval" class="btn btn-info" onClick="iniciarEvaluacion('+r.id+','+programacion_id+','+programacion_unica_id+',\''+r.tipo_evaluacion+'\',\''+curso+'\')" style="font-weight: bold;">Mejorar mi Evaluación</button> &nbsp;&nbsp;';
               }
               html+='<button type="button" id="btniniciareval" name="btniniciareval" class="btn btn-primary" onClick="verEvaluacion('+r.evaluacion_id+','+programacion_id+',\''+r.tipo_evaluacion+'\',\''+curso+'\')" style="font-weight: bold;">Ver Resultados</button> &nbsp;&nbsp;';
             }
             colorrst='danger';
             textorst='DESAPROBADO';
-            if( r.evaluacion_resultado.split("|")[3]*1>=13 ){
+            if( r.evaluacion_resultado.split("|")[3]*1>=r.evaluacion_resultado.split("|")[6]*1 ){
               colorrst='success';
               textorst='APROBADO';
             }
@@ -235,10 +242,24 @@ HTMLCargarTipoEvaluacion=function(result){
             html+='<div class="col-md-12">';
         }
     });
+    
     if(result.data.length>0){
         html+='</div>';
     }
     $("#DivContenido").html(html);
+
+    var rf = (subtotal/pesos).toFixed(0);
+    $("#span_color").removeClass("list-group-item-success").addClass("list-group-item-danger");
+    $("#span_resultado").text('DESAPROBADO');
+    if( rf>=nota_minima ){
+      $("#span_color").removeClass("list-group-item-danger").addClass("list-group-item-success");
+      $("#span_resultado").text('APROBADO');
+    }
+    $("#span_nota").text(rf);
+    $("#txt_nota_minima").val(nota_minima);
+    console.log(pesos);
+    console.log(subtotal);
+    console.log( (subtotal/pesos).toFixed(0) );
 };
 
 
@@ -249,6 +270,7 @@ iniciarEvaluacion=function(id, programacion_id, programacion_unica_id, tipo_eval
 
     $("#ResultEvaluacion #txt_tipo_evaluacion_id").val(id);
     $("#ResultEvaluacion #txt_programacion_id").val(programacion_id);
+    $("#ResultEvaluacion #txt_programacion_unica_id").val(programacion_unica_id);
     $("#ResultEvaluacion #txt_programacion_unica_id").val(programacion_unica_id);
 
     $("#ResultEvaluacion #txt_tipo_evaluacion").val(tipo_evaluacion);
@@ -313,6 +335,32 @@ HTMLiniciarEvaluacion=function(result){
   else if(result.val_fecha_evaluacion == 'error_cantidad')
   {
     swal("Validación!", "La evaluación aún no se encuentra lista, comuníquese con el adminitrador del aula", "warning");
+
+    AjaxTipoEvaluacion.Cargar(HTMLCargarTipoEvaluacion);
+
+    $("#TipoEvaluacionForm").slideDown('fast');
+    $("#EvaluacionForm").slideDown('fast');
+
+    $("#resultado").html('')
+    $("#ResultEvaluacion").hide();
+    return false;
+  }
+  else if(result.val_fecha_evaluacion == 'error_tipo_2')
+  {
+    swal("Validación!", "Acceso no permitido, deberá aprobar las evaluaciones anteriores antes de continuar", "warning");
+
+    AjaxTipoEvaluacion.Cargar(HTMLCargarTipoEvaluacion);
+
+    $("#TipoEvaluacionForm").slideDown('fast');
+    $("#EvaluacionForm").slideDown('fast');
+
+    $("#resultado").html('')
+    $("#ResultEvaluacion").hide();
+    return false;
+  }
+  else if(result.val_fecha_evaluacion == 'error_tipo_3')
+  {
+    swal("Validación!", "Acceso no permitido, realice las evaluaciones anteriores antes de continuar", "warning");
 
     AjaxTipoEvaluacion.Cargar(HTMLCargarTipoEvaluacion);
 
@@ -512,7 +560,7 @@ HTMLAgregarEvaluacion=function(result){
     if( result.rst==1 ){
         msjG.mensaje('success',result.msj,4000);
 
-        AjaxEvaluacion.Cargar(HTMLCargarEvaluacion);
+        //AjaxEvaluacion.Cargar(HTMLCargarEvaluacion);
         AjaxTipoEvaluacion.Cargar(HTMLCargarTipoEvaluacion);
 
         $("#TipoEvaluacionForm").slideDown('fast');

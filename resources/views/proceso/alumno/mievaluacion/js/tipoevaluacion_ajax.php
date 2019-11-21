@@ -3,7 +3,8 @@ var AjaxTipoEvaluacion={
     Cargar:function(evento,pag){
         var programacion_id = $("#EvaluacionForm #txt_programacion_id").val();
         var estado_cambio = $("#EvaluacionForm #txt_estado_cambio").val();
-        data={programacion_id:programacion_id,estado_cambio:estado_cambio};
+        var valida_evaluacion = $("#EvaluacionForm #txt_valida_evaluacion").val();
+        data={programacion_id:programacion_id,estado_cambio:estado_cambio,valida_evaluacion:valida_evaluacion};
         url='AjaxDinamic/Proceso.TipoEvaluacionPR@LoadValidacion';
         masterG.postAjax(url,data,evento);
     },
@@ -11,11 +12,15 @@ var AjaxTipoEvaluacion={
         var programacion_unica_id = $("#ResultEvaluacion #txt_programacion_unica_id").val();
         var programacion_id = $("#ResultEvaluacion #txt_programacion_id").val();
         var tipo_evaluacion_id = $("#ResultEvaluacion #txt_tipo_evaluacion_id").val();
+        var valida_evaluacion = $("#EvaluacionForm #txt_valida_evaluacion").val();
+        var nota_minima = $("#EvaluacionForm #txt_nota_minima").val();
         $("#ContenidoForm input[type='hidden']").not('.mant').remove();
 
         var data={programacion_unica_id:programacion_unica_id,
                   programacion_id:programacion_id,
                   tipo_evaluacion_id : tipo_evaluacion_id,
+                  valida_evaluacion:valida_evaluacion,
+                  nota_minima:nota_minima,
                   validacion: 1
                   };
         url='AjaxDinamic/Proceso.EvaluacionPR@cargarPreguntas';

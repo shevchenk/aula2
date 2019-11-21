@@ -210,8 +210,7 @@ class PreguntaEM extends Controller
         catch (\Exception $e)
         {
             DB::rollback();
-            //dd($e);
-           $data['return']= false;
+            $data['return']= false;
         }
         return $data;
     }
