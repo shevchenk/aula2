@@ -44,6 +44,12 @@ var AjaxTipoEvaluacion={
         url='AjaxDinamic/Proceso.EvaluacionPR@guardarEvaluacion';
         masterG.postAjax(url,data,evento);
     },
+    GuardarNota:function(nota){
+        var data={programacion_id : $("#EvaluacionForm #txt_programacion_id").val(),
+                  nota : nota};
+        url='AjaxDinamic/Proceso.EvaluacionPR@guardarNota';
+        masterG.postAjax(url,data);
+    },
 };
 
 </script>

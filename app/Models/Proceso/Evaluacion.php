@@ -236,8 +236,10 @@ class Evaluacion extends Model
                 ->join('v_cursos AS c', 'c.id','=','pu.curso_id')
                 ->join('v_personas AS pe', 'pe.id','=','p.persona_id')
                 ->selectRaw('pe.paterno, pe.materno, pe.nombre, pe.dni
-                , DATE(e.fecha_examen) fecha_examen, e.nota, c.curso')
-                ->where('e.id', $r->id)
+                , DATE(e.fecha_examen) fecha_examen, p.nota_final AS nota, c.curso,c.empresa_externo_id')
+                ->where('p.id', $r->programacion_id)
+                ->where('e.estado',1)
+                ->orderBy('e.fecha_examen','desc')
                 ->first();
         return $sql;
     }

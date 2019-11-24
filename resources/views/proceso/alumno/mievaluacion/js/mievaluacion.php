@@ -126,7 +126,7 @@ HTMLCargarEvaluacion=function(result){
             if( evals.nota<13 ){
               color='danger';
             }
-            evals.btn = '<a class="btn btn-lg btn-'+color+'" href="ReportDinamic/Proceso.EvaluacionPR@DescargarCertificado?id='+id+'" target="__blank">'+
+            evals.btn = '<a class="btn btn-lg btn-'+color+'" href="ReportDinamic/Proceso.EvaluacionPR@DescargarCertificado?id='+id+'" target="_blank">'+
                           '<i class="fa fa-file-pdf-o"></i>'+
                         '</a>';
         }
@@ -249,19 +249,30 @@ HTMLCargarTipoEvaluacion=function(result){
     $("#DivContenido").html(html);
 
     var rf = (subtotal/pesos).toFixed(0);
+    if( pesos==0 ){
+      rf = 0;
+    }
     $("#span_color").removeClass("list-group-item-success").addClass("list-group-item-danger");
     $("#span_resultado").text('DESAPROBADO');
-    if( rf>=nota_minima ){
+    color='danger';
+    if( rf>=nota_minima && rf>0 ){
+      color='success';
       $("#span_color").removeClass("list-group-item-danger").addClass("list-group-item-success");
       $("#span_resultado").text('APROBADO');
     }
+
+    btn = '<a class="btn btn-lg btn-'+color+'" href="ReportDinamic/Proceso.EvaluacionPR@DescargarCertificado?programacion_id='+programacion_id+'&nota_minima='+nota_minima+'" target="_blank">'+
+            '<i class="fa fa-file-pdf-o"></i>'+
+          '</a>';
+
+    $("#span_btn").html(btn);
     $("#span_nota").text(rf);
     $("#txt_nota_minima").val(nota_minima);
+    AjaxTipoEvaluacion.GuardarNota(rf);
     console.log(pesos);
     console.log(subtotal);
-    console.log( (subtotal/pesos).toFixed(0) );
+    console.log( rf );
 };
-
 
 iniciarEvaluacion=function(id, programacion_id, programacion_unica_id, tipo_evaluacion, curso){
     $("#TipoEvaluacionForm").slideUp('slow');

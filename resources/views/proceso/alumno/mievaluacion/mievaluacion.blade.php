@@ -179,6 +179,8 @@
                                 <span id="span_resultado">DESAPROBADO</span>
                                 <input type="hidden" id="txt_nota_minima" class="mant" value="0">
                         </span>
+                        <span id="span_btn">
+                        </span>
                       </div>
                           
                       <div class="panel-body table-responsive">

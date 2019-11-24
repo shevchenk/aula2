@@ -470,13 +470,16 @@ class EvaluacionPR extends Controller
         $key = array('','');
         if( $r->has('key') ){
             $key = explode('.$/$.',$r->key);
-            if( count($key) == 2 AND Hash::check($key[1], $key[0]) ){
-                $r['id'] = $key[1];
+            if( Hash::check($key[1], $key[0]) ){
+                $r['programacion_id'] = $key[1];
+                $r['nota_minima'] = $key[2];
             }
             else{
-                $r['id'] = 0;
+                $r['programacion_id'] = 0;
+                $r['nota_minima'] = 0;
             }
         }
+        //dd($r);
 
         $evaluacion = Evaluacion::verEvaluacion($r);
         $mes=['','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Diciembre'];
@@ -484,12 +487,14 @@ class EvaluacionPR extends Controller
         $nombre='';
         $curso='';
         $nota=0;
+        $empresa_id=0;
 
         if( isset($evaluacion->fecha_examen) ){
             $fecha= explode("-", $evaluacion->fecha_examen);
             $nombre = $evaluacion->nombre." ".$evaluacion->paterno." ".$evaluacion->materno;
             $curso = $evaluacion->curso;
             $nota = $evaluacion->nota;
+            $empresa_id = $evaluacion->empresa_externo_id;
         }
         /*$nombre = 'DEL AGUILA JIMENEZ CAROLINA FIORELLA DEL CARMEN';
         $nombre = 'ISAAC LUIS EDUARDO MORI GUERRA';
@@ -499,23 +504,23 @@ class EvaluacionPR extends Controller
         $curso= 'NORMAS DE REDACCIÓN APLICADAS EN LA INVESTIGACIÓN CIENTÍFICA (NORMAS APA Y CHICAGO)';*/
 
         $pdf = new Pdf('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-        $imageFile = 'certificado/certificado4.jpg';
+        $imageFile = 'certificado/certificado'.$empresa_id.'.png';
         /*if ( !is_file( $imageFile )){
           $imageFile = 'certificado/certificado.jpg';
         }*/
-
-        if ( $nota<13 ){
-            $imageFile = 'certificado/certificado4_v.png';
+        if ( $nota<$r->nota_minima ){
+            $imageFile = 'certificado/certificado'.$empresa_id.'_v.png';
         }
         elseif ( $r->has('key') ){
-            $imageFile = 'certificado/certificado4_qr.png';
+            $imageFile = 'certificado/certificado'.$empresa_id.'_qr.png';
         }
+        
         $pdf->ActivarFondo($imageFile);
 
-        $key=bcrypt($r->id);
+        $key=bcrypt($r->programacion_id);
 
         $qrData = array(
-            'url' => $this->servidor."/ReportDinamic/Proceso.EvaluacionPR@DescargarCertificado?key=".$key.".$/$.".$r->id,
+            'url' => $this->servidor."/ReportDinamic/Proceso.EvaluacionPR@DescargarCertificado?key=".$key.".$/$.".$r->programacion_id.".$/$.".$r->nota_minima,
             'posx' => 230,
             'posy' => 160,
             'w' => 35,
@@ -523,7 +528,7 @@ class EvaluacionPR extends Controller
             'color' => array(0,32,96)
         );
 
-        if( $nota>=13 AND !$r->has('key') ){
+        if( $nota>= $r->nota_minima AND !$r->has('key') ){
             $pdf->ActivarQR($qrData);
         }
 
@@ -543,7 +548,7 @@ class EvaluacionPR extends Controller
         $fontname = TCPDF_FONTS::addTTFfont('fonts/Calibri Regular.ttf', 'TrueTypeUnicode', '', 32);
         $pdf->SetTextColor(0, 32, 96);
         
-        if( $nota<13 OR ($nota>=13 AND !$r->has('key')) ){
+        if( $nota< $r->nota_minima OR ($nota>= $r->nota_minima AND !$r->has('key')) ){
             $pdf->Ln(55);
             $pdf->SetFont($fontname, '', 17, '', false);
             $pdf->Cell(50, 17, 'Otorgado a:   ', 0, 0, 'R', 0, '');
@@ -563,10 +568,10 @@ class EvaluacionPR extends Controller
             $pdf->SetFont($fontname, '', 25, '', false);
             $pdf->Cell(100, 0, $fecha[2].' de '.$mes[$fecha[1]*1].' del '.$fecha[0], 0, 1, 'C', 0, '');
 
-            $pdf->Image('certificado/secretaria.png', 60, 165, 70, 30, '', '', '', true, 300, '', false, false, 0, false, false, false);
-            $pdf->Image('certificado/director.png', 140, 168, 70, 30, '', '', '', true, 300, '', false, false, 0, false, false, false);
+            $pdf->Image('certificado/secretaria'.$empresa_id.'.png', 60, 165, 70, 30, '', '', '', true, 300, '', false, false, 0, false, false, false);
+            $pdf->Image('certificado/director'.$empresa_id.'.png', 140, 168, 70, 30, '', '', '', true, 300, '', false, false, 0, false, false, false);
         }
-        elseif ($nota>=13 AND $r->has('key')){
+        elseif ($nota>=$r->nota_minima AND $r->has('key')){
             $pdf->Ln(45);
             $pdf->SetFont($fontname, '', 16, '', false);
             $pdf->MultiCell(0, 0, 'La Secretaría General da constancia de la valides de este certificado, cuyos datos se encuentran registrados en nuestro sistema informático.', 0, 'L', 0, 1, '', '',true);
@@ -591,9 +596,20 @@ class EvaluacionPR extends Controller
             $fecha = explode( "-", date('Y-m-d') );
             $pdf->Cell(160, 0, 'Lima,', 0, 0, 'R', 0, '');
             $pdf->Cell(70, 0, $fecha[2].' de '.$mes[$fecha[1]*1].' del '.$fecha[0], 0, 1, 'C', 0, '');
-            $pdf->Image('certificado/secretaria.png', 80, 165, 70, 30, '', '', '', true, 300, '', false, false, 0, false, false, false);
+            $pdf->Image('certificado/secretaria'.$empresa_id.'.png', 80, 165, 70, 30, '', '', '', true, 300, '', false, false, 0, false, false, false);
         }
         $pdf->Output('example_002.pdf', 'I');
+    }
+
+    public function guardarNota(Request $r )
+    {
+        if ( $r->ajax() ) {
+            $programacion = Programacion::find($r->programacion_id);
+            $programacion->nota_final = $r->nota;
+            $programacion->save();
+            $return['rst']=1;
+            return response()->json($return);
+        }
     }
 
 }
