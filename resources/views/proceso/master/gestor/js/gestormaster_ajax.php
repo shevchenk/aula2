@@ -19,7 +19,12 @@ var AjaxProgramacionUnicaMaster={
         
         url='AjaxDinamic/Proceso.ProgramacionUnicaPR@validarProgramacionMaster';
         masterG.postAjax(url,data,evento);
-    }
+    },
+    CargarAprobados:function(evento){
+        data=$("#ModalAprobadosForm").serialize().split("txt_").join("").split("slct_").join("");
+        url='AjaxDinamic/Proceso.ProgramacionUnicaPR@CargarAprobados';
+        masterG.postAjax(url,data,evento);
+    },
 };
 
 </script>

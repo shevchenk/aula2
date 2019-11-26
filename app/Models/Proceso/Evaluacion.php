@@ -230,15 +230,17 @@ class Evaluacion extends Model
 
     public static function verEvaluacion($r)
     {
-        $sql = DB::table('v_evaluaciones AS e')
-                ->join('v_programaciones AS p', 'p.id','=','e.programacion_id')
+        $sql = DB::table('v_programaciones AS p')
+                ->join('v_personas AS pe', 'pe.id','=','p.persona_id')
                 ->join('v_programaciones_unicas AS pu', 'pu.id','=','p.programacion_unica_id')
                 ->join('v_cursos AS c', 'c.id','=','pu.curso_id')
-                ->join('v_personas AS pe', 'pe.id','=','p.persona_id')
+                ->leftJoin('v_evaluaciones AS e',function($join){
+                    $join->on('e.programacion_id','=','p.id')
+                    ->where('e.estado',1);
+                })
                 ->selectRaw('pe.paterno, pe.materno, pe.nombre, pe.dni
                 , DATE(e.fecha_examen) fecha_examen, p.nota_final AS nota, c.curso,c.empresa_externo_id')
                 ->where('p.id', $r->programacion_id)
-                ->where('e.estado',1)
                 ->orderBy('e.fecha_examen','desc')
                 ->first();
         return $sql;

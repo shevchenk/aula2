@@ -53,6 +53,9 @@
                 <div class="btn btn-warning btn-lg" onClick="VerCursos()">
                     <i class="fa fa-chevron-left fa-lg"></i>&nbsp;Regresar
                 </div>
+                <div class="btn btn-info btn-lg" onClick="VerAprobados()">
+                    <i class="fa fa-file-pdf-o fa-lg"></i>&nbsp;Aprobados
+                </div>
             </div>
         </div>
     </form><!-- .form -->
@@ -135,4 +138,5 @@
 
 @section('form')
     @include( 'proceso.master.gestor.form.contenido' )
+    @include( 'proceso.master.gestor.form.aprobados' )
 @stop

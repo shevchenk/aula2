@@ -566,4 +566,14 @@ class ProgramacionUnicaPR extends Controller{
             return response()->json($return);
         }
     }
+
+    public function CargarAprobados(Request $r ){
+        if ( $r->ajax() ) {
+            $result=ProgramacionUnica::CargarAprobados($r);
+            $return['rst'] = 1;
+            $return['data'] = $result;
+            $return['msj'] = 'Listado de Aprobados';
+            return response()->json($return);
+        }
+    }
 }

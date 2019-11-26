@@ -448,4 +448,27 @@ class ProgramacionUnica extends Model
         }       
     }
 
+    public static function CargarAprobados($r){
+        $programacion_unica =   DB::table('v_programaciones_unicas AS pu')
+                                ->join('v_cursos AS c','c.id','=','pu.curso_id')
+                                ->select('c.empresa_externo_id')
+                                ->where('pu.id',$r->programacion_unica_id)
+                                ->first();
+
+        $nota_minima =  DB::table('telesup_pae.empresas')
+                        ->select('nota_minima')
+                        ->where('id',$programacion_unica->empresa_externo_id)
+                        ->first();
+
+        $aprobados =    DB::table('v_programaciones AS pr')
+                        ->join('v_personas AS p','p.id','=','pr.persona_id')
+                        ->select('pr.nota_final', 'p.paterno', 'p.materno', 'p.nombre', 'p.dni', 'pr.id')
+                        ->where('pr.programacion_unica_id', $r->programacion_unica_id)
+                        ->where('pr.estado', 1)
+                        //->where('pr.nota_final','>=',$nota_minima->nota_minima)
+                        ->get();
+
+        return $aprobados;
+    }
+
 }
