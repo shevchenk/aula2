@@ -9,6 +9,21 @@ class ProgramacionUnica extends Model
 {
     protected   $table = 'v_programaciones_unicas';
 
+    public static function mibdaux()
+    {
+        $bd='prabtoea_telesup_pae';
+        if( $_SERVER['SERVER_NAME']=='localhost' ){
+            $bd= 'telesup_pae';
+        }
+        elseif( $_SERVER['SERVER_NAME']=='miaula.formacioncontinua.pe' ){
+            $bd='formacion_continua';
+        }
+        elseif( $_SERVER['SERVER_NAME']=='capamiaula.formacioncontinua.pe' ){
+            $bd='capa_formacion_continua';
+        }
+        return $bd;
+    }
+
     public static function runLoad($r)
     {
         $result=DB::table('v_programaciones_unicas AS pu')
@@ -455,7 +470,7 @@ class ProgramacionUnica extends Model
                                 ->where('pu.id',$r->programacion_unica_id)
                                 ->first();
 
-        $nota_minima =  DB::table('telesup_pae.empresas')
+        $nota_minima =  DB::table(ProgramacionUnica::mibdaux().'.empresas')
                         ->select('nota_minima')
                         ->where('id',$programacion_unica->empresa_externo_id)
                         ->first();
