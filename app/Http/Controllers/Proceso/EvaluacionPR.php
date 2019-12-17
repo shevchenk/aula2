@@ -245,6 +245,8 @@ class EvaluacionPR extends Controller
                   $programacion->estado = 1;
                   $programacion->persona_id_updated_at=1;
               }
+              
+              $programacion->fecha_matricula = $value->fecha_matricula;
               $programacion->save();
               //$array_programacion.=','.$programacion->programacion_externo_id;
               // --
@@ -280,7 +282,18 @@ class EvaluacionPR extends Controller
           $evaluacion_estado_cambio=0;
           $renturnModel = array(array(),10);
           $seguir=true;
-          if( $r->valida_evaluacion==2 OR $r->valida_evaluacion==3 ){
+
+          $validaFechaInicio = Programacion::find($r->programacion_id);
+          $hoy= date('Y-m-d');
+          $fecha_matricula = date('Y-m-d', strtotime($validaFechaInicio->fecha_matricula.' + 20 days'));
+
+          if( $fecha_matricula > $hoy ){
+              $seguir=false;
+              $evaluacion_fecha_inicial = $fecha_matricula;
+              $val_evaluacion = 'error_matricula';
+          }
+
+          if( ($r->valida_evaluacion==2 OR $r->valida_evaluacion==3) AND $seguir==true ){
             $evaluacion = Evaluacion::where('programacion_id', '=', $r->programacion_id)
                           ->where('tipo_evaluacion_id', '=', $r->tipo_evaluacion_id)
                           ->where('estado',1)

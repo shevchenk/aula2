@@ -102,7 +102,9 @@ class ProgramacionUnica extends Model
                 'pu.fecha_final','vc.curso','vc.imagen','pu.curso_id',
                 'pu.ciclo','pu.carrera','pu.semestre',
                 'vp.paterno','vp.materno','vp.nombre','vp.dni')
-                ->orderBy('pu.id','asc')->paginate(10);
+                ->orderBy('pu.carrera','asc')
+                ->orderBy('pu.fecha_inicio','desc')
+                ->paginate(100);
 
         return $result;
     }

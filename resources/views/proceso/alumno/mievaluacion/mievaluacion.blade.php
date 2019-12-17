@@ -175,8 +175,8 @@
                         <span id="div_cabecera"></span>
                         <span id="span_color" class="col-md-2 list-group-item-success" style="font-weight: bold;float: none">
                                 Nota Final a la fecha:
-                                <span id="span_nota" class="badge" style="font:20px;">4.00</span>
-                                <span id="span_resultado">DESAPROBADO</span>
+                                <span id="span_nota" class="badge" style="font:20px;">0</span>
+                                <span id="span_resultado"></span>
                                 <input type="hidden" id="txt_nota_minima" class="mant" value="0">
                         </span>
                         <span id="span_btn">

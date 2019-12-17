@@ -116,7 +116,9 @@ class Curso extends Model
                         'palu.materno', 'c.curso', 'c.valida_evaluacion', 'c.imagen', 'pu.ciclo', 'pu.carrera', 'pu.semestre',
                         'pu.fecha_inicio', 'pu.fecha_final', 'pdoc.nombre', 'pdoc.paterno', 'pdoc.materno');
         
-        $result = $sql->orderBy('p.id','asc')->paginate(10);
+        $result = $sql->orderBy('pu.carrera','asc')
+                      ->orderBy('pu.fecha_inicio','desc')
+                      ->paginate(100);
         return $result;
     }
 

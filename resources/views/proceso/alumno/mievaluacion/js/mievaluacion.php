@@ -253,7 +253,7 @@ HTMLCargarTipoEvaluacion=function(result){
       rf = 0;
     }
     $("#span_color").removeClass("list-group-item-success").addClass("list-group-item-danger");
-    $("#span_resultado").text('DESAPROBADO');
+    $("#span_resultado").text('');
     color='danger';
     if( rf>=nota_minima && rf>0 ){
       color='success';
@@ -305,7 +305,19 @@ HTMLiniciarEvaluacion=function(result){
   tipo_evaluacionG = $("#ResultEvaluacion #txt_tipo_evaluacion").val();
   cursoG = $("#ResultEvaluacion #txt_curso").val();
 
-  if(result.val_fecha_evaluacion == 'error_fecha')
+  if(result.val_fecha_evaluacion == 'error_matricula')
+  {
+    swal("Validación!", "Sus evaluaciones inician apartir del día "+result.evaluacion_fecha_inicial, "warning");
+    AjaxTipoEvaluacion.Cargar(HTMLCargarTipoEvaluacion);
+
+    $("#TipoEvaluacionForm").slideDown('fast');
+    $("#EvaluacionForm").slideDown('fast');
+
+    $("#resultado").html('')
+    $("#ResultEvaluacion").hide();
+    return false;
+  }
+  else if(result.val_fecha_evaluacion == 'error_fecha')
   {
     swal("Validación!", "Rango de fecha valido "+result.evaluacion_fecha_inicial+" a "+result.evaluacion_fecha_final, "warning");
     AjaxTipoEvaluacion.Cargar(HTMLCargarTipoEvaluacion);

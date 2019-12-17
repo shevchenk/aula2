@@ -39,8 +39,7 @@ HTMLCargarProgramacionUnica=function(result){
         '<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 work-item">'+
             '<a onClick="CargarContenido('+r.id+','+r.curso_id+',\''+r.curso+'\',\''+r.imagen+'\',this)" href="#">'+
                 '<img src="'+r.imagen+'" alt="'+r.curso+'" class="img-responsive">'+
-                '<h3 class="fh5co-work-title">'+r.curso+'</h3>'+
-                '<p>Fecha de Inicio: '+r.fecha_inicio+'</p>'+
+                '<h3 class="fh5co-work-title">'+r.carrera+'</h3>'+
             '</a>'+
         '</div>';
         $("#cursosUnicos").append(html);
