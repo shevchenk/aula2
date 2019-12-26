@@ -126,13 +126,13 @@ class CursoEM extends Controller{
               {
                   $curso = new Curso();
                   $curso->curso_externo_id = $value->curso_externo_id;
-                  $curso->empresa_externo_id = $value->empresa_externo_id;
                   $curso->persona_id_created_at=1;
               }
               else
               {
                   $curso->persona_id_updated_at=1;
               }
+              $curso->empresa_externo_id = $value->empresa_externo_id;
               $curso->estado = 1;
               $curso->curso = $value->curso;
               $curso->save();

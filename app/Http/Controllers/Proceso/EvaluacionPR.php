@@ -80,7 +80,10 @@ class EvaluacionPR extends Controller
         $url = str_replace($buscar, $reemplazar, $cli_links->url);
         $objArr = $this->api->curl($url);
         $return_response = '';
+        $val['cursos']=array();
         
+
+
         if (empty($objArr))
         {
             $return_response = $this->api->response(422,"error","Ingrese sus datos de envio");
@@ -119,6 +122,7 @@ class EvaluacionPR extends Controller
         $renturnModel = Curso::runLoad($r);
         $return['rst'] = 1;
         $return['data'] = $renturnModel;
+        $return['data2'] = $val['cursos'];
         $return['msj'] = "No hay registros aún";
         return response()->json($return);
     }
@@ -130,7 +134,6 @@ class EvaluacionPR extends Controller
         $array_curso='0';
         $array_programacion_unica='0';
         $array_programacion='0';
-        
         try
         {
           foreach ($objArr->data->alumno as $k=>$value)
@@ -252,8 +255,19 @@ class EvaluacionPR extends Controller
               // --
           }
 
+          foreach ($objArr->data->cursos as $key => $value) {
+              $curso = Curso::where('curso_externo_id','=', $value->curso_externo_id)
+                        ->first();
+              $cursos= array();
+              if (isset($curso->id))
+              {
+                $value->imagen=$curso->imagen;
+              }
+          }
+
           DB::commit();
           $data['return']= true;
+          $data['cursos'] = $objArr->data->cursos;
           //$data['externo_id']=array('curso'=>$array_curso,'programacion_unica'=>$array_programacion_unica,'programacion'=>$array_programacion);
         }
         catch (\Exception $e)

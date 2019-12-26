@@ -51,6 +51,25 @@ HTMLCargarEvaluacion=function(result){
         '</div>';
         $("#cursosUnicos").append(html);
     });
+
+    $.each(result.data2,function(index,r){
+        if( $.trim(r.imagen)=='' ){
+            r.imagen='archivo/no disponible.jpg';
+        }
+        html=
+        '<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 work-item" style="opacity: 0.3;">'+
+            '<a onClick="CursoNoInscrito(\''+r.curso+'\');" href="#">'+
+                '<img src="'+r.imagen+'" alt="'+r.curso+'" class="img-responsive">'+
+                '<h3 class="fh5co-work-title">'+r.especialidad+'</h3>'+
+            '</a>'+
+        '</div>';
+        $("#cursosUnicos").append(html);
+    });
 };
+
+
+CursoNoInscrito=function(curso){
+    msjG.mensaje("info","Estimado alumno, no ha sido inscrito en el curso  "+curso,10000);
+}
 
 </script>
