@@ -369,11 +369,10 @@ class EvaluacionPR extends Controller
               $renturnModel = array(array(),10);
               $evaluacion_id = 0;
               $val_evaluacion = 'error_intento';
+              $seguir=false;
               if( $r->has('validacion') ){
                   $evaluacion = Evaluacion::where('programacion_id', '=', $r->programacion_id)
                                 ->where('tipo_evaluacion_id', '=', $r->tipo_evaluacion_id)
-                                ->where('estado_cambio', '>',0)
-                                ->where('estado',1)
                                 ->whereRaw('DATE(fecha_examen)=CURDATE()')
                                 ->get();
                   if( count($evaluacion)<2 ){
@@ -399,6 +398,7 @@ class EvaluacionPR extends Controller
                       DB::commit();
 
                       $val_evaluacion = '';
+                      $seguir=true;
                       $renturnModel = Evaluacion::listarPreguntas($r);
                       $evaluacion_id = $evaluacion->id;
                   }
