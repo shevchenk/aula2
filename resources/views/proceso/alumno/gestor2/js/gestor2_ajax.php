@@ -19,6 +19,11 @@ var AjaxEvaluacionV2={
 
         url='AjaxDinamic/Proceso.EvaluacionPR@validarCurso';
         masterG.postAjax(url,data,evento);
+    },
+    EnviarAlerta:function(evento,curso){
+        url='AjaxDinamic/Proceso.EvaluacionPR@EnviarAlerta';
+        data={curso:curso};
+        masterG.postAjax(url,data,evento);
     }
 };
 

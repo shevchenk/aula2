@@ -1,6 +1,7 @@
 <script type="text/javascript">
 var AddEdit=0; //0: Editar | 1: Agregar
 var TipoEvaluacionG={id:0, dni:"", alumno:"", curso:"", fecha_inicio:"", fecha_final:"", docente:"", estado:1}; // estado:1
+var cursoG = '';
 $(document).ready(function() {
     AjaxEvaluacionV2.CargaInicial(HTMLCargarEvaluacion);
 });
@@ -58,7 +59,7 @@ HTMLCargarEvaluacion=function(result){
         }
         html=
         '<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 work-item" style="opacity: 0.3;">'+
-            '<a onClick="CursoNoInscrito(\''+r.curso+'\');" href="#">'+
+            '<a onClick="CursoNoInscrito(\''+r.curso+'\',\''+r.curso_externo_id+'\');" href="#">'+
                 '<img src="'+r.imagen+'" alt="'+r.curso+'" class="img-responsive">'+
                 '<h3 class="fh5co-work-title">'+r.especialidad+'</h3>'+
             '</a>'+
@@ -68,8 +69,20 @@ HTMLCargarEvaluacion=function(result){
 };
 
 
-CursoNoInscrito=function(curso){
-    msjG.mensaje("info","Estimado alumno, no ha sido inscrito en el curso  "+curso,10000);
+CursoNoInscrito=function(curso,curso_id){
+    cursoG = curso_id;
+    sweetalertG.confirm('Curso No Inscrito','Estimado alumno, desea inscribirse en el curso "'+curso+'"', EnviarAlerta)
+    //msjG.mensaje("info","Estimado alumno, no ha sido inscrito en el curso  "+curso,10000);
+}
+
+EnviarAlerta=function(){
+    AjaxEvaluacionV2.EnviarAlerta(EnviarAlertaHTML,cursoG);
+}
+
+EnviarAlertaHTML=function(r){
+    if( r.rst==1 ){
+        msjG.mensaje("info","Estimado alumno, un gestor se estará comunicando con Ud. Que tenga buen día.",8000);
+    }
 }
 
 </script>

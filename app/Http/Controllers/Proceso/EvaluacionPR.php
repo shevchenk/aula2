@@ -780,4 +780,66 @@ class EvaluacionPR extends Controller
         $pdf->Output('example_002.pdf', 'I');
     }
 
+    public function EnviarAlerta(Request $r)
+    {
+        if( trim(session('idcliente'))=='' ){
+            session(['idcliente' => 2]);
+        }
+        $idcliente = session('idcliente');
+        $tab_cli = DB::table('clientes_accesos')
+                      ->where('id','=', $idcliente)
+                      ->where('estado','=', 1)
+                      ->first();
+
+        // URL (CURL)
+        $cli_links = DB::table('clientes_accesos_links')
+                      ->where('cliente_acceso_id','=', $idcliente)
+                      ->where('tipo','=', 5)
+                      ->first();
+        $buscar = array("pkey", "pdni","pcurso");
+        $reemplazar = array($tab_cli->keycli, Auth::user()->dni, $r->curso);
+        $url = str_replace($buscar, $reemplazar, $cli_links->url);
+        $objArr = $this->api->curl($url);
+
+        $return_response = '';
+        $val['cursos']=array();
+        $return['rst'] = 2;
+
+
+        if (empty($objArr))
+        {
+            $return_response = $this->api->response(422,"error","Ingrese sus datos de envio");
+        }
+        else if( isset($objArr->key->id) && isset($objArr->key->token) )
+        {
+        
+            $tab_cli = DB::table('clientes_accesos')
+                        ->select('id', 'key')
+                        ->where('id','=', $objArr->key->id)
+                        ->where('key','=', $objArr->key->token)
+                        //->where('ip','=', $this->api->getIPCliente())
+                        ->where('estado','=', 1)
+                        ->first();
+            if($objArr->key->id == @$tab_cli->id && $objArr->key->token == @$tab_cli->key)
+            {
+                if($objArr->key->ok == "ok"){
+                    $return['rst'] = 1;
+                    $return_response = $this->api->response(200,"success","Proceso ejecutado satisfactoriamente");
+                }
+                else
+                    $return_response = $this->api->response(422,"error","Revisa tus parametros de envio");
+            }
+            else
+            {
+                $return_response = $this->api->response(422 ,"error","Su Parametro de seguridad son incorrectos");
+            }
+        }
+        else
+        {
+            $return_response = $this->api->response(422,"error","Revisa tus parametros de envio");
+        }
+        
+        return response()->json($return);
+    }
+
 }

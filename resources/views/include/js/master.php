@@ -455,9 +455,18 @@ var sweetalertG = {
           title: titulo,
           text: descripcion,
           showCancelButton: true,
-          type: 'warning',
-          confirmButtonText: "Eliminar",
+          confirmButtonText: "Procesar",
           closeOnConfirm: true
+      },
+      consulta
+      );
+    },
+    alert: function (titulo, descripcion, consulta) {
+      swal({
+          type: 'success',
+          title: titulo,
+          text: descripcion,
+          closeOnConfirm: true,
       },
       consulta
       );
