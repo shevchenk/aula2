@@ -800,7 +800,7 @@ class EvaluacionPR extends Controller
         $reemplazar = array($tab_cli->keycli, Auth::user()->dni, $r->curso);
         $url = str_replace($buscar, $reemplazar, $cli_links->url);
         $objArr = $this->api->curl($url);
-        dd($url);
+        //dd($url);
         $return_response = '';
         $val['cursos']=array();
         $return['rst'] = 2;
