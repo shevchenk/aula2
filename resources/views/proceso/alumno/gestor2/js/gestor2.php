@@ -71,7 +71,7 @@ HTMLCargarEvaluacion=function(result){
 
 CursoNoInscrito=function(curso,curso_id){
     cursoG = curso_id;
-    sweetalertG.confirm('Curso No Inscrito','Estimado alumno, desea inscribirse en el curso "'+curso+'"', EnviarAlerta)
+    sweetalertG.pregunta('Usted no esta inscrito a este curso','¿desea inscribirse al curso de "'+curso+'"?', EnviarAlerta)
     //msjG.mensaje("info","Estimado alumno, no ha sido inscrito en el curso  "+curso,10000);
 }
 

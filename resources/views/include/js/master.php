@@ -470,6 +470,18 @@ var sweetalertG = {
       },
       consulta
       );
+    },
+    pregunta: function(titulo, descripcion, consulta){
+      swal({
+          title: titulo,
+          text: descripcion,
+          showCancelButton: true,
+          confirmButtonText: 'Si',
+          cancelButtonText: 'No',
+          closeOnConfirm: true
+      },
+      consulta
+      );
     }
 }
 
