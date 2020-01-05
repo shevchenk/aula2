@@ -1,5 +1,6 @@
 <script type="text/javascript">
 var AddEdit=0; //0: Editar | 1: Agregar
+var AdicionalG=0;
 var CursoG={id:0,curso:"",estado:1,imagen_archivo:'',imagen_nombre:'',imagen_cabecera_archivo:'',imagen_cabecera_nombre:''}; // Datos Globales
 $(document).ready(function() {
 
@@ -119,13 +120,15 @@ HTMLCargarCurso=function(result){
 };
 
 AgregarUC=function(){
+    AdicionalG++;
     var html='<tr>';
-    html+='<td><textarea name="txt_unidad_contenido[]" class="form-control"></textarea><input type="hidden" name="txt_id_unidad_contenido[]" value="0"></td>';
-    html+='<td><select name="slct_tipo_evaluacion[]" class="form-control">'+$("#slct_tipo_evaluacion").html()+'</select></td>';
+    html+='<td><textarea name="txt_unidad_contenido[]" class="form-control"></textarea><input type="hidden" name="txt_id_unidad_contenido[]" value="0_'+AdicionalG+'"></td>';
+    html+='<td><select name="slct_tipo_evaluacion_0_'+AdicionalG+'[]" class="form-control selectpicker show-menu-arrow" multiple data-selected-text-format="count">'+$("#slct_tipo_evaluacion").html()+'</select></td>';
     html+='<td><a class="btn btn-sm btn-danger" onClick="EliminarTr(this);"><i class="fa fa-trash fa-lg"></i></a></td>';
     html+='</tr>';
     
     $("#tb_te").append(html);
+    $(".selectpicker").selectpicker("refresh");
 }
 
 EliminarTr=function(t){
@@ -141,16 +144,17 @@ HTMLCargarUnidadContenido=function(result){
         html+='<textarea name="txt_unidad_contenido[]" class="form-control">'+r.unidad_contenido+'</textarea>';
         html+='<input type="hidden" name="txt_id_unidad_contenido[]" value="'+r.id+'">';
         html+='</td>';
-        html+='<td><select name="slct_tipo_evaluacion[]" class="form-control">'+$("#slct_tipo_evaluacion").html()+'</select></td>';
+        html+='<td><select name="slct_tipo_evaluacion_'+r.id+'[]" class="form-control selectpicker show-menu-arrow" multiple data-selected-text-format="count" >'+$("#slct_tipo_evaluacion").html()+'</select></td>';
         html+='<td><a class="btn btn-sm btn-danger" onClick="EliminarTr(this);"><i class="fa fa-trash fa-lg"></i></a></td>';
         html+='</tr>';
         $("#tb_te").append(html);
-        $("#tb_te tr").last().find("select").val(r.tipo_evaluacion_id);
+        $("#tb_te tr").last().find("select").selectpicker('val',$.trim(r.tipo_evaluacion_id).split(","));
     });
+        $(".selectpicker").selectpicker("refresh");
 }
 
 HTMLCargarTipoEvaluacionAjax=function(result){
-    var html='<option value="">.::Seleccione::.</option>';
+    var html='';
     $("#slct_tipo_evaluacion").html(html);
     $.each(result.data,function(index,r){
         html='<option value="'+r.id+'">';

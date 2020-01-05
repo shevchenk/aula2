@@ -47,7 +47,6 @@ class Curso extends Model
 
         $unidad_contenido= $r->unidad_contenido;
         $id_unidad_contenido= $r->id_unidad_contenido;
-        $tipo_evaluacion_id= $r->tipo_evaluacion;
         if( $r->has('unidad_contenido') ){
             for ($i=0; $i < count($unidad_contenido) ; $i++) { 
                 $UC=UnidadContenido::find($id_unidad_contenido[$i]);
@@ -62,7 +61,8 @@ class Curso extends Model
                     $UC->persona_id_updated_at = $usuario;
                 }
                 $UC->unidad_contenido=$unidad_contenido[$i];
-                $UC->tipo_evaluacion_id=$tipo_evaluacion_id[$i];
+                $tipo_evaluacion = implode(",", $r['tipo_evaluacion_'.$id_unidad_contenido[$i]]);
+                $UC->tipo_evaluacion_id=  $tipo_evaluacion;
                 $UC->estado=1;
                 $UC->save();
             }
