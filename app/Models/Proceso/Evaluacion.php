@@ -49,7 +49,7 @@ class Evaluacion extends Model
           INSERT INTO v_balotarios_preguntas (balotario_id, pregunta_id, estado, created_at, persona_id_created_at)
           SELECT $balotario->id, p.id, 1, NOW(), 1
           FROM v_preguntas p
-          INNER JOIN v_unidades_contenido uc ON uc.id=p.unidad_contenido_id AND uc.tipo_evaluacion_id = $r->tipo_evaluacion_id
+          INNER JOIN v_unidades_contenido uc ON uc.id=p.unidad_contenido_id AND FIND_IN_SET('$r->tipo_evaluacion_id',uc.tipo_evaluacion_id)
           LEFT JOIN v_balotarios_preguntas bp ON bp.pregunta_id=p.id AND bp.balotario_id=$balotario->id
           WHERE p.curso_id = $curso->curso_id
           AND bp.id IS NULL
@@ -59,58 +59,57 @@ class Evaluacion extends Model
           DB::commit();
       }
 
-      $balotario = DB::table('v_balotarios')
-                        ->where('programacion_unica_id', $r->programacion_unica_id)
-                        ->where('tipo_evaluacion_id', $r->tipo_evaluacion_id)
-                        ->get();
+        $balotario = DB::table('v_balotarios')
+                          ->where('programacion_unica_id', $r->programacion_unica_id)
+                          ->where('tipo_evaluacion_id', $r->tipo_evaluacion_id)
+                          ->get();
 
-      $sql = DB::table('v_balotarios AS b')
-              ->join('v_balotarios_preguntas AS bp',function($join){
-                  $join->on('b.id','=','bp.balotario_id');
-              })
-              ->join('v_preguntas AS p',function($join){
-                  $join->on('bp.pregunta_id','=','p.id');
-              })
-              ->join('v_respuestas AS r',function($join){
-                  $join->on('p.id','=','r.pregunta_id');
-              })
-              ->select(
-              'b.id',
-              'b.programacion_unica_id',
-              'b.cantidad_pregunta',
-              DB::raw('p.id AS pregunta_id'),
-              'p.pregunta',
-              'p.imagen',
-              'p.puntaje',
-              DB::raw('GROUP_CONCAT(CONCAT(r.id, ":", r.respuesta) SEPARATOR "|") as alternativas'),
-              DB::raw('GROUP_CONCAT(CONCAT( ROUND(RAND()*10), ":", r.id, ":", r.respuesta) SEPARATOR "|") as alternativas_ex')
-              )
-              ->where(
-                  function($query) use ($r){
-                      $query->where('b.estado', '=', 1);
+        $sql = "SELECT DISTINCT( p.unidad_contenido_id ) unidad_contenido_id
+                FROM v_preguntas p
+                INNER JOIN v_unidades_contenido uc ON uc.id=p.unidad_contenido_id AND FIND_IN_SET('$r->tipo_evaluacion_id',uc.tipo_evaluacion_id)
+                WHERE p.curso_id = $curso->curso_id";
+        $unidades_contenidos = DB::select($sql);
 
-                      if( $r->has("programacion_unica_id") ){
-                          $programacion_unica_id=trim($r->programacion_unica_id);
-                          if( $programacion_unica_id !='' ){
-                              $query->where('b.programacion_unica_id','=', $programacion_unica_id);
-                          }
-                      }
+        $cantidad = $balotario[0]->cantidad_pregunta;
+        $cantidadasignada= (int)($cantidad/count($unidades_contenidos));
+        $residuo= $cantidad%count($unidades_contenidos);
+        $validaunion=0;
+        $sql="";
+        
+        foreach ($unidades_contenidos as $key => $value) {
+          $cf = $cantidadasignada;
+          if( $residuo>0 ){
+              $cf = $cantidadasignada+1;
+          }
 
-                      if( $r->has("tipo_evaluacion_id") ){
-                          $tipo_evaluacion_id=trim($r->tipo_evaluacion_id);
-                          if( $tipo_evaluacion_id !='' ){
-                              $query->where('b.tipo_evaluacion_id','=', $tipo_evaluacion_id);
-                          }
-                      }
-                  }
-              )
-              ->groupBy('b.id', 'p.id','b.programacion_unica_id','b.cantidad_pregunta','p.pregunta', 'p.imagen',
-              'p.puntaje')
-              ->inRandomOrder()
-              ->limit($balotario[0]->cantidad_pregunta)
-              ->get();
+          if( $validaunion>0 ){
+            $sql.=" UNION ";
+          }
+          
+          $sql .= "SELECT *
+                  FROM (
+                  SELECT b.id, b.programacion_unica_id, b.cantidad_pregunta, p.id AS pregunta_id, p.pregunta, p.imagen, p.puntaje, 
+                  GROUP_CONCAT(CONCAT(r.id, \":\", r.respuesta) SEPARATOR \"|\") AS alternativas, 
+                  GROUP_CONCAT(CONCAT( ROUND(RAND()*10), \":\", r.id, \":\", r.respuesta) SEPARATOR \"|\") AS alternativas_ex 
+                  FROM v_balotarios AS b 
+                  INNER JOIN v_balotarios_preguntas AS bp ON b.id = bp.balotario_id 
+                  INNER JOIN v_preguntas AS p ON bp.pregunta_id = p.id 
+                  INNER JOIN v_respuestas AS r ON p.id = r.pregunta_id 
+                  WHERE b.estado = 1 AND b.programacion_unica_id = $r->programacion_unica_id
+                  AND b.tipo_evaluacion_id = $r->tipo_evaluacion_id
+                  AND p.unidad_contenido_id= $value->unidad_contenido_id
+                  GROUP BY b.id, p.id, b.programacion_unica_id, b.cantidad_pregunta, p.pregunta, p.imagen, p.puntaje 
+                  ORDER BY RAND() LIMIT $cf
+                  ) a$key";
+
+          $residuo--;
+          $validaunion++;
+        }
+
+        $preguntas = DB::select($sql);
+
         $result=array('','');
-        $result[0] = $sql;
+        $result[0] = $preguntas;
         $result[1] = $balotario[0]->cantidad_pregunta;
         return $result;
     }
