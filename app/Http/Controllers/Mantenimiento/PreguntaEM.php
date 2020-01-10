@@ -198,6 +198,7 @@ class PreguntaEM extends Controller
                   $tipo_evaluacion->persona_id_updated_at=1;
 
                 $tipo_evaluacion->tipo_evaluacion = trim($value->tipo_evaluacion);
+                $tipo_evaluacion->nro_pregunta = trim($value->nro_pregunta);
                 $tipo_evaluacion->save();
                 $array_tipo_evaluacion.=','.$tipo_evaluacion->tipo_evaluacion_externo_id;
               }

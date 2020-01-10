@@ -273,6 +273,7 @@ class TipoEvaluacionPR extends Controller
               }
                 
               $tipoeval->tipo_evaluacion = $value->tipo_evaluacion;
+              $tipoeval->nro_pregunta = $value->nro_pregunta;
               $tipoeval->save();
 
               $evaluacion = Evaluacion::where('programacion_id', '=', $r->programacion_id)

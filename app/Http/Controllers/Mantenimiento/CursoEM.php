@@ -342,6 +342,7 @@ class CursoEM extends Controller{
               }
                 
               $tipoeval->tipo_evaluacion = $value->tipo_evaluacion;
+              $tipoeval->nro_pregunta = $value->nro_pregunta;
               $tipoeval->save();
 
               array_push($array, array('id'=>$tipoeval->id, 'tipo_evaluacion'=>$tipoeval->tipo_evaluacion));

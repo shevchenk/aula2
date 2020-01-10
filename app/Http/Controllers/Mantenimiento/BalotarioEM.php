@@ -217,6 +217,7 @@ class BalotarioEM extends Controller
                 }
 
                 $tipoeval->tipo_evaluacion = $value->tipo_evaluacion;
+                $tipoeval->nro_pregunta = $value->nro_pregunta;
                 $tipoeval->save();
 
                 $balotario= Balotario::where('v_balotarios.tipo_evaluacion_id','=', $tipoeval->id)
