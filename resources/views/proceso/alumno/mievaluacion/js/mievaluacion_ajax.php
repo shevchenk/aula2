@@ -27,6 +27,11 @@ var AjaxEvaluacion={
         $("#ModalTipoEvaluacionForm input[type='hidden']").not('.mant').remove();
         url='AjaxDinamic/Proceso.EvaluacionPR@EditStatus';
         masterG.postAjax(url,data,evento);
+    },
+    CargarTipoEvaluacionAjax:function(evento,pag){
+        data={};
+        url='AjaxDinamic/Mantenimiento.CursoEM@CargarTipoEvaluacionMaster';
+        masterG.postAjax(url,data,evento);
     }
 };
 

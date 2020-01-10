@@ -18,6 +18,9 @@ class Evaluacion extends Model
     {
 
       if( $r->has('validacion') ){
+
+          $tipo_evaluacion = DB::table('v_tipos_evaluaciones')->find($r->tipo_evaluacion_id);
+
           $balotario= DB::table('v_balotarios AS b')
                       ->where('b.tipo_evaluacion_id','=', $r->tipo_evaluacion_id)
                       ->where('b.programacion_unica_id','=', $r->programacion_unica_id)
@@ -37,7 +40,7 @@ class Evaluacion extends Model
             $balotario->estado=1;
             $balotario->persona_id_updated_at=2;
           }
-          $balotario->cantidad_pregunta =10;
+          $balotario->cantidad_pregunta = $tipo_evaluacion->nro_pregunta ;
           $balotario->modo =1;
           $balotario->save();
 

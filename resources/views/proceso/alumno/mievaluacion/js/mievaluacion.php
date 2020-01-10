@@ -27,6 +27,7 @@ $(document).ready(function() {
     });
 
     AjaxEvaluacion.CargaInicial(HTMLCargarEvaluacion);
+    AjaxEvaluacion.CargarTipoEvaluacionAjax(HTMLCargarTipoEvaluacionAjax);
 
     $("#TipoEvaluacionForm #TableEvaluacion select").change(function(){ AjaxEvaluacion.Cargar(HTMLCargarEvaluacion); });
     $("#TipoEvaluacionForm #TableEvaluacion input").blur(function(){ AjaxEvaluacion.Cargar(HTMLCargarEvaluacion); });
@@ -55,6 +56,9 @@ $(document).ready(function() {
     });
 
 });
+
+HTMLCargarTipoEvaluacionAjax=function(result){
+}
 
 ValidaForm=function(){
     var r=true;
