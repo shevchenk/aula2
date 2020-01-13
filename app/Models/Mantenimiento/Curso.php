@@ -33,6 +33,16 @@ class Curso extends Model
             $este->fileToFile($r->file_archivo, $url);
             $curso->imagen = $url;
         }
+        if( $r->has('file_archivo2') AND $r->file_archivo2!='' AND $r->file_nombre2!=''){
+            $type=explode(".",$r->file_nombre2);
+            $extension=".".$type[1];
+            $este = new Curso;
+            $url = "img/course/c_v".$curso->id.$extension; 
+            $este->fileToFile($r->file_archivo2, $url);
+            $curso->imagen2 = $url;
+        }
+        $curso->link = trim($r->link);
+        $curso->whatsapp = trim($r->whatsapp);
         $curso->save();
 
         DB::table('v_unidades_contenido')
@@ -77,6 +87,7 @@ class Curso extends Model
                     ->where('vuc.estado',1);
                 })
                 ->select('c.id','c.curso','c.curso_externo_id','c.estado','c.imagen'
+                    ,'c.imagen2', 'c.link', 'c.whatsapp'
                     ,DB::raw(' GROUP_CONCAT(vuc.unidad_contenido SEPARATOR "|") AS unidad_contenido ')
                     ,'c.valida_evaluacion'
                 )
@@ -94,7 +105,7 @@ class Curso extends Model
                         }
                     }
                 )
-                ->groupBy('c.id','c.curso','c.curso_externo_id','c.valida_evaluacion','c.estado','c.imagen')
+                ->groupBy('c.id','c.curso','c.curso_externo_id','c.valida_evaluacion','c.estado','c.imagen','c.imagen2','c.link','c.whatsapp')
                 ->paginate(10);
 
         return $result;

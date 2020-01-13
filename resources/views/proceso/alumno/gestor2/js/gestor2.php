@@ -69,16 +69,70 @@ HTMLCargarEvaluacion=function(result){
         if( $.trim(r.imagen)=='' ){
             r.imagen='archivo/no disponible.jpg';
         }
+        if( $.trim(r.imagen2)=='' ){
+            r.imagen2='archivo/no disponible.jpg';
+        }
+
+        if( $.trim(r.whatsapp)!='' ){
+            r.whatsapp='https://api.whatsapp.com/send?phone=51'+r.whatsapp+'&text=Hola! Quiero comprar el curso de '+r.curso;
+        }
+
         html=
-        '<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 work-item" style="opacity: 0.3;">'+
-            '<a onClick="CursoNoInscrito(\''+r.curso+'\',\''+r.curso_externo_id+'\');" href="#">'+
-                '<img src="'+r.imagen+'" alt="'+r.curso+'" class="img-responsive">'+
-                '<h3 class="fh5co-work-title">Módulo: '+r.especialidad+'</h3>'+
+        '<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 work-item imagenpago">'+
+            '<a style="opacity: 0.3;" onClick="CursoNoInscrito(\''+r.curso+'\',\''+r.curso_externo_id+'\');" href="#">'+
+                '<img src="'+r.imagen+'" alt="'+r.curso+'" class="img-responsive imagen1">'+
+                '<img src="'+r.imagen2+'" alt="'+r.curso+'" class="img-responsive imagen2" style="display:none;">'+
             '</a>'+
+            '<div style="text-align:center">'+
+                '<h3 class="fh5co-work-title">Módulo: '+r.especialidad+'</h3>'+
+                '<a class="alertas btn btn-lg btn-info" data-toggle="tooltip" data-placement="bottom" title="Descargar Brochure del Curso" onClick="DescargarBrochure(\''+$.trim(r.link)+'\');"><i class="fa fa-newspaper-o fa-lg"></i></a>'+
+                '<a class="alertas btn btn-lg btn-warning" data-toggle="tooltip" data-placement="bottom" title="Solicitar que me llamen" onClick="SolicitarLlamada(\''+r.curso+'\',\''+r.curso_externo_id+'\');"><i class="fa fa-phone fa-lg"></i></a>'+
+                '<a class="alertas btn btn-lg btn-success" data-toggle="tooltip" data-placement="bottom" title="Conectar con WhatsApp" onClick="ConectarWhatsApp(\''+r.whatsapp+'\');"><i class="fa fa-whatsapp fa-lg"></i></a>'+
+                '<a class="alertas btn btn-lg btn-primary" data-toggle="tooltip" data-placement="bottom" title="Comprar Curso Online" onClick="ComprarCurso(\''+r.curso+'\',\''+r.curso_externo_id+'\');"><i class="fa fa-shopping-cart fa-lg"></i></a>'+
+            '</div>'+
         '</div>';
         $("#cursosUnicos").append(html);
     });
+
+    $('.imagenpago a').hover(
+       function () {
+          $(this).find(".imagen1").hide();
+          $(this).find(".imagen2").show();
+       },
+       function () {
+          $(this).find(".imagen2").hide();
+          $(this).find(".imagen1").show();
+       }
+    );
 };
+
+ComprarCurso=function(curso, curso_id){
+    cursoG= curso_id;
+    msjG.mensaje("info","Estimado alumno, el pago online esta en construcción. Que tenga buen día.",6000);
+}
+
+ConectarWhatsApp=function(whatsapp){
+    if( whatsapp!='' ){
+        window.open(whatsapp, '_blank');
+    }
+    else{
+        msjG.mensaje("info","El WhatsApp del curso aún no ha sido activado.",6000);
+    }
+}
+
+DescargarBrochure=function(link){
+    if( link!='' ){
+        window.open(link, '_blank');
+    }
+    else{
+        msjG.mensaje("info","El brochure del curso aún no ha sido cargado.",6000);
+    }
+}
+
+SolicitarLlamada=function(curso, curso_id){
+    cursoG = curso_id;
+    sweetalertG.pregunta('Usted no esta inscrito a este curso','¿desea inscribirse al curso de "'+curso+'"?', EnviarAlerta)
+}
 
 VerForo=function(curso,curso_id,curso_externo_id){
     cursoG= curso_id;

@@ -374,7 +374,8 @@ var masterG ={
         $(src).attr('src','archivo/default.png');
       }
       else{
-        $(src).attr('src',archivo);
+        tiempo= new Date().getTime();
+        $(src).attr('src',archivo+'?time='+tiempo);
       }
 
       if( $.trim(carga)!='' ){

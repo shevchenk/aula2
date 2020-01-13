@@ -37,6 +37,38 @@
                         </div>
                     </div>
                     <div class="col-md-12">
+                        <div class="col-md-8 col-sm-8">
+                            <div class="form-group">
+                                <label>Imagen 2 de Ventas</label>
+                                <input type="text" readonly="" class="form-control input-sm" id="txt_file_nombre2" name="txt_file_nombre2" value="">
+                                <input type="text" style="display: none;" id="txt_file_archivo2" name="txt_file_archivo2">
+                                <label class="btn btn-default btn-flat margin btn-xs">
+                                    <i class="fa fa-file-pdf-o fa-lg"></i>
+                                    <i class="fa fa-file-word-o fa-lg"></i>
+                                    <i class="fa fa-file-image-o fa-lg"></i>
+                                    <input type="file" style="display: none;" onchange="masterG.onImagen(event,'#txt_file_nombre2','#txt_file_archivo2','#txt_file_imagen2');">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <div class="form-group">
+                                <img class="img-circle_cabecera" id="txt_file_imagen2" style="height: 142px;width: 100%;border-radius: 8px;border: 1px solid grey;margin-top: 5px;padding: 8px"> 
+                            </div>  
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <label>Link del Brochure:</label>
+                            <textarea id="txt_link" name="txt_link" class="form-control" placeholder="Ingrese Link del Brochure"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <label>Nro de WhatsApp de ventas:</label>
+                            <input id="txt_whatsapp" name="txt_whatsapp" class="form-control" placeholder="Ingrese el nro de WhatsApp">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
                         <br><br>
                         <table class="table table-bordered table-hover">
                             <thead class="bg-info">

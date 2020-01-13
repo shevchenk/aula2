@@ -262,6 +262,9 @@ class EvaluacionPR extends Controller
               if (isset($curso->id))
               {
                 $value->imagen=$curso->imagen;
+                $value->imagen2 = $curso->imagen2;
+                $value->link = $curso->link;
+                $value->whatsapp = $curso->whatsapp;
               }
           }
 
