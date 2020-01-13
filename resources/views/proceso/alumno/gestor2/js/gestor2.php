@@ -55,12 +55,13 @@ HTMLCargarEvaluacion=function(result){
         '<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 work-item">'+
             '<a onClick="CargarContenido('+r.id+','+r.pu_id+','+r.curso_id+',\''+r.curso+'\',\''+r.imagen+'\')" href="#">'+
                 '<img src="'+r.imagen+'" alt="'+r.curso+'" class="img-responsive">'+
-                '<div style="text-align:center">'+
-                    '<a class="alertas btn btn-lg btn-info" data-toggle="tooltip" data-placement="bottom" title="Foro del Curso" onClick="VerForo(\''+r.curso+'\',\''+r.curso_id+'\',\''+r.curso_externo_id+'\');"><i class="fa fa-wechat fa-lg"></i></a>'+
-                    '<a class="alertas btn btn-lg btn-warning" data-toggle="tooltip" data-placement="bottom" title="Ver Detalle de evaluaciones" onClick="VerEvaluaciones(\''+r.curso+'\',\''+r.curso_id+'\',\''+r.curso_externo_id+'\');"><i class="fa fa-list fa-lg"></i></a>'+
-                    '<a class="alertas btn btn-lg btn-success" data-toggle="tooltip" data-placement="bottom" title="Solicita ayuda técnica" onClick="SolicitaAyuda(\''+r.curso+'\',\''+r.curso_externo_id+'\');"><i class="fa fa-slideshare fa-lg"></i></a>'+
-                '</div>'+
             '</a>'+
+            '<div style="text-align:center">'+
+                '<h3 class="fh5co-work-title">Módulo: '+r.carrera+'</h3>'+
+                '<a class="alertas btn btn-lg btn-info" data-toggle="tooltip" data-placement="bottom" title="Foro del Curso" onClick="VerForo(\''+r.curso+'\',\''+r.curso_id+'\',\''+r.curso_externo_id+'\');"><i class="fa fa-wechat fa-lg"></i></a>'+
+                '<a class="alertas btn btn-lg btn-warning" data-toggle="tooltip" data-placement="bottom" title="Ver Detalle de evaluaciones" onClick="VerEvaluaciones(\''+r.curso+'\',\''+r.curso_id+'\',\''+r.curso_externo_id+'\');"><i class="fa fa-list fa-lg"></i></a>'+
+                '<a class="alertas btn btn-lg btn-success" data-toggle="tooltip" data-placement="bottom" title="Solicita ayuda técnica" onClick="SolicitaAyuda(\''+r.curso+'\',\''+r.curso_externo_id+'\');"><i class="fa fa-slideshare fa-lg"></i></a>'+
+            '</div>'+
         '</div>';
         $("#cursosUnicos").append(html);
     });
@@ -74,7 +75,7 @@ HTMLCargarEvaluacion=function(result){
         }
 
         if( $.trim(r.whatsapp)!='' ){
-            r.whatsapp='https://api.whatsapp.com/send?phone=51'+r.whatsapp+'&text=Hola! Quiero comprar el curso de '+r.curso;
+            r.whatsapp='https://api.whatsapp.com/send?phone=51'+r.whatsapp+'&text=Hola! Quiero inscribirme al curso de '+r.curso;
         }
 
         html=
@@ -131,7 +132,7 @@ DescargarBrochure=function(link){
 
 SolicitarLlamada=function(curso, curso_id){
     cursoG = curso_id;
-    sweetalertG.pregunta('Usted no esta inscrito a este curso','¿desea inscribirse al curso de "'+curso+'"?', EnviarAlerta)
+    sweetalertG.pregunta('Usted no esta inscrito a este curso','¿desea que se comuniquen con usted para inscribirla(o) al curso de "'+curso+'"?', EnviarAlerta)
 }
 
 VerForo=function(curso,curso_id,curso_externo_id){
@@ -188,7 +189,7 @@ SolicitaAyuda=function(curso,curso_id){
 
 CursoNoInscrito=function(curso,curso_id){
     cursoG = curso_id;
-    sweetalertG.pregunta('Usted no esta inscrito a este curso','¿desea inscribirse al curso de "'+curso+'"?', EnviarAlerta)
+    sweetalertG.pregunta('Usted no esta inscrito a este curso','¿desea que se comuniquen con usted para inscribirla(o) al curso de "'+curso+'"?', EnviarAlerta)
 }
 
 EnviarAlerta=function(){
