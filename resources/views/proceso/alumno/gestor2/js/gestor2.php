@@ -4,6 +4,14 @@ var TipoEvaluacionG={id:0, dni:"", alumno:"", curso:"", fecha_inicio:"", fecha_f
 var cursoG = '';
 $(document).ready(function() {
     AjaxEvaluacionV2.CargaInicial(HTMLCargarEvaluacion);
+    $('[data-toggle="tooltip"]').tooltip();
+
+    $('#ModalEvaluacion').on('shown.bs.modal', function (event) {
+        console.log('Cargando');
+    });
+
+    $('#ModalEvaluacion').on('hidden.bs.modal', function (event) {
+    });
 });
 
 
@@ -47,7 +55,11 @@ HTMLCargarEvaluacion=function(result){
         '<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 work-item">'+
             '<a onClick="CargarContenido('+r.id+','+r.pu_id+','+r.curso_id+',\''+r.curso+'\',\''+r.imagen+'\')" href="#">'+
                 '<img src="'+r.imagen+'" alt="'+r.curso+'" class="img-responsive">'+
-                '<h3 class="fh5co-work-title">'+r.carrera+'</h3>'+
+                '<div style="text-align:center">'+
+                    '<a class="alertas btn btn-lg btn-info" data-toggle="tooltip" data-placement="bottom" title="Foro del Curso" onClick="VerForo(\''+r.curso+'\',\''+r.curso_id+'\',\''+r.curso_externo_id+'\');"><i class="fa fa-wechat fa-lg"></i></a>'+
+                    '<a class="alertas btn btn-lg btn-warning" data-toggle="tooltip" data-placement="bottom" title="Ver Detalle de evaluaciones" onClick="VerEvaluaciones(\''+r.curso+'\',\''+r.curso_id+'\',\''+r.curso_externo_id+'\');"><i class="fa fa-list fa-lg"></i></a>'+
+                    '<a class="alertas btn btn-lg btn-success" data-toggle="tooltip" data-placement="bottom" title="Solicita ayuda técnica" onClick="SolicitaAyuda(\''+r.curso+'\',\''+r.curso_externo_id+'\');"><i class="fa fa-slideshare fa-lg"></i></a>'+
+                '</div>'+
             '</a>'+
         '</div>';
         $("#cursosUnicos").append(html);
@@ -61,22 +73,76 @@ HTMLCargarEvaluacion=function(result){
         '<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 work-item" style="opacity: 0.3;">'+
             '<a onClick="CursoNoInscrito(\''+r.curso+'\',\''+r.curso_externo_id+'\');" href="#">'+
                 '<img src="'+r.imagen+'" alt="'+r.curso+'" class="img-responsive">'+
-                '<h3 class="fh5co-work-title">'+r.especialidad+'</h3>'+
+                '<h3 class="fh5co-work-title">Módulo: '+r.especialidad+'</h3>'+
             '</a>'+
         '</div>';
         $("#cursosUnicos").append(html);
     });
 };
 
+VerForo=function(curso,curso_id,curso_externo_id){
+    cursoG= curso_id;
+    msjG.mensaje("info","Estimado alumno, el foro esta en construcción. Que tenga buen día.",6000);
+}
+
+VerEvaluaciones=function(curso,curso_id,curso_externo_id){
+    cursoG= curso_externo_id;
+    $("#ModalEvaluacion #txt_curso").val(curso);
+    $("#ModalEvaluacion #btnsolicitar").attr("onClick","SolicitarCertificado("+curso_id+","+curso_externo_id+")");
+    $('#ModalEvaluacion').modal('show');
+    AjaxEvaluacionV2.VerEvaluaciones(VerEvaluacionesHTML,curso_id);
+}
+
+SolicitarCertificado=function(curso_id, curso_externo_id){
+    AjaxEvaluacionV2.SolicitarCertificado(SolicitarCertificadoHTML,curso_id);
+}
+
+SolicitarCertificadoHTML=function(r){
+    if( r.rst==1 ){
+        AjaxEvaluacionV2.EnviarAlerta(EnviarAlertaHTML,cursoG,2);
+    }
+    else{
+        msjG.mensaje("info","Estimado alumno, Usted no ha aprobado el curso aún",8000);
+    }
+}
+
+VerEvaluacionesHTML=function(result){
+    var html='';
+    $("#misevaluaciones tbody").html(html);
+    $.each(result.data,function(index,r){
+        html='<tr>';
+        html+='<td>'+r.tipo_evaluacion+'</td>';
+        html+='<td>'+r.nota+'</td>';
+        html+='<td>'+r.fecha_examen+'</td>';
+        if( index==0 ){
+            html+='<td id="notafinalalumno" style="text-align:center;" rowspan="'+result.data.length+'">'+r.nota_final+'</td>';
+        }
+
+        if( r.nota_final>0 ){
+            $("#notafinalalumno").text(r.nota_final);
+        }
+        html+='</tr>';
+        $("#misevaluaciones tbody").append(html);
+    });
+}
+
+SolicitaAyuda=function(curso,curso_id){
+    cursoG = curso_id;
+    sweetalertG.pregunta('Usted esta solicitando ayuda técnica','confirmar ayuda técnica del curso de "'+curso+'"', EnviarAlertaPersonalizada)
+}
+
 
 CursoNoInscrito=function(curso,curso_id){
     cursoG = curso_id;
     sweetalertG.pregunta('Usted no esta inscrito a este curso','¿desea inscribirse al curso de "'+curso+'"?', EnviarAlerta)
-    //msjG.mensaje("info","Estimado alumno, no ha sido inscrito en el curso  "+curso,10000);
 }
 
 EnviarAlerta=function(){
     AjaxEvaluacionV2.EnviarAlerta(EnviarAlertaHTML,cursoG);
+}
+
+EnviarAlertaPersonalizada=function(){
+    AjaxEvaluacionV2.EnviarAlerta(EnviarAlertaHTML,cursoG,1);
 }
 
 EnviarAlertaHTML=function(r){

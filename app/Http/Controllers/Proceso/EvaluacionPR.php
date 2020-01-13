@@ -799,6 +799,9 @@ class EvaluacionPR extends Controller
         $buscar = array("pkey", "pdni","pcurso");
         $reemplazar = array($tab_cli->keycli, Auth::user()->dni, $r->curso);
         $url = str_replace($buscar, $reemplazar, $cli_links->url);
+        if( $r->has('tipo') ){
+          $url.='&tipo='.$r->tipo;
+        }
         $objArr = $this->api->curl($url);
         //dd($url);
         $return_response = '';
@@ -840,6 +843,26 @@ class EvaluacionPR extends Controller
         }
         
         return response()->json($return);
+    }
+
+    public function VerEvaluaciones(Request $r)
+    {
+      if ( $r->ajax() ) {
+            $r['persona_id'] = Auth::user()->id;
+            $evaluaciones = Evaluacion::VerEvaluaciones($r);
+            $return['rst']=1;
+            $return['data']=$evaluaciones;
+            return response()->json($return);
+        }
+    }
+
+    public function SolicitarCertificado(Request $r)
+    {
+      if ( $r->ajax() ) {
+            $r['persona_id'] = Auth::user()->id;
+            $return = Evaluacion::SolicitarCertificado($r);
+            return response()->json($return);
+        }
     }
 
 }

@@ -39,6 +39,7 @@ class Curso extends Model
             'p.id',
             DB::raw('p.programacion_unica_id as pu_id'),
             DB::raw('pu.curso_id as curso_id'),
+            DB::raw('GROUP_CONCAT( DISTINCT(c.curso_externo_id) ) AS curso_externo_id'),
             'palu.dni',
             'c.valida_evaluacion',
             DB::raw("CONCAT(palu.paterno,' ', palu.materno,' ', palu.nombre) as alumno"),

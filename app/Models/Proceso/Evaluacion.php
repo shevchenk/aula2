@@ -248,4 +248,47 @@ class Evaluacion extends Model
         return $sql;
     }
 
+    public static function VerEvaluaciones($r)
+    {
+        $curso_id = $r->curso_id;
+        $persona_id = $r->persona_id;
+        $sql = "SELECT t.tipo_evaluacion, IFNULL(ev.nota,0.00) nota, 
+                IFNULL(ev.fecha_examen,'') fecha_examen, IFNULL(ev.nota_final,0) nota_final
+                FROM (
+                SELECT te.id, te.tipo_evaluacion
+                FROM v_unidades_contenido AS uc
+                INNER JOIN v_tipos_evaluaciones AS te ON FIND_IN_SET(te.id, uc.tipo_evaluacion_id)
+                WHERE uc.curso_id = $curso_id
+                GROUP BY te.id, te.tipo_evaluacion
+                ) t 
+                LEFT JOIN (
+                SELECT pu.curso_id, e.tipo_evaluacion_id, e.nota, DATE(e.fecha_examen) fecha_examen, p.nota_final  
+                FROM v_programaciones_unicas AS pu 
+                INNER JOIN v_programaciones AS p ON pu.id = p.programacion_unica_id  AND p.persona_id=$persona_id
+                INNER JOIN v_evaluaciones AS e ON p.id = e.programacion_id AND e.estado=1 AND e.estado_cambio=1
+                WHERE pu.curso_id=$curso_id
+                ) ev ON ev.tipo_evaluacion_id = t.id";
+        $rs = DB::select($sql);
+        return $rs;
+    }
+
+    public static function SolicitarCertificado($r)
+    {
+        $curso_id = $r->curso_id;
+        $persona_id = $r->persona_id;
+        $sql = "SELECT p.nota_final
+                FROM v_programaciones_unicas AS pu 
+                INNER JOIN v_programaciones AS p ON pu.id = p.programacion_unica_id  AND p.persona_id=$persona_id
+                WHERE pu.curso_id=$curso_id";
+        $rs = DB::select($sql);
+
+        $nota_final = trim($rs[0]->nota_final);
+        $data['rst']=1;
+        if( $nota_final<13 ){
+            $data['rst']=2;
+        }
+        
+        return $data;
+    }
+
 }

@@ -127,4 +127,5 @@
 @stop
 
 @section('form')
+@include( 'proceso.alumno.gestor2.form.evaluacion' )
 @stop

@@ -30,6 +30,10 @@ body {
   }
 }
 
+.alertas{
+  margin-left: 15px;
+}
+
 .formatotexto{
   margin-bottom: 15px;
   margin-top:10px;

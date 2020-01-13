@@ -20,11 +20,25 @@ var AjaxEvaluacionV2={
         url='AjaxDinamic/Proceso.EvaluacionPR@validarCurso';
         masterG.postAjax(url,data,evento);
     },
-    EnviarAlerta:function(evento,curso){
+    EnviarAlerta:function(evento,curso,tipo){
         url='AjaxDinamic/Proceso.EvaluacionPR@EnviarAlerta';
         data={curso:curso};
+        if( $.trim(tipo)=='1' || $.trim(tipo)=='2' ){
+            data={curso:curso, tipo:tipo}
+        }
+        //console.log(data);
         masterG.postAjax(url,data,evento);
-    }
+    },
+    VerEvaluaciones:function(evento,curso_id){
+        url='AjaxDinamic/Proceso.EvaluacionPR@VerEvaluaciones';
+        data = {curso_id:curso_id}
+        masterG.postAjax(url,data,evento);
+    },
+    SolicitarCertificado:function(evento,curso_id){
+        url='AjaxDinamic/Proceso.EvaluacionPR@SolicitarCertificado';
+        data = {curso_id:curso_id}
+        masterG.postAjax(url,data,evento);
+    },
 };
 
 </script>
