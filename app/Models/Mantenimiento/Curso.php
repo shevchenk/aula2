@@ -71,8 +71,13 @@ class Curso extends Model
                     $UC->persona_id_updated_at = $usuario;
                 }
                 $UC->unidad_contenido=$unidad_contenido[$i];
-                $tipo_evaluacion = implode(",", $r['tipo_evaluacion_'.$id_unidad_contenido[$i]]);
-                $UC->tipo_evaluacion_id=  $tipo_evaluacion;
+                if( $r->has('tipo_evaluacion_'.$id_unidad_contenido[$i] ){
+                    $tipo_evaluacion = implode(",", $r['tipo_evaluacion_'.$id_unidad_contenido[$i]]);
+                    $UC->tipo_evaluacion_id=  $tipo_evaluacion;
+                }
+                else{
+                    $UC->tipo_evaluacion_id= '';
+                }
                 $UC->estado=1;
                 $UC->save();
             }
