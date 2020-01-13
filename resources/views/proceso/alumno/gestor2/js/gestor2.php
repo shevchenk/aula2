@@ -183,7 +183,7 @@ VerEvaluacionesHTML=function(result){
 
 SolicitaAyuda=function(curso,curso_id){
     cursoG = curso_id;
-    sweetalertG.pregunta('Usted esta solicitando ayuda técnica','confirmar ayuda técnica del curso de "'+curso+'"', EnviarAlertaPersonalizada)
+    sweetalertG.pregunta('Usted esta solicitando ayuda técnica','¿desea que se comuniquen con usted para brindarle ayuda técnica del curso de "'+curso+'"', EnviarAlertaPersonalizada)
 }
 
 
