@@ -265,9 +265,10 @@ HTMLCargarTipoEvaluacion=function(result){
       $("#span_resultado").text('APROBADO');
     }
 
-    btn = '<a class="btn btn-lg btn-'+color+'" href="ReportDinamic/Proceso.EvaluacionPR@DescargarCertificado?programacion_id='+programacion_id+'&nota_minima='+nota_minima+'" target="_blank">'+
+    /*btn = '<a class="btn btn-lg btn-'+color+'" href="ReportDinamic/Proceso.EvaluacionPR@DescargarCertificado?programacion_id='+programacion_id+'&nota_minima='+nota_minima+'" target="_blank">'+
             '<i class="fa fa-file-pdf-o"></i>'+
-          '</a>';
+          '</a>';*/
+        btn=''; // MOMENTANEAMENTE SE PONE ESTO...
 
     $("#span_btn").html(btn);
     $("#span_nota").text(rf);
