@@ -304,11 +304,11 @@ class EvaluacionPR extends Controller
           $hoy= date('Y-m-d');
           $fecha_matricula = date('Y-m-d', strtotime($validaFechaInicio->fecha_matricula.' + 20 days'));
 
-          if( $fecha_matricula > $hoy ){
+          /*if( $fecha_matricula > $hoy ){
               $seguir=false;
               $evaluacion_fecha_inicial = $fecha_matricula;
               $val_evaluacion = 'error_matricula';
-          }
+          }*/
 
           if( ($r->valida_evaluacion==2 OR $r->valida_evaluacion==3) AND $seguir==true ){
             $evaluacion = Evaluacion::where('programacion_id', '=', $r->programacion_id)
