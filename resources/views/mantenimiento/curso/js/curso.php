@@ -35,6 +35,7 @@ $(document).ready(function() {
         $('#ModalCursoForm #txt_file_nombre2').val( CursoG.imagen2 );
         $('#ModalCursoForm #txt_link').val( CursoG.link );
         $('#ModalCursoForm #txt_whatsapp').val( CursoG.whatsapp );
+        $('#ModalCursoForm #txt_dias').val( CursoG.dias );
         masterG.SelectImagen(CursoG.imagen,'#txt_file_imagen');
         masterG.SelectImagen(CursoG.imagen2,'#txt_file_imagen2');
         AjaxCurso.CargarUnidadContenido(HTMLCargarUnidadContenido);
@@ -60,6 +61,7 @@ AgregarEditar=function(val,id){
     CursoG.imagen2='';
     CursoG.link='';
     CursoG.whatsapp='';
+    CursoG.dias='';
     CursoG.valida_evaluacion='1';
     if( val==0 ){
         CursoG.id=id;
@@ -68,6 +70,7 @@ AgregarEditar=function(val,id){
         CursoG.imagen2=$("#TableCurso #trid_"+id+" .imagen2").val();
         CursoG.link=$("#TableCurso #trid_"+id+" .link").val();
         CursoG.whatsapp=$("#TableCurso #trid_"+id+" .whatsapp").val();
+        CursoG.dias=$("#TableCurso #trid_"+id+" .dias").val();
         CursoG.valida_evaluacion=$("#TableCurso #trid_"+id+" .valida_evaluacion").val();
     }
     $('#ModalCurso').modal('show');
@@ -107,6 +110,7 @@ HTMLCargarCurso=function(result){
             '<input type="hidden" class="imagen2" value="'+r.imagen2+'">'+
             '<input type="hidden" class="link" value="'+r.link+'">'+
             '<input type="hidden" class="whatsapp" value="'+r.whatsapp+'">'+
+            '<input type="hidden" class="dias" value="'+r.dias+'">'+
             '</td>';
         html+="<td>";
         html+='<a class="btn btn-primary btn-sm" onClick="AgregarEditar(0,'+r.id+')"><i class="fa fa-edit fa-lg"></i> </a></td>';

@@ -90,6 +90,10 @@
                                         </option>
                                     </select>
                                 </td></tr>
+                                <tr><td>
+                                    <label>Nro días posterior a la inscripción del alumno para realizar sus evaluaciones:</label>
+                                    <input id="txt_dias" name="txt_dias" class="form-control" placeholder="Nro de Días">
+                                </td></tr>
                             </tbody>
                         </table>
                     </div>
