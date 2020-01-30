@@ -74,42 +74,46 @@ class Evaluacion extends Model
         $unidades_contenidos = DB::select($sql);
 
         $cantidad = $balotario[0]->cantidad_pregunta;
-        $cantidadasignada= (int)($cantidad/count($unidades_contenidos));
-        $residuo= $cantidad%count($unidades_contenidos);
-        $validaunion=0;
-        $sql="";
-        
-        foreach ($unidades_contenidos as $key => $value) {
-          $cf = $cantidadasignada;
-          if( $residuo>0 ){
-              $cf = $cantidadasignada+1;
-          }
+        $preguntas = array();
 
-          if( $validaunion>0 ){
-            $sql.=" UNION ";
-          }
-          
-          $sql .= "SELECT *
-                  FROM (
-                  SELECT b.id, b.programacion_unica_id, b.cantidad_pregunta, p.id AS pregunta_id, p.pregunta, p.imagen, p.puntaje, 
-                  GROUP_CONCAT(CONCAT(r.id, \":\", r.respuesta) SEPARATOR \"|\") AS alternativas, 
-                  GROUP_CONCAT(CONCAT( ROUND(RAND()*10), \":\", r.id, \":\", r.respuesta) SEPARATOR \"|\") AS alternativas_ex 
-                  FROM v_balotarios AS b 
-                  INNER JOIN v_balotarios_preguntas AS bp ON b.id = bp.balotario_id 
-                  INNER JOIN v_preguntas AS p ON bp.pregunta_id = p.id 
-                  INNER JOIN v_respuestas AS r ON p.id = r.pregunta_id 
-                  WHERE b.estado = 1 AND b.programacion_unica_id = $r->programacion_unica_id
-                  AND b.tipo_evaluacion_id = $r->tipo_evaluacion_id
-                  AND p.unidad_contenido_id= $value->unidad_contenido_id
-                  GROUP BY b.id, p.id, b.programacion_unica_id, b.cantidad_pregunta, p.pregunta, p.imagen, p.puntaje 
-                  ORDER BY RAND() LIMIT $cf
-                  ) a$key";
+        if( count($unidades_contenidos)>0 ){
+            $cantidadasignada= (int)($cantidad/count($unidades_contenidos));
+            $residuo= $cantidad%count($unidades_contenidos);
+            $validaunion=0;
+            $sql="";
+            
+            foreach ($unidades_contenidos as $key => $value) {
+              $cf = $cantidadasignada;
+              if( $residuo>0 ){
+                  $cf = $cantidadasignada+1;
+              }
 
-          $residuo--;
-          $validaunion++;
+              if( $validaunion>0 ){
+                $sql.=" UNION ";
+              }
+              
+              $sql .= "SELECT *
+                      FROM (
+                      SELECT b.id, b.programacion_unica_id, b.cantidad_pregunta, p.id AS pregunta_id, p.pregunta, p.imagen, p.puntaje, 
+                      GROUP_CONCAT(CONCAT(r.id, \":\", r.respuesta) SEPARATOR \"|\") AS alternativas, 
+                      GROUP_CONCAT(CONCAT( ROUND(RAND()*10), \":\", r.id, \":\", r.respuesta) SEPARATOR \"|\") AS alternativas_ex 
+                      FROM v_balotarios AS b 
+                      INNER JOIN v_balotarios_preguntas AS bp ON b.id = bp.balotario_id 
+                      INNER JOIN v_preguntas AS p ON bp.pregunta_id = p.id 
+                      INNER JOIN v_respuestas AS r ON p.id = r.pregunta_id 
+                      WHERE b.estado = 1 AND b.programacion_unica_id = $r->programacion_unica_id
+                      AND b.tipo_evaluacion_id = $r->tipo_evaluacion_id
+                      AND p.unidad_contenido_id= $value->unidad_contenido_id
+                      GROUP BY b.id, p.id, b.programacion_unica_id, b.cantidad_pregunta, p.pregunta, p.imagen, p.puntaje 
+                      ORDER BY RAND() LIMIT $cf
+                      ) a$key";
+
+              $residuo--;
+              $validaunion++;
+            }
+
+            $preguntas = DB::select($sql);
         }
-
-        $preguntas = DB::select($sql);
 
         $result=array('','');
         $result[0] = $preguntas;
