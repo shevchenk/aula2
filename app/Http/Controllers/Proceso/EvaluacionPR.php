@@ -302,13 +302,23 @@ class EvaluacionPR extends Controller
 
           $validaFechaInicio = Programacion::find($r->programacion_id);
           $hoy= date('Y-m-d');
-          $fecha_matricula = date('Y-m-d', strtotime($validaFechaInicio->fecha_matricula.' + 20 days'));
+          $dias = 0;
 
-          /*if( $fecha_matricula > $hoy ){
+          $validardias = DB::table('v_programaciones_unicas AS pu')
+                         ->join('v_cursos AS c','c.id','=','pu.curso_id')
+                         ->where('pu.id',$r->programacion_unica_id)
+                         ->select('c.dias')
+                         ->first();
+
+          $dias = $validardias->dias;
+
+          $fecha_matricula = date('Y-m-d', strtotime($validaFechaInicio->fecha_matricula.' + '.$dias.' days'));
+
+          if( $fecha_matricula > $hoy ){
               $seguir=false;
               $evaluacion_fecha_inicial = $fecha_matricula;
               $val_evaluacion = 'error_matricula';
-          }*/
+          }
 
           if( ($r->valida_evaluacion==2 OR $r->valida_evaluacion==3) AND $seguir==true ){
             $evaluacion = Evaluacion::where('programacion_id', '=', $r->programacion_id)
