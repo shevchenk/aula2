@@ -349,7 +349,7 @@ HTMLiniciarEvaluacion=function(result){
   }
   else if(result.val_fecha_evaluacion == 'error_intento')
   {
-    swal("Validación!", "Usted ya utilizó sus 2 evaluaciones del día, intente nuevamente mañana", "warning");
+    swal("Validación!", "Usted ya utilizó su(s) "+result.intentos+" evaluacion(es) del día, intente nuevamente mañana", "warning");
 
     AjaxTipoEvaluacion.Cargar(HTMLCargarTipoEvaluacion);
 

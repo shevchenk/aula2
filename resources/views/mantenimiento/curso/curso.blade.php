@@ -35,7 +35,7 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box">
-                <form id="CursoForm" class="col-md-6">
+                <form id="CursoForm" class="col-md-10">
                     <div class="box-body table-responsive no-padding">
                         <table id="TableCurso" class="table table-bordered table-hover">
                             <thead>

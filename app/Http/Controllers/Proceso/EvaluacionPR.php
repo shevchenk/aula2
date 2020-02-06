@@ -307,10 +307,11 @@ class EvaluacionPR extends Controller
           $validardias = DB::table('v_programaciones_unicas AS pu')
                          ->join('v_cursos AS c','c.id','=','pu.curso_id')
                          ->where('pu.id',$r->programacion_unica_id)
-                         ->select('c.dias')
+                         ->select('c.dias','c.intentos')
                          ->first();
 
           $dias = $validardias->dias;
+          $intentos = $validardias->intentos;
 
           $fecha_matricula = date('Y-m-d', strtotime($validaFechaInicio->fecha_matricula.' + '.$dias.' days'));
 
@@ -388,7 +389,7 @@ class EvaluacionPR extends Controller
                                 ->where('tipo_evaluacion_id', '=', $r->tipo_evaluacion_id)
                                 ->whereRaw('DATE(fecha_examen)=CURDATE()')
                                 ->get();
-                  if( count($evaluacion)<2 ){
+                  if( count($evaluacion) < $intentos OR $intentos == 0 ){
                       DB::beginTransaction();
 
                       $sql="UPDATE v_evaluaciones
@@ -426,6 +427,7 @@ class EvaluacionPR extends Controller
             $return['evaluacion_id'] = $evaluacion_id;
             $return['evaluacion_estado_cambio'] = $evaluacion_estado_cambio;
             $return['val_fecha_evaluacion'] = $val_evaluacion;
+            $return['intentos'] = $intentos;
             $return['evaluacion_fecha_inicial'] = $evaluacion_fecha_inicial;
             $return['evaluacion_fecha_final'] = $evaluacion_fecha_final;
             $return['data'] = $renturnModel[0];

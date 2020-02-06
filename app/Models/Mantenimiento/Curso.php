@@ -44,6 +44,7 @@ class Curso extends Model
         $curso->link = trim($r->link);
         $curso->whatsapp = trim($r->whatsapp);
         $curso->dias = trim($r->dias);
+        $curso->intentos = trim($r->intentos);
         $curso->save();
 
         DB::table('v_unidades_contenido')
@@ -93,7 +94,7 @@ class Curso extends Model
                     ->where('vuc.estado',1);
                 })
                 ->select('c.id','c.curso','c.curso_externo_id','c.estado','c.imagen'
-                    ,'c.imagen2', 'c.link', 'c.whatsapp','c.dias'
+                    ,'c.imagen2', 'c.link', 'c.whatsapp','c.dias','c.intentos'
                     ,DB::raw(' GROUP_CONCAT(vuc.unidad_contenido SEPARATOR "|") AS unidad_contenido ')
                     ,'c.valida_evaluacion'
                 )
@@ -111,7 +112,8 @@ class Curso extends Model
                         }
                     }
                 )
-                ->groupBy('c.id','c.curso','c.curso_externo_id','c.valida_evaluacion','c.estado','c.imagen','c.imagen2','c.link','c.whatsapp','c.dias')
+                ->groupBy('c.id','c.curso','c.curso_externo_id','c.valida_evaluacion','c.estado',
+                'c.imagen','c.imagen2','c.link','c.whatsapp','c.dias','c.intentos')
                 ->paginate(10);
 
         return $result;
