@@ -95,7 +95,7 @@
                                     <input id="txt_dias" name="txt_dias" class="form-control" placeholder="Nro de Días">
                                 </td></tr>
                                 <tr><td>
-                                    <label>Nro de intentos a evaluar(0 = Ilimitado):</label>
+                                    <label>Nro de intentos a evaluar por día (0 = Ilimitado):</label>
                                     <input id="txt_intentos" name="txt_intentos" class="form-control" placeholder="Nro de Intentos">
                                 </td></tr>
                             </tbody>
