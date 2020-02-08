@@ -56,6 +56,7 @@ class Evaluacion extends Model
           LEFT JOIN v_balotarios_preguntas bp ON bp.pregunta_id=p.id AND bp.balotario_id=$balotario->id
           WHERE p.curso_id = $curso->curso_id
           AND bp.id IS NULL
+          AND p.estado=1 
           ";
           DB::insert($sql);
 
@@ -70,7 +71,8 @@ class Evaluacion extends Model
         $sql = "SELECT DISTINCT( p.unidad_contenido_id ) unidad_contenido_id
                 FROM v_preguntas p
                 INNER JOIN v_unidades_contenido uc ON uc.id=p.unidad_contenido_id AND FIND_IN_SET('$r->tipo_evaluacion_id',uc.tipo_evaluacion_id)
-                WHERE p.curso_id = $curso->curso_id";
+                WHERE p.curso_id = $curso->curso_id
+                AND p.estado=1";
         $unidades_contenidos = DB::select($sql);
 
         $cantidad = $balotario[0]->cantidad_pregunta;
@@ -99,8 +101,8 @@ class Evaluacion extends Model
                       GROUP_CONCAT(CONCAT( ROUND(RAND()*10), \":\", r.id, \":\", r.respuesta) SEPARATOR \"|\") AS alternativas_ex 
                       FROM v_balotarios AS b 
                       INNER JOIN v_balotarios_preguntas AS bp ON b.id = bp.balotario_id 
-                      INNER JOIN v_preguntas AS p ON bp.pregunta_id = p.id 
-                      INNER JOIN v_respuestas AS r ON p.id = r.pregunta_id 
+                      INNER JOIN v_preguntas AS p ON bp.pregunta_id = p.id AND p.estado=1 
+                      INNER JOIN v_respuestas AS r ON p.id = r.pregunta_id AND r.estado=1 
                       WHERE b.estado = 1 AND b.programacion_unica_id = $r->programacion_unica_id
                       AND b.tipo_evaluacion_id = $r->tipo_evaluacion_id
                       AND p.unidad_contenido_id= $value->unidad_contenido_id
