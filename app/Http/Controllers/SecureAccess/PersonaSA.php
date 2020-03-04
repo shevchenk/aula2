@@ -17,7 +17,7 @@ class PersonaSA extends Controller
     {
         $local='http://localhost/pae/public';
         if( $_SERVER['SERVER_NAME']=='miaula.formacioncontinua.pe' ){
-            $local='http://formacioncontinua.pe';
+            $local='https://formacioncontinua.pe';
         }
         elseif( $_SERVER['SERVER_NAME']=='capamiaula.formacioncontinua.pe' ){
             $local='http://capa.formacioncontinua.pe';
