@@ -152,10 +152,10 @@ class ApiCurso extends Controller
                             ->where('cliente_acceso_id','=', $r->id)
                             ->where('tipo','=', 1)
                             ->first();
-              //dd($cli_links);
+              dd($cli_links);
               $key = $this->curl($cli_links->url);
 
-              dd($r);
+              //dd($r);
               
               if(isset($key->data->key) AND $key->data->key == $tab_cli->key) // Se iguala el KEY del Cliente con el Key del Servidor
               {
