@@ -155,7 +155,7 @@ class ApiCurso extends Controller
               //dd($cli_links);
               $key = $this->curl($cli_links->url);
 
-              dd($key);
+              dd($r);
               
               if(isset($key->data->key) AND $key->data->key == $tab_cli->key) // Se iguala el KEY del Cliente con el Key del Servidor
               {
