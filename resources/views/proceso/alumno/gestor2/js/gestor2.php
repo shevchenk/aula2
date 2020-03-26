@@ -51,10 +51,11 @@ HTMLCargarEvaluacion=function(result){
         if( $.trim(r.imagen)=='' ){
             r.imagen='archivo/no disponible.jpg';
         }
+        tiempo= new Date().getTime();
         html=
         '<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 work-item">'+
             '<a onClick="CargarContenido('+r.id+','+r.pu_id+','+r.curso_id+',\''+r.curso+'\',\''+r.imagen+'\')" href="#">'+
-                '<img src="'+r.imagen+'" alt="'+r.curso+'" class="img-responsive">'+
+                '<img src="'+r.imagen+'?time='+tiempo+'" alt="'+r.curso+'" class="img-responsive">'+
             '</a>'+
             '<div style="text-align:center">'+
                 '<h3 class="fh5co-work-title">Módulo: '+r.carrera+'</h3>'+
@@ -77,12 +78,13 @@ HTMLCargarEvaluacion=function(result){
         if( $.trim(r.whatsapp)!='' ){
             r.whatsapp='https://api.whatsapp.com/send?phone=51'+r.whatsapp+'&text=Hola! Quiero inscribirme al curso de '+r.curso;
         }
+        tiempo= new Date().getTime();
 
         html=
         '<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 work-item imagenpago">'+
             '<a style="opacity: 0.3;" onClick="CursoNoInscrito(\''+r.curso+'\',\''+r.curso_externo_id+'\');" href="#">'+
-                '<img src="'+r.imagen+'" alt="'+r.curso+'" class="img-responsive imagen1">'+
-                '<img src="'+r.imagen2+'" alt="'+r.curso+'" class="img-responsive imagen2" style="display:none;">'+
+                '<img src="'+r.imagen+'?time='+tiempo+'" alt="'+r.curso+'" class="img-responsive imagen1">'+
+                '<img src="'+r.imagen2+'?time='+tiempo+'" alt="'+r.curso+'" class="img-responsive imagen2" style="display:none;">'+
             '</a>'+
             '<div style="text-align:center">'+
                 '<h3 class="fh5co-work-title">Módulo: '+r.especialidad+'</h3>'+
