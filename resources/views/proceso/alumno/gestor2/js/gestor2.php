@@ -36,7 +36,8 @@ CargarContenidoOk=function(programacion_id,id,curso_id,curso,imagen){
      $("#ModalContenidoForm #txt_curso_id").val(curso_id);
      $("#ModalContenidoForm #txt_curso").val(curso);
      $("#ContenidoForm #div_cabecera").text(curso);
-     $("#imageCurso").attr("src",imagen);
+     tiempo= new Date().getTime();
+     $("#imageCurso").attr("src",imagen+'?time='+tiempo);
      redimensionG.validar();
      AjaxContenidoV2.Cargar(HTMLCargarContenido);
      $("#ContenidoForm").css("display","");
