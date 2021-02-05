@@ -15,7 +15,7 @@ class PersonaSA extends Controller
 
     public function ValidaPersona(Request $r)
     {
-        $local='http://localhost/pae/public';
+        $local='http://localhost/formacion/public';
         if( $_SERVER['SERVER_NAME']=='miaula.formacioncontinua.pe' ){
             $local='https://formacioncontinua.pe';
         }

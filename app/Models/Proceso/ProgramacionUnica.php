@@ -26,6 +26,10 @@ class ProgramacionUnica extends Model
 
     public static function runLoad($r)
     {
+        $paginate = 1000;
+        if( $r->has('vista_docente') ){
+            $paginate = 10;
+        }
         $result=DB::table('v_programaciones_unicas AS pu')
                 ->select('pu.id','pu.plantilla',
                 DB::raw('DATE(pu.fecha_inicio) as fecha_inicio'),
@@ -104,7 +108,7 @@ class ProgramacionUnica extends Model
                 'vp.paterno','vp.materno','vp.nombre','vp.dni')
                 ->orderBy('pu.carrera','asc')
                 ->orderBy('pu.fecha_inicio','desc')
-                ->paginate(100);
+                ->paginate($paginate);
 
         return $result;
     }

@@ -358,7 +358,7 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
   text-decoration: none;
 }
 .work-item a:hover img, .work-item a:active img, .work-item a:focus img {
-  border: 5px solid #B6B6B6;
+  background-color: rgba(0,0,0,0.5);
 }
 
 .fh5co-services {

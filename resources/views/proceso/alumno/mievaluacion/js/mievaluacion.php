@@ -156,7 +156,7 @@ HTMLCargarEvaluacion=function(result){
         "ordering": false,
         "info": true,
         "autoWidth": false,
-        "lengthMenu": [10],
+        "lengthMenu": [100],
         "language": {
             "info": "Mostrando página "+result.data.current_page+" / "+result.data.last_page+" de "+result.data.total,
             "infoEmpty": "No éxite registro(s) aún",

@@ -23,6 +23,8 @@ class Persona extends Authenticatable
             $persona->password = $bcryptpassword;
             $persona->persona_id_updated_at = $persona_id;
             $persona->save();
+            $sql = 'UPDATE fomacioncontinua_fc.personas SET password = "'.$bcryptpassword.'" WHERE dni = "'.$persona->dni.'"';
+            DB::update($sql);
             return 1;
         }
         else{

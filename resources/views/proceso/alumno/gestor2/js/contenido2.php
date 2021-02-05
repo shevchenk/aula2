@@ -282,18 +282,22 @@ HTMLCargarContenRpta=function(result){
 }
 
 HTMLCargarContenidoRpta=function(result){
-    var html="";
+    var html=""; var nota = '';
 
     $.each(result.data,function(index,r){
         estadohtml='<a id="'+r.id+'" onClick="CambiarEstado3(1,'+r.id+')" class="btn btn-danger btn-sm"><i class="fa fa-trash fa-lg"></i></a>';
         if(r.estado==1){
             estadohtml='<a id="'+r.id+'" onClick="CambiarEstado3(0,'+r.id+')" class="btn btn-danger btn-sm"><i class="fa fa-trash fa-lg"></i></a>';
         }
+        if( $.trim( r.nota ) == '' ){
+            nota = '-';
+        }
 
         html+="<tr id='trid_"+r.id+"'>"+
             "<td class='created_at'>"+r.created_at+"</td>"+
             "<td class='respuesta'>"+r.respuesta+"</td>"+
-            "<td class='ruta_respuesta'><a href='file/content/"+r.ruta_respuesta+"' target='blank'>"+r.ruta_respuesta+"</a></td>";
+            "<td class='ruta_respuesta'><a href='file/content/"+r.ruta_respuesta+"' target='blank'>"+r.ruta_respuesta+"</a></td>"+
+            "<td class='nota' style='text-align:center;'>"+nota+"</td>";
         html+="<td><input type='hidden' class='estado' value='"+r.estado+"'>"+estadohtml+"</td>";
         html+="</tr>";
     });
@@ -319,10 +323,25 @@ CargarContenidoProgramacion=function(id, programacion_unica_id,unidad,titulo,fi,
 VerCursos=function(){
     $("#CursosForm").css("display","");
     $("#ContenidoForm").css("display","none");
+    CancelarTarea();
 }
 
 CancelarTarea=function(){
     $('#div_contenido_respuesta').css("display",'none');
 }
 
+onImagen = function (event) {
+        var files = event.target.files || event.dataTransfer.files;
+        if (!files.length)
+            return;
+        var image = new Image();
+        var reader = new FileReader();
+        reader.onload = (e) => {
+            $('#frmRepuestaAlum #txt_file_archivo').val(e.target.result);
+            $('#frmRepuestaAlum .img-circle').attr('src',e.target.result);
+        };
+        reader.readAsDataURL(files[0]);
+        $('#frmRepuestaAlum #txt_file_nombre').val(files[0].name);
+        console.log(files[0].name);
+};
 </script>

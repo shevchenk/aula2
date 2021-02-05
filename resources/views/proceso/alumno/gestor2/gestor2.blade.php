@@ -106,6 +106,7 @@
                                 <th>Fecha de Envio</th>
                                 <th>Respuesta Enviada</th>
                                 <th>Archivo</th>
+                                <th>Mi Nota</th>
                                 <th>[-]</th>
                             </tr>
                         </thead>
