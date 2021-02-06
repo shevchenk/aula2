@@ -201,6 +201,9 @@
                         <input type= "hidden" name="txt_contenido_id" id="txt_contenido_id" class="form-control mant" >
                         <input type= "hidden" name="txt_contenido_respuesta_id" id="txt_contenido_respuesta_id" class="form-control mant" >
                         <input type= "hidden" name="txt_nota_cr" id="txt_nota_cr" class="form-control mant" >
+                        <input type= "hidden" name="txt_comentario" id="txt_comentario" class="form-control mant" >
+                        <input type= "hidden" name="txt_file_nombre" id="txt_file_nombre" class="form-control mant" >
+                        <input type= "hidden" name="txt_file_archivo" id="txt_file_archivo" class="form-control mant" >
                         <div class="panel panel-warning">
                             <div class="panel-heading" style="background-color: #FFE699;color:black">
                                 <center>.::Respuesta de Contenido::. <b id="titulo_tarea"></b></center>
@@ -214,6 +217,7 @@
                                                 <th>Respuesta</th>
                                                 <th>Archivo</th>
                                                 <th>Fecha</th>
+                                                <th>Comentario - Archivo</th>
                                                 <th>Nota</th>
                                                 <th>[]</th>
                                             </tr>
@@ -226,6 +230,7 @@
                                                 <th>Respuesta</th>
                                                 <th>Archivo</th>
                                                 <th>Fecha</th>
+                                                <th>Comentario - Archivo</th>
                                                 <th>Nota</th>
                                                 <th>[]</th>
                                             </tr>

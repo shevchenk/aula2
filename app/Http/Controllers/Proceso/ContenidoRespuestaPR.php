@@ -66,10 +66,10 @@ class ContenidoRespuestaPR extends Controller
                   //Proceso de validación
                   $contenido = Contenido::find($r->contenido_id);
                   if($contenido->fecha_final >= $fecha_actual) {
-                     ContenidoRespuesta::runNew($r);
+                     $valida = ContenidoRespuesta::runNew($r);
                      $msj = true;
                   } else if($contenido->fecha_ampliada >= $fecha_actual) {
-                     ContenidoRespuesta::runNew($r);
+                     $valida = ContenidoRespuesta::runNew($r);
                      $msj = true;
                   } else {
 
@@ -81,7 +81,7 @@ class ContenidoRespuestaPR extends Controller
                     else
                     {
                         if($contenidoprogra->fecha_ampliacion >= $fecha_actual) {
-                            ContenidoRespuesta::runNew($r);
+                            $valida = ContenidoRespuesta::runNew($r);
                             $msj = true;
                         }else {
                             $msj = false;
@@ -89,10 +89,15 @@ class ContenidoRespuestaPR extends Controller
                     }
                   }
 
-                  if($msj == true){
+                  if($msj == true AND $valida == 1){
                     $return['rst'] = 1;
                     $return['msj'] = 'Registro creado';
-                  }else {
+                  }
+                  elseif($valida == 0){
+                    $return['rst'] = 3;
+                    $return['msj'] = 'No puede enviar, su último trabajo enviado tiene nota';
+                  }
+                  else {
                     $return['rst'] = 3;
                     $return['msj'] = 'No se puede grabar debido a su fecha de Tiempo Final!';
                   }
@@ -124,6 +129,16 @@ class ContenidoRespuestaPR extends Controller
      {
          if ( $r->ajax() ) {
              ContenidoRespuesta::guardarNotaRpta($r);
+             $return['rst'] = 1;
+             $return['msj'] = 'Registro actualizado';
+             return response()->json($return);
+         }
+     }
+
+     public function guardarRecalificar(Request $r )
+     {
+         if ( $r->ajax() ) {
+             ContenidoRespuesta::guardarRecalificar($r);
              $return['rst'] = 1;
              $return['msj'] = 'Registro actualizado';
              return response()->json($return);

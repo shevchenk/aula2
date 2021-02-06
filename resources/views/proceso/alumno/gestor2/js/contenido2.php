@@ -18,8 +18,31 @@ $(document).ready(function() {
 
     // PROCESO DE RESPUESTA
     $('#btnGrabarRpta').on('click', function () {
-      AjaxContenidoV2.AgregarRespuestaContenido(HTMLCargarContenRpta);
-      $('#txt_respuesta').val('');
+        if( $.trim($("#txt_respuesta").val()) == '' ){
+            swal({
+                title: "Validación",   
+                text: "Ingrese un comentario",
+                //type: "warning",
+                showCancelButton: false,
+                confirmButtonColor: "#8CD4F5",
+                confirmButtonText: "Continuar!",
+                closeOnConfirm: true
+            });
+        }
+        else if( $.trim($("#txt_file_nombre").val()) == '' ){
+            swal({
+                title: "Validación",   
+                text: "Busque y seleccione un archivo",
+                //type: "warning",
+                showCancelButton: false,
+                confirmButtonColor: "#8CD4F5",
+                confirmButtonText: "Continuar!",
+                closeOnConfirm: true
+            });
+        }
+        else{
+            AjaxContenidoV2.AgregarRespuestaContenido(HTMLCargarContenRpta);
+        }
     });
     // --
 });
@@ -279,24 +302,35 @@ HTMLCargarContenRpta=function(result){
     else{
         msjG.mensaje('warning',result.msj,3000);
     }
+    $('#txt_respuesta, #txt_file_nombre, #txt_file_archivo').val('');
 }
 
 HTMLCargarContenidoRpta=function(result){
     var html=""; var nota = '';
 
     $.each(result.data,function(index,r){
-        estadohtml='<a id="'+r.id+'" onClick="CambiarEstado3(1,'+r.id+')" class="btn btn-danger btn-sm"><i class="fa fa-trash fa-lg"></i></a>';
-        if(r.estado==1){
-            estadohtml='<a id="'+r.id+'" onClick="CambiarEstado3(0,'+r.id+')" class="btn btn-danger btn-sm"><i class="fa fa-trash fa-lg"></i></a>';
-        }
-        if( $.trim( r.nota ) == '' ){
+        estadohtml = '';
+        nota = r.nota;
+        if( $.trim( r.nota ) == '' || $.trim( r.nota ) == '0' ){
             nota = '-';
+
+            estadohtml='<a id="'+r.id+'" onClick="CambiarEstado3(1,'+r.id+')" class="btn btn-danger btn-sm"><i class="fa fa-trash fa-lg"></i></a>';
+            if(r.estado==1){
+                estadohtml='<a id="'+r.id+'" onClick="CambiarEstado3(0,'+r.id+')" class="btn btn-danger btn-sm"><i class="fa fa-trash fa-lg"></i></a>';
+            }
         }
+
+        ruta_comentario = '';
+        if( $.trim(r.ruta_comentario) != '' ){
+            ruta_comentario = " ( <a href='file/content/"+r.ruta_comentario+"' target='blank'>"+r.ruta_comentario+"</a> )";
+        }
+        comentario = $.trim(r.comentario)+ruta_comentario;
 
         html+="<tr id='trid_"+r.id+"'>"+
             "<td class='created_at'>"+r.created_at+"</td>"+
             "<td class='respuesta'>"+r.respuesta+"</td>"+
             "<td class='ruta_respuesta'><a href='file/content/"+r.ruta_respuesta+"' target='blank'>"+r.ruta_respuesta+"</a></td>"+
+            '<td class="comentario">'+comentario+'</td>'+
             "<td class='nota' style='text-align:center;'>"+nota+"</td>";
         html+="<td><input type='hidden' class='estado' value='"+r.estado+"'>"+estadohtml+"</td>";
         html+="</tr>";

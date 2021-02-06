@@ -106,12 +106,15 @@
                                 <th>Fecha de Envio</th>
                                 <th>Respuesta Enviada</th>
                                 <th>Archivo</th>
+                                <th>Comentario del Docente - Archivo</th>
                                 <th>Mi Nota</th>
                                 <th>[-]</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <td>-</td>
+                                <td>-</td>
                                 <td>-</td>
                                 <td>-</td>
                                 <td>-</td>
