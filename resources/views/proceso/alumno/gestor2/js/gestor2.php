@@ -62,7 +62,7 @@ HTMLCargarEvaluacion=function(result){
                 '<h3 class="fh5co-work-title">Módulo: '+r.carrera+'</h3>'+
                 /*'<a class="alertas btn btn-lg btn-info" data-toggle="tooltip" data-placement="bottom" title="Foro del Curso" onClick="VerForo(\''+r.curso+'\',\''+r.curso_id+'\',\''+r.curso_externo_id+'\');"><i class="fa fa-wechat fa-lg"></i></a>'+*/
                 '<a class="alertas btn btn-lg btn-warning" data-toggle="tooltip" data-placement="bottom" title="Ver Detalle de evaluaciones" onClick="VerEvaluaciones(\''+r.curso+'\',\''+r.curso_id+'\',\''+r.curso_externo_id+'\');"><i class="fa fa-list fa-lg"></i></a>'+
-                '<a class="alertas btn btn-lg btn-success" data-toggle="tooltip" data-placement="bottom" title="Solicita ayuda técnica" onClick="SolicitaAyuda(\''+r.curso+'\',\''+r.curso_externo_id+'\');"><i class="fa fa-slideshare fa-lg"></i></a>'+
+                /*'<a class="alertas btn btn-lg btn-success" data-toggle="tooltip" data-placement="bottom" title="Solicita ayuda técnica" onClick="SolicitaAyuda(\''+r.curso+'\',\''+r.curso_externo_id+'\');"><i class="fa fa-slideshare fa-lg"></i></a>'+*/
             '</div>'+
         '</div>';
         $("#cursosUnicos").append(html);
