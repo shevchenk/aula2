@@ -45,16 +45,21 @@ $(document).ready(function() {
         $('#ModalContenidoForm #slct_unidad_contenido_id').selectpicker( 'val',ContenidoG.unidad_contenido_id );
         $('#ModalContenidoForm #txt_titulo_contenido').val( ContenidoG.titulo_contenido );
         $('#ModalContenidoForm #txt_file_nombre').val( ContenidoG.ruta_contenido );
-        ruta='';
-        $("#chk_archivo").prop("checked",true);
+        $('#ModalContenidoForm #txt_foto_nombre').val( ContenidoG.foto_contenido );
+        $('#ModalContenidoForm #txt_file_archivo, #ModalContenidoForm #txt_foto_archivo').val( '' );
+        ruta=''; ruta2='';
+        $("#chk_archivo,#chk_archivo2").prop("checked",true);
         if( ContenidoG.ruta_contenido!='' ){
             ruta='file/content/'+ContenidoG.ruta_contenido;
             $("#chk_archivo").prop("checked",false);
         }
+        if( ContenidoG.foto_contenido!='' ){
+            ruta2='file/content/'+ContenidoG.foto_contenido;
+            $("#chk_archivo2").prop("checked",false);
+        }
+
         masterG.SelectImagen(ruta,'#txt_file_imagen','');
-        $('#ModalContenidoForm #txt_file_archivo').val( ContenidoG.file_archivo );
-        $('#ModalContenidoForm #txt_imagen_nombre').val( ContenidoG.imagen_nombre );
-        $('#ModalContenidoForm #txt_imagen_archivo').val( ContenidoG.imagen_archivo );
+        masterG.SelectImagen(ruta2,'#txt_foto_imagen','');
         $('#ModalContenidoForm #slct_tipo_respuesta').selectpicker('val', ContenidoG.tipo_respuesta );
         $('#ModalContenidoForm #txt_fecha_inicio').val( ContenidoG.fecha_inicio );
         $('#ModalContenidoForm #txt_fecha_final').val( ContenidoG.fecha_final );
@@ -162,9 +167,8 @@ AgregarEditar3=function(val,id){
     ContenidoG.titulo_contenido='';
     ContenidoG.contenido='';
     ContenidoG.ruta_contenido='';
+    ContenidoG.foto_contenido='';
     ContenidoG.file_archivo='';
-    ContenidoG.imagen_nombre='';
-    ContenidoG.imagen_archivo='';
     ContenidoG.tipo_respuesta='';
     ContenidoG.fecha_inicio='';
     ContenidoG.fecha_final='';
@@ -185,7 +189,7 @@ AgregarEditar3=function(val,id){
         ContenidoG.unidad_contenido_id=$("#DivContenido #trid_"+id+" .unidad_contenido_id").val();
         ContenidoG.titulo_contenido=$("#DivContenido #trid_"+id+" .titulo_contenido").val();
         ContenidoG.ruta_contenido=$("#DivContenido #trid_"+id+" .ruta_contenido").val();
-        ContenidoG.imagen_nombre=$("#DivContenido #trid_"+id+" .imagen_nombre").val();
+        ContenidoG.foto_contenido=$("#DivContenido #trid_"+id+" .foto_contenido").val();
         ContenidoG.tipo_respuesta=$("#DivContenido #trid_"+id+" .tipo_respuesta").val();
         ContenidoG.fecha_inicio=$("#DivContenido #trid_"+id+" .fecha_inicio").val();
         ContenidoG.fecha_final=$("#DivContenido #trid_"+id+" .fecha_final").val();
@@ -312,7 +316,7 @@ HTMLCargarContenido=function(result){
 
         html+='<div class="col-lg-4" id="trid_'+r.id+'" style="margin-top: 15px; -moz-box-shadow: 0 0 5px #888; -webkit-box-shadow: 0 0 5px#888; box-shadow: 0 0 5px #888;">'+
                '<input type="hidden" class="ruta_contenido" value="'+r.ruta_contenido+'">'+
-               '<input type="hidden" class="imagen_nombre" value="'+foto[1]+'">'+
+               '<input type="hidden" class="foto_contenido" value="'+r.foto_contenido+'">'+
                '<input type="hidden" class="unidad_contenido_id" value="'+r.unidad_contenido_id+'">'+
                '<input type="hidden" class="titulo_contenido" value="'+r.titulo_contenido+'">'+
                '<input type="hidden" class="fecha_inicio" value="'+r.fecha_inicio+'">'+
@@ -327,6 +331,7 @@ HTMLCargarContenido=function(result){
                '<input type="hidden" class="referencia" value="'+r.referencia+'">'+
                '<input type="hidden" class="estado" value="'+r.estado+'">'+
                '<input type="hidden" class="video" value="'+r.video+'">'+
+               
                '<div class="row">'+
                     '<div class="col-md-12">'+
                             '<div class="text-justify '+color+'" style="margin-bottom: 15px; margin-top:10px; font-size: 15px; padding: 5px 5px; background-color: #F5F5F5; border-radius: 10px; border: 3px solid #F8F8F8;">'+
