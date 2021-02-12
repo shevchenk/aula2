@@ -62,6 +62,7 @@ class ContenidoRespuestaPR extends Controller
               else
               {
                   $r['programacion_id'] = $programacion->id;
+                  $valida = -1;
 
                   //Proceso de validación
                   $contenido = Contenido::find($r->contenido_id);
