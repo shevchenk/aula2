@@ -39,6 +39,12 @@ var AjaxEvaluacionV2={
         data = {curso_id:curso_id}
         masterG.postAjax(url,data,evento);
     },
+
+    DescargarCertificado : (evento, id)=>{
+        url='AjaxDinamic/Proceso.EvaluacionPR@DescargarCertificadoV2';
+        data = {id:id}
+        masterG.postAjax(url,data,evento);
+    } 
 };
 
 </script>

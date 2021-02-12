@@ -80,8 +80,13 @@ class UnidadContenido extends Model
         list($type, $file) = explode(';', $file);
         list(, $type) = explode('/', $type);
         if ($type=='jpeg') $type='jpg';
+        if ($type=='x-icon') $type='ico';
         if (strpos($type,'document')!==False) $type='docx';
+        if (strpos($type,'msword')!==False) $type='doc';
+        if (strpos($type,'presentation')!==False) $type='pptx';
+        if (strpos($type,'powerpoint')!==False) $type='ppt';
         if (strpos($type, 'sheet') !== False) $type='xlsx';
+        if (strpos($type, 'excel') !== False) $type='xls';
         if (strpos($type, 'pdf') !== False) $type='pdf';
         if ($type=='plain') $type='txt';
         list(, $file)      = explode(',', $file);

@@ -30,7 +30,7 @@ class EvaluacionPR extends Controller
     public function __construct()
     {
         $this->api = new Api();
-        $this->servidor = 'http://localhost/aula2/public';
+        $this->servidor = 'http://localhost/miaula/public';
         if( $_SERVER['SERVER_NAME']=='miaula.formacioncontinua.pe' ){
             $this->servidor = 'http://miaula.formacioncontinua.pe';
         }
@@ -59,6 +59,24 @@ class EvaluacionPR extends Controller
         }
     }
 
+    public function DescargarCertificadoV2(Request $r)
+    {
+        if ( $r->ajax() ) {
+            $programacion = Programacion::find($r->id);
+            if( $programacion->deuda_total*1 == 0 ){
+                $return['rst'] = 1;
+                $return['archivo_certificado'] = $programacion->archivo_certificado;
+                if( $programacion->archivo_certificado == '' ){
+                    $return['rst'] = 2;
+                }
+            }
+            else{
+                $return['rst'] = 3;
+            }
+            return response()->json($return); 
+        }
+    }
+
     public function validarCurso(Request $r)
     {
         if( trim(session('idcliente'))=='' ){
@@ -81,8 +99,6 @@ class EvaluacionPR extends Controller
         $objArr = $this->api->curl($url);
         $return_response = '';
         $val['cursos']=array();
-        
-
 
         if (empty($objArr))
         {
@@ -131,6 +147,7 @@ class EvaluacionPR extends Controller
     public function insertarEvaluacion($objArr)
     {
         DB::beginTransaction();
+        
         $array_curso='0';
         $array_programacion_unica='0';
         $array_programacion='0';
@@ -231,7 +248,7 @@ class EvaluacionPR extends Controller
               $programacion_unica->save();
               //$array_programacion_unica.=','.$programacion_unica->programacion_unica_externo_id;
               // --
-
+              
               // Proceso Programación
               $programacion = Programacion::where('programacion_externo_id', '=', $value->programacion_externo_id)
                               ->first();
@@ -242,13 +259,22 @@ class EvaluacionPR extends Controller
                   $programacion->programacion_unica_id = $programacion_unica->id;
                   $programacion->persona_id = $alumno->id;
                   $programacion->persona_id_created_at=1;
+                }
+                else //Update
+                {
+                    $programacion->estado = 1;
+                    $programacion->persona_id_updated_at=1;
+                }
+            
+              if( isset($value->archivo_certificado) ){
+                  $programacion->archivo_certificado = '';
+                  $programacion->deuda_total = $value->deuda_total;
+
+                  if( $value->archivo_certificado != '' ){
+                      $programacion->archivo_certificado = str_replace('miaula.','',$this->servidor).'/'.$value->archivo_certificado;
+                  }
               }
-              else //Update
-              {
-                  $programacion->estado = 1;
-                  $programacion->persona_id_updated_at=1;
-              }
-              
+
               $programacion->fecha_matricula = $value->fecha_matricula;
               $programacion->save();
               //$array_programacion.=','.$programacion->programacion_externo_id;

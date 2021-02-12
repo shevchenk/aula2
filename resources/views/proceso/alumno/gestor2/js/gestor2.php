@@ -53,6 +53,7 @@ HTMLCargarEvaluacion=function(result){
             r.imagen='archivo/no disponible.jpg';
         }
         tiempo= new Date().getTime();
+
         html=
         '<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 work-item">'+
             '<a onClick="CargarContenido('+r.id+','+r.pu_id+','+r.curso_id+',\''+r.curso+'\',\''+r.imagen+'\')" href="#">'+
@@ -63,6 +64,7 @@ HTMLCargarEvaluacion=function(result){
                 /*'<a class="alertas btn btn-lg btn-info" data-toggle="tooltip" data-placement="bottom" title="Foro del Curso" onClick="VerForo(\''+r.curso+'\',\''+r.curso_id+'\',\''+r.curso_externo_id+'\');"><i class="fa fa-wechat fa-lg"></i></a>'+*/
                 '<a class="alertas btn btn-lg btn-warning" data-toggle="tooltip" data-placement="bottom" title="Ver Detalle de evaluaciones" onClick="VerEvaluaciones(\''+r.curso+'\',\''+r.curso_id+'\',\''+r.curso_externo_id+'\');"><i class="fa fa-list fa-lg"></i></a>'+
                 /*'<a class="alertas btn btn-lg btn-success" data-toggle="tooltip" data-placement="bottom" title="Solicita ayuda técnica" onClick="SolicitaAyuda(\''+r.curso+'\',\''+r.curso_externo_id+'\');"><i class="fa fa-slideshare fa-lg"></i></a>'+*/
+                '<a class="alertas btn btn-lg btn-info" data-toggle="tooltip" data-placement="bottom" title="Certificado del curso" onClick="DescargarCertificado(\''+r.id+'\');"><i class="fa fa-download fa-lg"></i></a>'+
             '</div>'+
         '</div>';
         $("#cursosUnicos").append(html);
@@ -109,6 +111,22 @@ HTMLCargarEvaluacion=function(result){
        }
     );
 };
+
+DescargarCertificado = (id)=>{
+    AjaxEvaluacionV2.DescargarCertificado(DescargarCertificadoHTML,id);
+}
+
+DescargarCertificadoHTML = (r)=>{
+    if( r.rst==1 ){
+        window.open(r.archivo_certificado, '_blank');
+    }
+    else if( r.rst==2 ){ 
+        msjG.mensaje("success","Estamos generando su certificado",8000);
+    }
+    else if( r.rst==3 ){ 
+        msjG.mensaje("warning","Tiene deuda pendiente",8000);
+    }
+}
 
 ComprarCurso=function(curso, curso_id){
     cursoG= curso_id;
