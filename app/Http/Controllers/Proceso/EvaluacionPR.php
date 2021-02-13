@@ -196,12 +196,12 @@ class EvaluacionPR extends Controller
                   $curso->curso_externo_id = $value->curso_externo_id;
                   $curso->empresa_externo_id = $value->empresa_externo_id;
                   $curso->persona_id_created_at=1;
-              }
-              else
-              {
-                  $curso->persona_id_updated_at=1;
-              }
-
+                }
+                else
+                {
+                    $curso->persona_id_updated_at=1;
+                }
+                
               $curso->curso = $value->curso;
               $curso->save();
               //$array_curso.=','.$curso->curso_externo_id;
@@ -256,7 +256,6 @@ class EvaluacionPR extends Controller
               {
                   $programacion = new Programacion();
                   $programacion->programacion_externo_id = $value->programacion_externo_id;
-                  $programacion->programacion_unica_id = $programacion_unica->id;
                   $programacion->persona_id = $alumno->id;
                   $programacion->persona_id_created_at=1;
                 }
@@ -265,16 +264,17 @@ class EvaluacionPR extends Controller
                     $programacion->estado = 1;
                     $programacion->persona_id_updated_at=1;
                 }
-            
-              if( isset($value->archivo_certificado) ){
-                  $programacion->archivo_certificado = '';
-                  $programacion->deuda_total = $value->deuda_total;
-
-                  if( $value->archivo_certificado != '' ){
-                      $programacion->archivo_certificado = str_replace('miaula.','',$this->servidor).'/'.$value->archivo_certificado;
-                  }
-              }
-
+                
+                if( isset($value->archivo_certificado) ){
+                    $programacion->archivo_certificado = '';
+                    $programacion->deuda_total = $value->deuda_total;
+                    
+                    if( $value->archivo_certificado != '' ){
+                        $programacion->archivo_certificado = str_replace('miaula.','',$this->servidor).'/'.$value->archivo_certificado;
+                    }
+                }
+                
+              $programacion->programacion_unica_id = $programacion_unica->id;
               $programacion->fecha_matricula = $value->fecha_matricula;
               $programacion->save();
               //$array_programacion.=','.$programacion->programacion_externo_id;
