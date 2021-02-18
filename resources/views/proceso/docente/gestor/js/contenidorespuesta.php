@@ -42,7 +42,7 @@ HTMLCargarContenidoRespuesta=function(result){
                             '<input type="file" style="display: none;" onchange="onImagenRespuesta(event,'+r.id+');">'+
                         '</label>'+
                     '</td>';
-            html+='<td class="nota"><input type="number" class="form-control" id="nota'+r.id+'" name="nota'+r.id+'" style="width: 30%;" value="'+(r.nota*1)+'" max="99"></td>';
+            html+='<td class="nota"><input type="number" class="form-control" id="nota'+r.id+'" name="nota'+r.id+'" value="'+(r.nota*1)+'" max="99"></td>';
         }
         
         if( $.trim(r.nota) == '' && $.trim(r.comentario) == '' ){

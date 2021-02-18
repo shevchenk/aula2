@@ -213,13 +213,13 @@
                                     <table id="TableContenidoRespuesta" class="table table-bordered table-hover">
                                         <thead>
                                             <tr class="cabecera">
-                                                <th>Alumno</th>
-                                                <th>Respuesta</th>
-                                                <th>Archivo</th>
-                                                <th>Fecha</th>
-                                                <th>Comentario - Archivo</th>
-                                                <th>Nota</th>
-                                                <th>[]</th>
+                                                <th style="width: 15%;">Alumno</th>
+                                                <th style="width: 20%;">Respuesta</th>
+                                                <th style="width: 15%;">Archivo</th>
+                                                <th style="width: 10%;">Fecha</th>
+                                                <th style="width: 30%;">Comentario - Archivo</th>
+                                                <th style="width: 5%;">Nota</th>
+                                                <th style="width: 5%;">[]</th>
                                             </tr>
                                         </thead>
                                         <tbody>

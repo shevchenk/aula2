@@ -45,8 +45,9 @@
             </div>
             <div class="panel-body" id="DivContenido">
             </div>
-            <div class="panel-footer col-md-12 text-center" style="margin-top: 10px;">
+            <div class="box text-center" style="margin-top: 10px;">
                 <input type= "hidden" name="txt_programacion_unica_id" id="txt_programacion_unica_id" class="form-control mant" >
+                <input type= "hidden" name="txt_programacion_id" id="txt_programacion_id" class="form-control mant" >
                 <div class="btn btn-warning btn-lg" onClick="VerCursos()">
                     <i class="fa fa-chevron-left fa-lg"></i>&nbsp;Regresar
                 </div>
@@ -54,7 +55,7 @@
         </div>
     </form><!-- .form -->
 
-    <div id="div_contenido_respuesta" class="box-body no-padding">
+    <div id="div_contenido_respuesta" class="box box-body no-padding">
         <div class="panel panel-warnimg">
             <div class="panel-heading" style="background-color: #FFE699;color:black">
                 <center>.::Desarrollo de la Tarea::.<b id="titulo_tarea_pro"></b></center>
@@ -123,8 +124,8 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
         </div>
+    </div>
     </div>
 
 </section><!-- .content -->
