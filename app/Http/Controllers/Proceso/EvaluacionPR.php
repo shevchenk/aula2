@@ -252,11 +252,10 @@ class EvaluacionPR extends Controller
               // Proceso Programación
               $programacion = Programacion::where('programacion_externo_id', '=', $value->programacion_externo_id)
                               ->first();
-              if (!isset($programacion->id)) //Insert
-              {
+                if (!isset($programacion->id)) //Insert
+                {
                   $programacion = new Programacion();
                   $programacion->programacion_externo_id = $value->programacion_externo_id;
-                  $programacion->persona_id = $alumno->id;
                   $programacion->persona_id_created_at=1;
                 }
                 else //Update
@@ -264,7 +263,7 @@ class EvaluacionPR extends Controller
                     $programacion->estado = 1;
                     $programacion->persona_id_updated_at=1;
                 }
-                
+
                 if( isset($value->archivo_certificado) ){
                     $programacion->archivo_certificado = '';
                     $programacion->deuda_total = $value->deuda_total;
@@ -274,6 +273,7 @@ class EvaluacionPR extends Controller
                     }
                 }
                 
+              $programacion->persona_id = $alumno->id;
               $programacion->programacion_unica_id = $programacion_unica->id;
               $programacion->fecha_matricula = $value->fecha_matricula;
               $programacion->save();

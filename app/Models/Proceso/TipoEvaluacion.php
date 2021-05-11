@@ -37,6 +37,7 @@ class TipoEvaluacion extends Model
             ->where('p.id',$r->programacion_id)
             ->whereNotNull('uc.tipo_evaluacion_id')
             ->groupBy('uc.tipo_evaluacion_id','te.tipo_evaluacion_externo_id')
+            ->orderBy('uc.id')
             ->get();
 
             foreach ($tipos_evaluaciones as $key => $value) {
@@ -63,7 +64,7 @@ class TipoEvaluacion extends Model
                   $evaluacion->fecha_evaluacion_inicial = date('Y-m-d');
                   $evaluacion->fecha_evaluacion_final = '2050-12-31';
                   $evaluacion->peso_evaluacion = $r->evaluacion[$clave]->peso_evaluacion;
-                  $evaluacion->orden = $r->evaluacion[$clave]->orden;
+                  $evaluacion->orden = $key+1; //$r->evaluacion[$clave]->orden;
                   $evaluacion->estado=1;
                   $evaluacion->save();
             }

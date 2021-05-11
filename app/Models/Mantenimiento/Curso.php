@@ -155,7 +155,7 @@ class Curso extends Model
             ->select('id','unidad_contenido','tipo_evaluacion_id')
             ->where('curso_id', $r->id)
             ->where('estado','=','1');
-        $result = $sql->orderBy('unidad_contenido','asc')->get();
+        $result = $sql->orderBy('id','asc')->get();
         return $result;
     }
 }

@@ -22,6 +22,9 @@ class PersonaSA extends Controller
         elseif( $_SERVER['SERVER_NAME']=='capamiaula.formacioncontinua.pe' ){
             $local='http://capa.formacioncontinua.pe';
         }
+        elseif( $_SERVER['SERVER_NAME']=='miaula.inturperufc.com' ){
+            $local='https://inturperufc.com';
+        }
         $tab_cli = DB::table('clientes_accesos')
                   ->where('id','=',2)
                   ->where('url','=',$local)

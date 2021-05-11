@@ -45,8 +45,8 @@ class CursoEM extends Controller{
         if( session('empresa_id')!=null ){
           $url.="&empresa_id=".session('empresa_id');
         }
-        
         $objArr = $this->api->curl($url);
+        
         // --
         $return_response = '';
 
@@ -81,7 +81,7 @@ class CursoEM extends Controller{
         }
         else
         {
-            $return_response = $this->api->response(422,"error","Revisa tus parametros de envio");
+            $return_response = $this->api->response(422,"error","Token inválido");
         }
 
         // Creación de un archivo JSON para dar respuesta al cliente
@@ -98,7 +98,7 @@ class CursoEM extends Controller{
         $renturnModel = Curso::runLoad($r);
         $return['rst'] = 1;
         $return['data'] = $renturnModel;
-        $return['msj'] = "No hay registros aún";
+        $return['msj'] = $return_response;
         return response()->json($return);
     }
 
